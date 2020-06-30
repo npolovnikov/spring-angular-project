@@ -13,7 +13,7 @@
     <changeSet id="20200623-01" author="martyshenko">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="STUDENT" schemaName="public"/>
+                <tableExists tableName="STUDENT" schemaName="lessons"/>
             </not>
         </preConditions>
         <comment>Создание таблицы STUDENT</comment>
@@ -41,7 +41,7 @@
     <changeSet id="20200623-02" author="martyshenko">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="TEACHER" schemaName="public"/>
+                <tableExists tableName="TEACHER" schemaName="lessons"/>
             </not>
         </preConditions>
         <comment>Создание таблицы TEACHER</comment>
@@ -69,7 +69,7 @@
     <changeSet id="20200623-03" author="martyshenko">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="DEF_USER" schemaName="public"/>
+                <tableExists tableName="DEF_USER" schemaName="lessons"/>
             </not>
         </preConditions>
         <comment>Создание таблицы DEF_USER</comment>
@@ -97,7 +97,7 @@
     <changeSet id="20200623-04" author="martyshenko">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="COURSE" schemaName="public"/>
+                <tableExists tableName="COURSE" schemaName="lessons"/>
             </not>
         </preConditions>
         <comment>Создание таблицы COURSE</comment>
@@ -126,7 +126,7 @@
     <changeSet id="20200623-05" author="martyshenko">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="STUDENT_TO_COURSE" schemaName="public"/>
+                <tableExists tableName="STUDENT_TO_COURSE" schemaName="lessons"/>
             </not>
         </preConditions>
         <comment>Создание таблицы STUDENT_TO_COURSE</comment>
@@ -148,19 +148,22 @@
     <changeSet id="20200623-06" author="martyshenko">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="LESSON" schemaName="public"/>
+                <tableExists tableName="LESSON" schemaName="lessons"/>
             </not>
         </preConditions>
         <comment>Создание таблицы LESSON</comment>
         <sql>
             create table LESSON (
                 id serial primary key,
+                idd int not null,
                 name varchar(100),
                 description varchar(1000),
                 course_idd int not null,
                 room_idd int not null,
                 lesson_date_start timestamp(0),
                 lesson_date_end timestamp(0),
+                create_date timestamp(0) not null,
+                delete_date timestamp(0),
                 extra_instruments varchar(1000)
             );
         </sql>
@@ -174,41 +177,20 @@
     <changeSet id="20200623-07" author="martyshenko">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="LESSON_TO_INSTRUMENT" schemaName="public"/>
+                <tableExists tableName="INSTRUMENT_TO_LESSON" schemaName="lessons"/>
             </not>
         </preConditions>
-        <comment>Создание таблицы LESSON_TO_INSTRUMENT</comment>
+        <comment>Создание таблицы INSTRUMENT_TO_LESSON</comment>
         <sql>
-            create table LESSON_TO_INSTRUMENT (
+            create table INSTRUMENT_TO_LESSON (
                 id serial primary key,
-                lesson_idd int not null,
-                instrument_idd int not null
+                instrument_idd int not null,
+                lesson_idd int not null
             );
         </sql>
         <rollback>
             <sql>
-                drop table if exists LESSON_TO_INSTRUMENT;
-            </sql>
-        </rollback>
-    </changeSet>
-
-    <changeSet id="20200623-08" author="martyshenko">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="ROOM_TO_INSTRUMENT" schemaName="public"/>
-            </not>
-        </preConditions>
-        <comment>Создание таблицы ROOM_TO_INSTRUMENT</comment>
-        <sql>
-            create table ROOM_TO_INSTRUMENT (
-                id serial primary key,
-                room_idd int not null,
-                instrument_idd int not null
-            );
-        </sql>
-        <rollback>
-            <sql>
-                drop table if exists ROOM_TO_INSTRUMENT;
+                drop table if exists INSTRUMENT_TO_LESSON;
             </sql>
         </rollback>
     </changeSet>

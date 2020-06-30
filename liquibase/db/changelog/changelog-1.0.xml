@@ -9,10 +9,10 @@
     <changeSet id="20200620-00" author="polovnikov">
         <preConditions onFail="MARK_RAN">
             <not>
-                <sequenceExists sequenceName="INSTRUMENT_ID_SEQ" schemaName="public"/>
+                <sequenceExists sequenceName="INSTRUMENT_ID_SEQ" schemaName="lessons"/>
             </not>
         </preConditions>
-        <createSequence sequenceName="INSTRUMENT_ID_SEQ" dataType="int" schemaName="public"/>
+        <createSequence sequenceName="INSTRUMENT_ID_SEQ" dataType="int" schemaName="lessons"/>
         <rollback>
             <dropSequence sequenceName="INSTRUMENT_ID_SEQ"/>
         </rollback>
@@ -21,7 +21,7 @@
     <changeSet id="20200622-01" author="polovnikov">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="INSTRUMENT" schemaName="public"/>
+                <tableExists tableName="INSTRUMENT" schemaName="lessons"/>
             </not>
         </preConditions>
         <createTable tableName="INSTRUMENT">
@@ -31,7 +31,7 @@
             <column name="NAME" type="varchar(50)"/>
         </createTable>
         <rollback>
-            <dropTable tableName="INSTRUMENT" schemaName="public"/>
+            <dropTable tableName="INSTRUMENT" schemaName="lessons"/>
         </rollback>
     </changeSet>
 
@@ -42,7 +42,7 @@
     <changeSet id="20200622-02" author="polovnikov">
         <preConditions onFail="MARK_RAN">
             <and>
-                <tableExists tableName="INSTRUMENT" schemaName="public"/>
+                <tableExists tableName="INSTRUMENT" schemaName="lessons"/>
                 <not>
                     <columnExists tableName="INSTRUMENT" columnName="IDD"/>
                 </not>
@@ -62,7 +62,7 @@
     <changeSet id="20200620-03" author="polovnkov">
         <preConditions onFail="MARK_RAN">
             <and>
-                <tableExists tableName="INSTRUMENT" schemaName="public"/>
+                <tableExists tableName="INSTRUMENT" schemaName="lessons"/>
                 <not>
                     <columnExists tableName="INSTRUMENT" columnName="NUMBER"/>
                 </not>
@@ -97,7 +97,7 @@
     <changeSet id="20200620-04" author="polovnikov">
         <preConditions onFail="MARK_RAN">
             <and>
-                <tableExists tableName="INSTRUMENT" schemaName="public"/>
+                <tableExists tableName="INSTRUMENT" schemaName="lessons"/>
                 <columnExists tableName="INSTRUMENT" columnName="TO_BE_DELETED"/>
             </and>
         </preConditions>
@@ -112,7 +112,7 @@
     <changeSet id="20200620-05" author="polovnikov">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="ROOM" schemaName="public"/>
+                <tableExists tableName="ROOM" schemaName="lessons"/>
             </not>
         </preConditions>
         <comment>Lesson 1. Liquibase. Создание таблицы ROOM</comment>
@@ -136,7 +136,7 @@
     <changeSet id="20200620-06" author="polovikov">
         <preConditions>
             <not>
-                <tableExists tableName="INSTRUMENT_TO_ROOM" schemaName="public"/>
+                <tableExists tableName="INSTRUMENT_TO_ROOM" schemaName="lessons"/>
             </not>
         </preConditions>
         <sqlFile path="sql/instrument_to_room.sql" relativeToChangelogFile="true"/>

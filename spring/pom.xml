@@ -135,7 +135,7 @@
 
                             <schemata>
                                 <schema>
-                                    <inputSchema>public</inputSchema>
+                                    <inputSchema>lessons</inputSchema>
                                 </schema>
                             </schemata>
                         </database>

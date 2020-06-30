@@ -6,7 +6,7 @@ spring:
     mapper:
       accept-case-insensitive-properties: true
   datasource:
-    url: ${db.url:jdbc:postgresql://127.0.0.1:5432/spring-angular-db}
+    url: ${db.url:jdbc:postgresql://127.0.0.1:5432/spring-angular}
     username: ${db.username:admin}
     password: ${db.password:admin}
     driver-class-name: org.postgresql.Driver
