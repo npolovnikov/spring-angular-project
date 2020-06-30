@@ -25,6 +25,11 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jooq</artifactId>
             <exclusions>
                 <exclusion>
@@ -69,6 +74,11 @@
             <artifactId>liquibase</artifactId>
             <type>pom</type>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>2.3.8</version>
         </dependency>
     </dependencies>
 
@@ -119,18 +129,9 @@
                         <database>
                             <name>org.jooq.meta.postgres.PostgresDatabase</name>
                             <includes>
-                                STUDENT |
-                                TEACHER |
-                                DEF_USER |
-                                COURSE |
-                                STUDENT_TO_COURSE |
-                                LESSON |
-                                ROOM |
-                                INSTRUMENT |
-                                INSTRUMENT_TO_ROOM |
-                                LESSON_TO_INSTRUMENT |
-                                ROOM_TO_INSTRUMENT
+                                .*
                             </includes>
+                            <excludes></excludes>
 
                             <schemata>
                                 <schema>
@@ -147,6 +148,7 @@
                         <generate>
                             <pojos>true</pojos>
                             <daos>true</daos>
+                            <sequences>true</sequences>
                             <validationAnnotations>true</validationAnnotations>
                             <springAnnotations>true</springAnnotations>
                             <globalObjectReferences>true</globalObjectReferences>
