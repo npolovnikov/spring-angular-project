@@ -98,9 +98,9 @@
                 <configuration>
                     <jdbc>
                         <driver>org.postgresql.Driver</driver>
-                        <url>jdbc:postgresql://127.0.0.1:5432/spring-angular-db</url>
-                        <username>admin</username>
-                        <password>admin</password>
+                        <url>jdbc:postgresql://127.0.0.1:5432/study_db</url>
+                        <username>postgres</username>
+                        <password>restUser</password>
                     </jdbc>
 
                     <generator>
@@ -119,9 +119,12 @@
                         <database>
                             <name>org.jooq.meta.postgres.PostgresDatabase</name>
                             <includes>
+                                COURSE |
+                                LESSON |
+                                PROFILE |
+                                USR |
                                 ROOM |
                                 INSTRUMENT |
-                                INSTRUMENT_TO_ROOM
                             </includes>
 
                             <schemata>
