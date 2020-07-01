@@ -1,20 +1,33 @@
 package ru.dfsystems.spring.tutorial.service;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.dfsystems.spring.tutorial.dao.RoomDaoImpl;
+import ru.dfsystems.spring.tutorial.dao.RoomListDao;
+import ru.dfsystems.spring.tutorial.dto.room.RoomDto;
+import ru.dfsystems.spring.tutorial.dto.room.RoomListDto;
+import ru.dfsystems.spring.tutorial.dto.room.RoomParams;
+import ru.dfsystems.spring.tutorial.generated.tables.daos.InstrumentToRoomDao;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.InstrumentToRoom;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
-
-import java.util.List;
+import ru.dfsystems.spring.tutorial.mapping.MappingService;
 
 @Service
-@AllArgsConstructor
-public class RoomService {
-    private RoomDaoImpl roomDao;
+public class RoomService extends BaseService<RoomListDto, RoomDto, RoomParams, Room> {
+    private InstrumentToRoomDao instrumentToRoomDao;
 
-    public List<Room> getAllRooms() {
-        roomDao.fetchOneById(152);
-        roomDao.getActiveByIdd(152);
-        return roomDao.findAll();
+    @Autowired
+    public RoomService(RoomListDao roomListDao, RoomDaoImpl roomDao, InstrumentToRoomDao instrumentToRoomDao, MappingService mappingService) {
+        super(mappingService, roomListDao, roomDao, RoomListDto.class, RoomDto.class, Room.class);
+        this.instrumentToRoomDao = instrumentToRoomDao;
+    }
+
+    @Transactional
+    public void putInstrument(Integer idd, Integer instrumentIdd) {
+        InstrumentToRoom link = new InstrumentToRoom();
+        link.setRoomIdd(idd);
+        link.setInstrumentIdd(instrumentIdd);
+        instrumentToRoomDao.insert(link);
     }
 }
