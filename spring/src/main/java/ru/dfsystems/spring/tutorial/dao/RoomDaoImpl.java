@@ -12,7 +12,6 @@ import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.room.RoomParams;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.RoomDao;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 import ru.dfsystems.spring.tutorial.generated.tables.records.RoomRecord;
 
@@ -23,7 +22,7 @@ import java.util.List;
 import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 
 @Repository
-public class RoomDaoImpl extends RoomDao {
+public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
     private final DSLContext jooq;
 
     public RoomDaoImpl(DSLContext jooq) {

@@ -2,7 +2,6 @@ package ru.dfsystems.spring.tutorial.dao.ListDao;
 
 import lombok.AllArgsConstructor;
 import lombok.val;
-import lombok.var;
 import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
@@ -20,7 +19,7 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 
 @Repository
 @AllArgsConstructor
-public class RoomListDao {
+public class RoomListDao implements BaseListDao<Room, RoomParams> {
     private final DSLContext jooq;
 
     public Page<Room> list(PageParams<RoomParams> pageParams) {
