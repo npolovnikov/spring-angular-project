@@ -65,6 +65,7 @@
                             <goal>update</goal>
 <!--                            <goal>generateChangeLog</goal>-->
 <!--                            <goal>rollback</goal>-->
+                            <!--<goal>dropAll</goal>-->
                         </goals>
                     </execution>
                 </executions>

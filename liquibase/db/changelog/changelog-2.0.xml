@@ -5,15 +5,15 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:pro="http://www.liquibase.org/xml/ns/pro"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
-        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd">
+    http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd ">
 
     <changeSet id="20200622-01" author="cherepanov">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="INSTRUMENTS" schemaName="public"/>
+                <tableExists tableName="INSTRUMENT" schemaName="public"/>
             </not>
         </preConditions>
-        <createTable tableName="INSTRUMENTS">
+        <createTable tableName="INSTRUMENT">
             <column name="id" type="serial" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -29,37 +29,37 @@
             <column name="deleted_at" type="timestamp"/>
         </createTable>
         <rollback>
-            <dropTable tableName="INSTRUMENTS"/>
+            <dropTable tableName="INSTRUMENT"/>
         </rollback>
     </changeSet>
-    
+
     <changeSet id="20200622-02" author="cherepanov">
         <preConditions>
             <and>
-                <tableExists tableName="INSTRUMENTS" schemaName="public"/>
+                <tableExists tableName="INSTRUMENT" schemaName="public"/>
                 <not>
-                    <columnExists tableName="INSTRUMENTS" columnName="idd"/>
+                    <columnExists tableName="INSTRUMENT" columnName="idd"/>
                 </not>
             </and>
         </preConditions>
         <comment>Добавили столбец IDD</comment>
-        <addColumn tableName="INSTRUMENTS">
+        <addColumn tableName="INSTRUMENT">
             <column name="idd" type="int">
                 <constraints nullable="false"/>
             </column>
         </addColumn>
         <rollback>
-            <dropColumn tableName="INSTRUMENTS" columnName="idd"/>
+            <dropColumn tableName="INSTRUMENT" columnName="idd"/>
         </rollback>
     </changeSet>
 
     <changeSet id="20200622-03" author="cherepanov">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="LESSONS" schemaName="public"/>
+                <tableExists tableName="LESSON" schemaName="public"/>
             </not>
         </preConditions>
-        <createTable tableName="LESSONS">
+        <createTable tableName="LESSON">
             <column name="id" type="serial" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -82,18 +82,18 @@
             <column name="instruments" type="varchar(1000)"/>
         </createTable>
         <rollback>
-            <dropTable tableName="LESSONS"/>
+            <dropTable tableName="LESSON"/>
         </rollback>
     </changeSet>
 
     <changeSet id="20200622-04" author="cherepanov">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="ROOMS" schemaName="public"/>
+                <tableExists tableName="ROOM" schemaName="public"/>
             </not>
         </preConditions>
         <comment>Add table rooms</comment>
-        <createTable tableName="ROOMS">
+        <createTable tableName="ROOM">
             <column name="id" type="serial" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -113,7 +113,7 @@
             <column name="deleted_at" type="timestamp"/>
         </createTable>
         <rollback>
-            <dropTable tableName="ROOMS"/>
+            <dropTable tableName="ROOM"/>
         </rollback>
     </changeSet>
 
@@ -146,54 +146,66 @@
     <changeSet id="20200622-06" author="cherepanov">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="STUDENTS" schemaName="public"/>
+                <tableExists tableName="USR" schemaName="public"/>
             </not>
         </preConditions>
-        <comment>Add table Students</comment>
-        <createTable tableName="STUDENTS">
-            <column name="id" type="serial" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="idd" type="int">
-                <constraints nullable="false"/>
-            </column>
-            <column name="first_name" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="middle_name" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="last_name" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="passport" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="birth_date" type="timestamp">
-                <constraints nullable="false"/>
-            </column>
-            <column name="created_at" type="timestamp">
-                <constraints nullable="false"/>
-            </column>
-            <column name="deleted_at" type="timestamp"/>
-            <column name="status" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
+        <comment>Add table users</comment>
+        <sql>
+            create table USR (
+            id serial primary key,
+            first_name varchar(50) not null,
+            middle_name varchar(50) not null,
+            last_name varchar(50) not null,
+            passport varchar(15) not null,
+            birth_date timestamp(0) not null,
+            create_date timestamp(0) not null,
+            delete_date timestamp(0),
+            status varchar(10),
+            login varchar(50),
+            password_encrypted varchar(50)
+            );
+        </sql>
         <rollback>
-            <dropTable tableName="STUDENTS"/>
+            <sql>
+                drop table USR;
+            </sql>
         </rollback>
     </changeSet>
 
     <changeSet id="20200622-07" author="cherepanov">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="COURSES" schemaName="public"/>
+                <tableExists tableName="PROFILE" schemaName="public"/>
+            </not>
+        </preConditions>
+        <comment>Add table profile</comment>
+        <sql>
+            create table PROFILE (
+            id serial primary key,
+            idd int not null,
+            user_id int not null,
+            type varchar(50) not null,
+            create_date timestamp(0) not null,
+            delete_date timestamp(0),
+            status varchar(10) not null
+            );
+        </sql>
+        <rollback>
+            <sql>
+                drop table PROFILE;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200622-08" author="cherepanov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="COURSE" schemaName="public"/>
             </not>
         </preConditions>
         <comment>Add table courses</comment>
         <sql>
-            create table COURSES (
+            create table COURSE (
             id serial primary key,
             idd int not null,
             name varchar(100) not null,
@@ -209,8 +221,32 @@
         </sql>
         <rollback>
             <sql>
-                drop table COURSES;
+                drop table COURSE;
             </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200624-09" author="cherepanov">
+        <preConditions>
+            <not>
+                <tableExists tableName="INSTRUMENT_TO_ROOM" schemaName="public"/>
+            </not>
+        </preConditions>
+        <sqlFile path="sql/instrument_to_room.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            <sqlFile path="sql/instrument_to_room_rollback.sql" relativeToChangelogFile="true"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200624-10" author="cherepanov">
+        <preConditions>
+            <not>
+                <tableExists tableName="INSTRUMENT_TO_LESSON" schemaName="public"/>
+            </not>
+        </preConditions>
+        <sqlFile path="sql/instrument_to_lesson.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            <sqlFile path="sql/instrument_to_lesson_rollback.sql" relativeToChangelogFile="true"/>
         </rollback>
     </changeSet>
 
