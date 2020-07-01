@@ -23,7 +23,7 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
     public Room getActiveByIdd(Integer idd) {
         return jooq.select(ROOM.fields())
                 .from(ROOM)
-                .where(ROOM.IDD.eq(idd).and(ROOM.DELETE_DATE.isNull()))
+                .where(ROOM.IDD.eq(idd).and(ROOM.DELETED_AT.isNull()))
                 .fetchOneInto(Room.class);
     }
 
@@ -34,11 +34,11 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
     }
 
     public void create(Room room) {
-        room.setId(jooq.nextval(Sequences.ROOM_ID_SEQ));
-        if (room.getIdd() == null) {
-            room.setIdd(room.getId());
-        }
-        room.setCreateDate(LocalDateTime.now());
-        super.insert(room);
+//        room.setId(jooq.nextval(Sequences.ROOM_ID_SEQ));
+//        if (room.getIdd() == null) {
+//            room.setIdd(room.getId());
+//        }
+//        room.setCreateDate(LocalDateTime.now());
+//        super.insert(room);
     }
 }

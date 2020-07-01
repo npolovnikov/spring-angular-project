@@ -80,6 +80,14 @@
                 <password>admin</password>
             </properties>
         </profile>
+        <profile>
+            <id>cherepanov</id>
+            <properties>
+                <url>jdbc:postgresql://127.0.0.1:5432/study_db</url>
+                <username>postgres</username>
+                <password>restUser</password>
+            </properties>
+        </profile>
     </profiles>
 
     <build>

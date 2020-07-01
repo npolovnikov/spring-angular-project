@@ -38,7 +38,7 @@ public class RoomListDao implements BaseListDao<Room, RoomParams> {
     }
 
     private SelectSeekStepN<RoomRecord> getRoomSelect(RoomParams params){
-        var condition = ROOM.DELETE_DATE.isNull();
+        var condition = ROOM.DELETED_AT.isNull();
         if (params.getBlock() != null){
             condition = condition.and(ROOM.BLOCK.like(params.getBlock()));
         }
@@ -46,7 +46,7 @@ public class RoomListDao implements BaseListDao<Room, RoomParams> {
             condition = condition.and(ROOM.NUMBER.like(params.getNumber()));
         }
         if (params.getCreateDateStart() != null && params.getCreateDateEnd() != null){
-            condition = condition.and(ROOM.CREATE_DATE.between(params.getCreateDateStart(), params.getCreateDateEnd()));
+            condition = condition.and(ROOM.CREATED_AT.between(params.getCreateDateStart(), params.getCreateDateEnd()));
         }
 
         val sort = getOrderBy(params.getOrderBy(), params.getOrderDir());
@@ -79,7 +79,7 @@ public class RoomListDao implements BaseListDao<Room, RoomParams> {
                 listSortBy.add(asc ? ROOM.NUMBER.asc() : ROOM.NUMBER.desc());
             }
             if (order.equalsIgnoreCase("createDate")){
-                listSortBy.add(asc ? ROOM.CREATE_DATE.asc() : ROOM.CREATE_DATE.desc());
+                listSortBy.add(asc ? ROOM.CREATED_AT.asc() : ROOM.CREATED_AT.desc());
             }
         }
 
