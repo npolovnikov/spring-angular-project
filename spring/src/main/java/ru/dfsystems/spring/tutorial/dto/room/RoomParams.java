@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RoomParams {
+
     private Integer idd;
     private String number;
     private String block;
