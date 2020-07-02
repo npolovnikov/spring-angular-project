@@ -5,8 +5,10 @@ import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import ru.dfsystems.spring.tutorial.dao.InstrumentDaoImpl;
+import ru.dfsystems.spring.tutorial.dao.LessonDaoImpl;
 import ru.dfsystems.spring.tutorial.dao.RoomDaoImpl;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentListDto;
+import ru.dfsystems.spring.tutorial.dto.lesson.LessonListDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomHistoryDto;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
@@ -21,6 +23,7 @@ public class MappingService {
     private ModelMapper modelMapper;
     private RoomDaoImpl roomDao;
     private InstrumentDaoImpl instrumentDao;
+    private LessonDaoImpl lessonDao;
 
     @PostConstruct
     public void init() {
@@ -30,9 +33,13 @@ public class MappingService {
         Converter<Integer, List<InstrumentListDto>> instrumentList =
                 context -> mapList(instrumentDao.getInstrumentsByRoomIdd(context.getSource()), InstrumentListDto.class);
 
+        Converter<Integer, List<LessonListDto>> lessonList =
+                context -> mapList(lessonDao.getLessonsByRoomIdd(context.getSource()), LessonListDto.class);
+
         modelMapper.typeMap(Room.class, RoomDto.class)
                 .addMappings(mapper -> mapper.using(roomHistory).map(Room::getIdd, RoomDto::setHistory))
-                .addMappings(mapper -> mapper.using(instrumentList).map(Room::getIdd, RoomDto::setInstruments));
+                .addMappings(mapper -> mapper.using(instrumentList).map(Room::getIdd, RoomDto::setInstruments))
+                .addMappings(mapper -> mapper.using(lessonList).map(Room::getIdd, RoomDto::setLessons));
     }
 
     public <S, D> D map(S source, Class<D> clazz) {

@@ -1,3 +1,5 @@
+server:
+    port: 8081
 spring:
   mvc:
     servlet:
@@ -7,8 +9,8 @@ spring:
       accept-case-insensitive-properties: true
   datasource:
     url: ${db.url:jdbc:postgresql://127.0.0.1:5432/spring-angular-db}
-    username: ${db.username:admin}
-    password: ${db.password:admin}
+    username: ${db.username:postgres}
+    password: ${db.password:Qwe12345}
     driver-class-name: org.postgresql.Driver
     hikari:
       auto-commit: true

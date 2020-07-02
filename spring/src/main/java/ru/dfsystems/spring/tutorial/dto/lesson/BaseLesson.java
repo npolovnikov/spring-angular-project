@@ -16,8 +16,9 @@ public abstract class BaseLesson implements Serializable {
     private Integer id;
     private String name;
     private String description;
-    private CourseListDto course;
-    private RoomListDto room;
+    //TODO Наверное стоит добавить следующие две переменные в LessonDto
+    //private CourseListDto course;
+    //private RoomListDto room;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime lessonDateStart;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
