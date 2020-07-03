@@ -13,7 +13,7 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMEN
 import static ru.dfsystems.spring.tutorial.generated.tables.InstrumentToRoom.INSTRUMENT_TO_ROOM;
 
 @Repository
-public class InstrumentDaoImpl extends InstrumentDao {
+public class InstrumentDaoImpl extends InstrumentDao implements BaseDao<Instrument> {
     final DSLContext jooq;
 
     public InstrumentDaoImpl(DSLContext jooq) {
@@ -52,4 +52,27 @@ public class InstrumentDaoImpl extends InstrumentDao {
         super.insert(instrument);
     }
 
+    @Override
+    public void create(Instrument instrument) {
+        instrument.setId(jooq.nextval(Sequences.INSTRUMENT_ID_SEQ));
+        if (instrument.getIdd() == null) {
+            instrument.setIdd(instrument.getId());
+        }
+        instrument.setCreateDate(LocalDateTime.now());
+        super.insert(instrument);
+    }
+
+    @Override
+    public Instrument getActiveByIdd(Integer idd) {
+        return jooq.select(INSTRUMENT.fields())
+                .from(INSTRUMENT)
+                .where(INSTRUMENT.IDD.eq(idd).and(INSTRUMENT.DELETE_DATE.isNull()))
+                .fetchOneInto(Instrument.class);
+    }
+
+    public List<Instrument> getHistory(Integer idd) {
+        return jooq.selectFrom(INSTRUMENT)
+                .where(INSTRUMENT.IDD.eq(idd))
+                .fetchInto(Instrument.class);
+    }
 }
