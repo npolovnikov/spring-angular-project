@@ -1,4 +1,4 @@
-package ru.dfsystems.spring.tutorial.dao;
+package ru.dfsystems.spring.tutorial.dao.list;
 
 import lombok.AllArgsConstructor;
 import lombok.val;
@@ -23,7 +23,7 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 public class RoomListDao {
     private final DSLContext jooq;
 
-    public Page<Room> list(PageParams<RoomParams> pageParams) {
+    public Page<Room> getSortedList(PageParams<RoomParams> pageParams) {
         final RoomParams params = pageParams.getParams() == null ? new RoomParams() : pageParams.getParams();
         val listQuery = getRoomSelect(params);
 

@@ -1,5 +1,6 @@
-package ru.dfsystems.spring.tutorial.dao;
+package ru.dfsystems.spring.tutorial.dao.list;
 
+import lombok.AllArgsConstructor;
 import lombok.val;
 import lombok.var;
 import org.jooq.DSLContext;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.student.StudentParams;
-import ru.dfsystems.spring.tutorial.generated.tables.daos.StudentDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Student;
 import ru.dfsystems.spring.tutorial.generated.tables.records.StudentRecord;
 
@@ -19,23 +19,14 @@ import java.util.List;
 import static ru.dfsystems.spring.tutorial.generated.tables.Student.STUDENT;
 
 @Repository
-public class StudentDaoImpl extends StudentDao {
+@AllArgsConstructor
+public class StudentListDao {
     private final DSLContext jooq;
 
-    public StudentDaoImpl(DSLContext jooq) {
-        super(jooq.configuration());
-        this.jooq = jooq;
-    }
-
-    public Student getActiveByIdd(Integer idd) {
-        return jooq.select(STUDENT.fields())
-                .from(STUDENT)
-                .where(STUDENT.IDD.eq(idd).and(STUDENT.DELETE_DATE.isNull()))
-                .fetchOneInto(Student.class);
-    }
-
-    public Page<Student> getStudentsByParams(PageParams<StudentParams> pageParams) {
-        final StudentParams params = pageParams.getParams() == null ? new StudentParams() : pageParams.getParams();
+    public Page<Student> getSortedList(PageParams<StudentParams> pageParams) {
+        final StudentParams params = pageParams.getParams() == null ?
+                new StudentParams() :
+                pageParams.getParams();
         val listQuery = getStudentSelect(params);
 
         val count = jooq.selectCount()

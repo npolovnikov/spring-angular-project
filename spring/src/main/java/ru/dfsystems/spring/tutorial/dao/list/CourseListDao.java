@@ -1,16 +1,16 @@
-package ru.dfsystems.spring.tutorial.dao;
+package ru.dfsystems.spring.tutorial.dao.list;
 
+import lombok.AllArgsConstructor;
 import lombok.val;
 import lombok.var;
 import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
+import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.course.CourseParams;
-import ru.dfsystems.spring.tutorial.generated.tables.daos.CourseDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Lesson;
 import ru.dfsystems.spring.tutorial.generated.tables.records.CourseRecord;
 
 import java.util.ArrayList;
@@ -18,22 +18,13 @@ import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Course.COURSE;
 
-public class CourseDaoImpl extends CourseDao {
+@Repository
+@AllArgsConstructor
+public class CourseListDao {
     private final DSLContext jooq;
 
-    public CourseDaoImpl(DSLContext jooq) {
-        super(jooq.configuration());
-        this.jooq = jooq;
-    }
 
-    public Lesson getActiveByIdd(Integer id) {
-        return jooq.select(COURSE.fields())
-                .from(COURSE)
-                .where(COURSE.ID.eq(id))
-                .fetchOneInto(Lesson.class);
-    }
-
-    public Page<Course> getCoursesByParams(PageParams<CourseParams> pageParams) {
+    public Page<Course> getSortedList(PageParams<CourseParams> pageParams) {
         final CourseParams params = pageParams.getParams() == null ? new CourseParams() : pageParams.getParams();
         val listQuery = getCourseSelect(params);
 

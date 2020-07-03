@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import ru.dfsystems.spring.tutorial.dao.InstrumentDaoImpl;
-import ru.dfsystems.spring.tutorial.dao.RoomDaoImpl;
+import ru.dfsystems.spring.tutorial.dao.standard.InstrumentDaoImpl;
+import ru.dfsystems.spring.tutorial.dao.standard.RoomDaoImpl;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentListDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomHistoryDto;
@@ -43,7 +43,7 @@ public class MappingService {
         modelMapper.map(source, dest);
     }
 
-    public <S, D> List<D> mapList(List<S> sources, Class<D> clazz){
+    public <S, D> List<D> mapList(List<S> sources, Class<D> clazz) {
         return sources.stream()
                 .map(s -> map(s, clazz))
                 .collect(Collectors.toList());

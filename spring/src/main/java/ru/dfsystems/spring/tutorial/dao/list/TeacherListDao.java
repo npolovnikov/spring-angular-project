@@ -1,14 +1,15 @@
-package ru.dfsystems.spring.tutorial.dao;
+package ru.dfsystems.spring.tutorial.dao.list;
 
+import lombok.AllArgsConstructor;
 import lombok.val;
 import lombok.var;
 import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
+import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.teacher.TeacherParams;
-import ru.dfsystems.spring.tutorial.generated.tables.daos.TeacherDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Teacher;
 import ru.dfsystems.spring.tutorial.generated.tables.records.TeacherRecord;
 
@@ -17,22 +18,12 @@ import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Teacher.TEACHER;
 
-public class TeacherDaoImpl extends TeacherDao {
+@Repository
+@AllArgsConstructor
+public class TeacherListDao {
     private final DSLContext jooq;
 
-    public TeacherDaoImpl(DSLContext jooq) {
-        super(jooq.configuration());
-        this.jooq = jooq;
-    }
-
-    public Teacher getActiveByIdd(Integer idd) {
-        return jooq.select(TEACHER.fields())
-                .from(TEACHER)
-                .where(TEACHER.IDD.eq(idd).and(TEACHER.DELETE_DATE.isNull()))
-                .fetchOneInto(Teacher.class);
-    }
-
-    public Page<Teacher> getTeachersByParams(PageParams<TeacherParams> pageParams) {
+    public Page<Teacher> getSortedList(PageParams<TeacherParams> pageParams) {
         final TeacherParams params = pageParams.getParams() == null ? new TeacherParams() : pageParams.getParams();
         val listQuery = getTeacherSelect(params);
 
@@ -113,5 +104,4 @@ public class TeacherDaoImpl extends TeacherDao {
 
         return listSortBy.toArray(new SortField[0]);
     }
-
 }

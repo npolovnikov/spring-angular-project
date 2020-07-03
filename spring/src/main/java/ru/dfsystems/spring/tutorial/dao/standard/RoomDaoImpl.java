@@ -1,4 +1,4 @@
-package ru.dfsystems.spring.tutorial.dao;
+package ru.dfsystems.spring.tutorial.dao.standard;
 
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;

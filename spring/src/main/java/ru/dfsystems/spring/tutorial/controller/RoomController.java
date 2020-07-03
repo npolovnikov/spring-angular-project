@@ -13,6 +13,7 @@ import ru.dfsystems.spring.tutorial.service.RoomService;
 @RequestMapping(value = "/room", produces = "application/json; charset=UTF-8")
 @AllArgsConstructor
 public class RoomController {
+
     private RoomService roomService;
 
     @PostMapping("/list")

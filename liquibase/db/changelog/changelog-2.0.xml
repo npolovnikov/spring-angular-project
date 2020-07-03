@@ -209,7 +209,7 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="20200701-07" author="grigoriev">
+    <changeSet id="20200701-08" author="grigoriev">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="LESSON_TO_INSTRUMENT"/>

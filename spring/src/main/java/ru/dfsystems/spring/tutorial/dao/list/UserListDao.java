@@ -1,5 +1,6 @@
-package ru.dfsystems.spring.tutorial.dao;
+package ru.dfsystems.spring.tutorial.dao.list;
 
+import lombok.AllArgsConstructor;
 import lombok.val;
 import lombok.var;
 import org.jooq.DSLContext;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.user.UserParams;
-import ru.dfsystems.spring.tutorial.generated.tables.daos.UserDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.User;
 import ru.dfsystems.spring.tutorial.generated.tables.records.UserRecord;
 
@@ -19,22 +19,12 @@ import java.util.List;
 import static ru.dfsystems.spring.tutorial.generated.tables.User.USER;
 
 @Repository
-public class UserDaoImpl extends UserDao {
+@AllArgsConstructor
+public class UserListDao {
     private final DSLContext jooq;
 
-    public UserDaoImpl(DSLContext jooq) {
-        super(jooq.configuration());
-        this.jooq = jooq;
-    }
 
-    public User getActiveByIdd(Integer idd) {
-        return jooq.select(USER.fields())
-                .from(USER)
-                .where(USER.IDD.eq(idd).and(USER.DELETE_DATE.isNull()))
-                .fetchOneInto(User.class);
-    }
-
-    public Page<User> getUsersByParams(PageParams<UserParams> pageParams) {
+    public Page<User> getSortedList(PageParams<UserParams> pageParams) {
         final UserParams params = pageParams.getParams() == null ? new UserParams() : pageParams.getParams();
         val listQuery = getUserSelect(params);
 
@@ -109,5 +99,4 @@ public class UserDaoImpl extends UserDao {
 
         return listSortBy.toArray(new SortField[0]);
     }
-
 }

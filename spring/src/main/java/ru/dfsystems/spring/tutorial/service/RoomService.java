@@ -3,8 +3,8 @@ package ru.dfsystems.spring.tutorial.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.dfsystems.spring.tutorial.dao.RoomDaoImpl;
-import ru.dfsystems.spring.tutorial.dao.RoomListDao;
+import ru.dfsystems.spring.tutorial.dao.standard.RoomDaoImpl;
+import ru.dfsystems.spring.tutorial.dao.list.RoomListDao;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.room.RoomDto;
@@ -27,8 +27,9 @@ public class RoomService {
     private MappingService mappingService;
 
     public Page<RoomListDto> getRoomsByParams(PageParams<RoomParams> pageParams) {
-        Page<Room> page = roomListDao.list(pageParams);
+        Page<Room> page = roomListDao.getSortedList(pageParams);
         List<RoomListDto> list = mappingService.mapList(page.getList(), RoomListDto.class);
+
         return new Page<>(list, page.getTotalCount());
     }
 
@@ -37,6 +38,7 @@ public class RoomService {
         roomDao.create(mappingService.map(roomDto, Room.class));
     }
 
+    @Transactional
     public RoomDto get(Integer idd) {
         return mappingService.map(roomDao.getActiveByIdd(idd), RoomDto.class);
     }

@@ -1,14 +1,15 @@
-package ru.dfsystems.spring.tutorial.dao;
+package ru.dfsystems.spring.tutorial.dao.list;
 
+import lombok.AllArgsConstructor;
 import lombok.val;
 import lombok.var;
 import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
+import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentParams;
-import ru.dfsystems.spring.tutorial.generated.tables.daos.InstrumentDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
 import ru.dfsystems.spring.tutorial.generated.tables.records.InstrumentRecord;
 
@@ -17,22 +18,12 @@ import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMENT;
 
-public class InstrumentDaoImpl extends InstrumentDao {
+@Repository
+@AllArgsConstructor
+public class InstrumentListDao {
     private final DSLContext jooq;
 
-    public InstrumentDaoImpl(DSLContext jooq) {
-        super(jooq.configuration());
-        this.jooq = jooq;
-    }
-
-    public Instrument getActiveByIdd(Integer idd) {
-        return jooq.select(INSTRUMENT.fields())
-                .from(INSTRUMENT)
-                .where(INSTRUMENT.IDD.eq(idd).and(INSTRUMENT.DELETE_DATE.isNull()))
-                .fetchOneInto(Instrument.class);
-    }
-
-    public Page<Instrument> getInstrumentsByParams(PageParams<InstrumentParams> pageParams) {
+    public Page<Instrument> getSortedList(PageParams<InstrumentParams> pageParams) {
         final InstrumentParams params = pageParams.getParams() == null ? new InstrumentParams() : pageParams.getParams();
         val listQuery = getInstrumentSelect(params);
 
@@ -91,15 +82,5 @@ public class InstrumentDaoImpl extends InstrumentDao {
         }
 
         return listSortBy.toArray(new SortField[0]);
-    }
-
-    public List<Instrument> getInstrumentsByRoomIdd(Integer idd) {
-//        return jooq.select(INSTRUMENT.fields())
-//                    .from(INSTRUMENT)
-//                        .join(INSTRUMENT_TO_ROOM)
-//                            .on(INSTRUMENT.IDD.eq(INSTRUMENT_TO_ROOM.INSTRUMENT_IDD))
-//                    .where(INSTRUMENT_TO_ROOM.ROOM_IDD.eq(idd))
-//                    .fetchInto(Instrument.class);
-        return null;
     }
 }
