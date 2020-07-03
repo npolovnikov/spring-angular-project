@@ -13,7 +13,8 @@ import ru.dfsystems.spring.tutorial.dto.room.RoomParams;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.InstrumentToRoomDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.InstrumentToRoom;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
-import ru.dfsystems.spring.tutorial.mapping.MappingService;
+import ru.dfsystems.spring.tutorial.mapping.RoomMapper;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,21 +25,20 @@ public class RoomService {
     private RoomListDao roomListDao;
     private RoomDaoImpl roomDao;
     private InstrumentToRoomDao instrumentToRoomDao;
-    private MappingService mappingService;
 
-    public Page<RoomListDto> getRoomsByParams(PageParams<RoomParams> pageParams) {
-        Page<Room> page = roomListDao.list(pageParams);
-        List<RoomListDto> list = mappingService.mapList(page.getList(), RoomListDto.class);
-        return new Page<>(list, page.getTotalCount());
-    }
+        public Page<RoomListDto> getRoomsByParams(PageParams<RoomParams> pageParams) {
+            Page<Room> page = roomListDao.list(pageParams);
+            List<RoomListDto> list = RoomMapper.ROOM_MAPPER.roomListToRoomListDto(page.getList());
+            return new Page<>(list, page.getTotalCount());
+        }
 
     @Transactional
     public void create(RoomDto roomDto) {
-        roomDao.create(mappingService.map(roomDto, Room.class));
+        roomDao.create(RoomMapper.ROOM_MAPPER.roomDtoToRoom(roomDto));
     }
 
     public RoomDto get(Integer idd) {
-        return mappingService.map(roomDao.getActiveByIdd(idd), RoomDto.class);
+        return RoomMapper.ROOM_MAPPER.roomToRoomDto(roomDao.getActiveByIdd(idd));
     }
 
     @Transactional
@@ -65,9 +65,10 @@ public class RoomService {
         room.setDeleteDate(LocalDateTime.now());
         roomDao.update(room);
 
-        Room newRoom = mappingService.map(roomDto, Room.class);
+        Room newRoom = RoomMapper.ROOM_MAPPER.roomDtoToRoom(roomDto);
         newRoom.setIdd(room.getIdd());
         roomDao.create(newRoom);
-        return mappingService.map(newRoom, RoomDto.class);
+        return RoomMapper.ROOM_MAPPER.roomToRoomDto(newRoom);
     }
+
 }

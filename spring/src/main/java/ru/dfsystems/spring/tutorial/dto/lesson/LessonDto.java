@@ -24,7 +24,7 @@ public class LessonDto extends BaseDto<BaseHistoryDto> {
     private LocalDateTime lesson_date_start;
     private LocalDateTime lesson_date_end;
 
-    private List<InstrumentListDto> extraInstruments;
+    private List<InstrumentListDto> instruments;
 
 
 }

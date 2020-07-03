@@ -17,9 +17,9 @@ public class LessonListDto extends BaseListDto {
 
     private String name;
     private String description;
-    private Integer course_idd;
-    private Integer room_idd;
-    private LocalDateTime lesson_date_start;
-    private LocalDateTime lesson_date_end;
+    private Integer courseIdd;
+    private Integer roomIdd;
+    private LocalDateTime lessonDateStart;
+    private LocalDateTime lessonDateEnd;
 
 }
