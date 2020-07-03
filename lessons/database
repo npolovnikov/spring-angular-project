@@ -1,4 +1,4 @@
-Student(
+1 Student(
     id serial,
     idd int,
     first_name varchar(50),
@@ -10,9 +10,9 @@ Student(
     delete_date timestamp,
     status varchar(10)
 )
-Teacher()
-User()
-Course(
+1 Teacher()
+1 User()
+1 Course(
     id serial,
     idd int,
     name varchar(100),
@@ -25,14 +25,14 @@ Course(
     delete_date timestamp,
     status varchar(10)
 )
-Student_to_course(
+1 Student_to_course(
     id serial,
     student_idd int,
     course_idd int,
     success boolean
 )
 
-Room(
+1 Room(
     id serial,
     idd int,
     number varchar(5),
@@ -41,7 +41,7 @@ Room(
     create_date timestamp,
     delete_date timestamp
 )
-Lesson(
+1 Lesson(
     id serial,
     name varchar(100),
     description varchar(1000),
@@ -53,9 +53,9 @@ Lesson(
 )
 
 Lesson_to_Instruments()
-Room_to_Instruments()
+1 Room_to_Instruments()
 
-Instruments(
+1 Instruments(
     id serial
     idd int,
     name varchar(50),

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+    http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd ">
+    <changeSet id="20200703-01" author="tyrykin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="STUDENT" schemaName="public"/>
+            </not>
+        </preConditions>
+        <createTable tableName="STUDENT">
+            <column name="ID" type="serial" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="IDD" type="int">
+                <constraints unique="true" uniqueConstraintName="fk_student_idd" nullable="false"/>
+            </column>
+            <column name="FIRST_NAME" type="varchar(50)"/>
+            <column name="MIDDLE_NAME" type="varchar(50)"/>
+            <column name="LAST_NAME" type="varchar(50)"/>
+            <column name="PASSPORT" type="varchar(50)"/>
+            <column name="BIRTH_DATE" type="timestamp"/>
+            <column name="CREATE_DATE" type="timestamp"/>
+            <column name="DELETE_DATE" type="timestamp"/>
+            <column name="STATUS" type="varchar(15)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="STUDENT" schemaName="public"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200703-02" author="tyrykin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TEACHER" schemaName="public"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TEACHER">
+            <column name="ID" type="serial" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="IDD" type="int">
+                <constraints unique="true" uniqueConstraintName="fk_teacher_idd" nullable="false"/>
+            </column>
+            <column name="FIRST_NAME" type="varchar(50)"/>
+            <column name="MIDDLE_NAME" type="varchar(50)"/>
+            <column name="LAST_NAME" type="varchar(50)"/>
+            <column name="BIRTH_DATE" type="timestamp"/>
+            <column name="CREATE_DATE" type="timestamp"/>
+            <column name="DELETE_DATE" type="timestamp"/>
+            <column name="STATUS" type="varchar(15)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="TEACHER" schemaName="public"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200703-03" author="tyrykin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="USER" schemaName="public"/>
+            </not>
+        </preConditions>
+        <createTable tableName="USER">
+            <column name="ID" type="serial" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ROLE" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LOGIN" type="varchar(50)"/>
+            <column name="PASSWORD" type="varchar(50)"/>
+            <column name="EMAIL" type="varchar(50)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="USER" schemaName="public"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200703-04" author="tyrykin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="COURSE" schemaName="public"/>
+            </not>
+        </preConditions>
+        <createTable tableName="COURSE">
+            <column name="ID" type="serial" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="IDD" type="int">
+                <constraints unique="true" uniqueConstraintName="fk_course_idd" nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(100)"/>
+            <column name="DESCRIPTION" type="varchar(500)"/>
+            <column name="TEACHER_IDD" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="fk_teacher_idd"
+                             references="teacher(idd)"/>
+            </column>
+            <column name="MAX_COUNT_STUDENT" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="START_DATE" type="timestamp"/>
+            <column name="END_DATE" type="timestamp"/>
+            <column name="CREATE_DATE" type="timestamp"/>
+            <column name="DELETE_DATE" type="timestamp"/>
+            <column name="STATUS" type="varchar(10)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="COURSE" schemaName="public"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200703-05" author="tyrykin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="STUDENT_TO_COURSE" schemaName="public"/>
+            </not>
+        </preConditions>
+        <createTable tableName="STUDENT_TO_COURSE">
+            <column name="ID" type="serial" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="STUDENT_IDD" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="fk_student_idd"
+                             references="student(idd)"/>
+            </column>
+            <column name="COURSE_IDD" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="fk_course_idd"
+                             references="course(idd)"/>
+            </column>
+            <column name="SUCCESS" type="boolean"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="STUDENT_TO_COURSE" schemaName="public"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200703-06" author="tyrykin">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="ROOM" schemaName="public"/>
+                <columnExists tableName="ROOM" columnName="IDD"/>
+            </and>
+        </preConditions>
+        <addUniqueConstraint
+                schemaName="public"
+                tableName="ROOM"
+                columnNames="IDD"
+                constraintName="fk_room_idd"/>
+        <rollback>
+            <dropUniqueConstraint schemaName="public" tableName="ROOM" constraintName="fk_room_idd"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200703-07" author="tyrykin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="LESSON" schemaName="public"/>
+            </not>
+        </preConditions>
+        <createTable tableName="LESSON">
+            <column name="ID" type="serial" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(100)"/>
+            <column name="DESCRIPTION" type="varchar(1000)"/>
+            <column name="COURSE_IDD" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="fk_course_idd"
+                             references="course(idd)"/>
+            </column>
+            <column name="ROOM_IDD" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="fk_room_idd"
+                             references="room(idd)"/>
+            </column>
+            <column name="LESSON_DATE_START" type="timestamp"/>
+            <column name="LESSON_DATE_END" type="timestamp"/>
+            <column name="EXTRA_INSTRUMENTS" type="varchar(1000)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="LESSON" schemaName="public"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200703-08" author="tyrykin">
+        <preConditions>
+            <not>
+                <tableExists tableName="INSTRUMENT_TO_LESSON" schemaName="public"/>
+            </not>
+        </preConditions>
+        <sqlFile path="sql/INSTRUMENT_TO_LESSON.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            <sqlFile path="sql/INSTRUMENT_TO_LESSON_ROLLBACK.sql" relativeToChangelogFile="true"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
+
+
