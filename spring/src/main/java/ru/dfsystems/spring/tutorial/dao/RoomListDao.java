@@ -2,7 +2,6 @@ package ru.dfsystems.spring.tutorial.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.val;
-import lombok.var;
 import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
