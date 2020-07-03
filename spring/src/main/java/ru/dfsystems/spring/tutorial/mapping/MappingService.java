@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class MappingService {
+public class MappingService implements BaseMapping {
     private ModelMapper modelMapper;
     private RoomDaoImpl roomDao;
     private InstrumentDaoImpl instrumentDao;
