@@ -7,10 +7,13 @@ import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
+import ru.dfsystems.spring.tutorial.dao.BaseListDao;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
+import ru.dfsystems.spring.tutorial.dto.course.CourseParams;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonParams;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonParams;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Lesson;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Lesson;
 import ru.dfsystems.spring.tutorial.generated.tables.records.LessonRecord;
@@ -22,7 +25,7 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Lesson.LESSON;
 
 @Repository
 @AllArgsConstructor
-public class LessonListDao {
+public class LessonListDao implements BaseListDao<Lesson, LessonParams> {
     private final DSLContext jooq;
 
     public Page<Lesson> list(PageParams<LessonParams> pageParams) {
@@ -42,10 +45,10 @@ public class LessonListDao {
 
     private SelectSeekStepN<LessonRecord> getLessonSelect(LessonParams params){
         var condition = LESSON.DELETE_DATE.isNull();
-        if (!params.getName().isEmpty()){
+        if (params.getName() != null){
             condition = condition.and(LESSON.NAME.like(params.getName()));
         }
-        if (!params.getDescription().isEmpty()){
+        if (params.getDescription() != null){
             condition = condition.and(LESSON.DESCRIPTION.like(params.getDescription()));
         }
         if (params.getCourse() != null){

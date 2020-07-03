@@ -27,9 +27,11 @@ import java.util.List;
 import static ru.dfsystems.spring.tutorial.generated.tables.Lesson.LESSON;
 import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMENT;
 import static ru.dfsystems.spring.tutorial.generated.tables.Lesson.LESSON;
+import static ru.dfsystems.spring.tutorial.generated.tables.LessonToInstruments.LESSON_TO_INSTRUMENTS;
+import static ru.dfsystems.spring.tutorial.generated.tables.LessonToCourse.LESSON_TO_COURSE;
 
 @Repository
-public class LessonDaoImpl extends LessonDao {
+public class LessonDaoImpl extends LessonDao implements BaseDao<Lesson> {
     private final DSLContext jooq;
 
     public LessonDaoImpl(DSLContext jooq) {
@@ -59,5 +61,21 @@ public class LessonDaoImpl extends LessonDao {
         super.insert(lesson);
     }
 
+    public List<Lesson> getLessonByInstrumentIdd(Integer idd) {
+        return jooq.select(LESSON.fields())
+                .from(LESSON)
+                .join(LESSON_TO_INSTRUMENTS)
+                .on(LESSON.IDD.eq(LESSON_TO_INSTRUMENTS.LESSON_IDD))
+                .where(LESSON_TO_INSTRUMENTS.INSTRUMENT_IDD.eq(idd))
+                .fetchInto(Lesson.class);
+    }
 
+    public List<Lesson> getLessonByCourseIdd(Integer idd) {
+        return jooq.select(LESSON.fields())
+                .from(LESSON)
+                .join(LESSON_TO_COURSE)
+                .on(LESSON.IDD.eq(LESSON_TO_COURSE.LESSON_IDD))
+                .where(LESSON_TO_COURSE.COURSE_IDD.eq(idd))
+                .fetchInto(Lesson.class);
+    }
 }

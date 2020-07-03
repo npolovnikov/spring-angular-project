@@ -17,7 +17,7 @@ public class CourseParams {
     private String name;
     private String description;
     private TeacherDto teacher;
-    private Integer maxCountStudents;
+    private Integer maxCountStudent;
     private String status;
     private String orderBy;
     private String orderDir;

@@ -13,6 +13,7 @@ import java.util.List;
 public class InstrumentDto extends BaseDto<InstrumentHistoryDto> {
     private String name;
     private String number;
+
     private List<RoomListDto> rooms;
     private List<LessonListDto> lessons;
 }

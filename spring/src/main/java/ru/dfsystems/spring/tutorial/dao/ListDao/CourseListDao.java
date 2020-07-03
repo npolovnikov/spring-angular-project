@@ -7,12 +7,14 @@ import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
+import ru.dfsystems.spring.tutorial.dao.BaseListDao;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.course.CourseParams;
 import ru.dfsystems.spring.tutorial.dto.course.CourseParams;
+import ru.dfsystems.spring.tutorial.dto.room.RoomParams;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 import ru.dfsystems.spring.tutorial.generated.tables.records.CourseRecord;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Course.COURSE;
 
 @Repository
 @AllArgsConstructor
-public class CourseListDao {
+public class CourseListDao implements BaseListDao<Course, CourseParams> {
     private final DSLContext jooq;
 
     public Page<Course> list(PageParams<CourseParams> pageParams) {
@@ -51,8 +53,8 @@ public class CourseListDao {
         if (params.getTeacher() != null){
             condition = condition.and(COURSE.TEACHER_IDD.like(params.getTeacher().getIdd().toString()));
         }
-        if (params.getMaxCountStudents() != null){
-            condition = condition.and(COURSE.MAX_COUNT_STUDENT.like(String.valueOf(params.getMaxCountStudents())));
+        if (params.getMaxCountStudent() != null){
+            condition = condition.and(COURSE.MAX_COUNT_STUDENT.like(String.valueOf(params.getMaxCountStudent())));
         }
         if (params.getCreateDateStart() != null && params.getCreateDateEnd() != null){
             condition = condition.and(COURSE.CREATE_DATE.between(params.getCreateDateStart(), params.getCreateDateEnd()));

@@ -10,11 +10,14 @@ import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.course.CourseParams;
+import ru.dfsystems.spring.tutorial.dto.teacher.TeacherDto;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.CourseDao;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.CourseDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 import ru.dfsystems.spring.tutorial.generated.tables.records.CourseRecord;
 
 import java.time.LocalDateTime;
@@ -23,9 +26,14 @@ import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Course.COURSE;
 import static ru.dfsystems.spring.tutorial.generated.tables.Course.COURSE;
+import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMENT;
+import static ru.dfsystems.spring.tutorial.generated.tables.LessonToInstruments.LESSON_TO_INSTRUMENTS;
+import static ru.dfsystems.spring.tutorial.generated.tables.StudentToCourse.STUDENT_TO_COURSE;
+import static ru.dfsystems.spring.tutorial.generated.tables.LessonToCourse.LESSON_TO_COURSE;
+import static ru.dfsystems.spring.tutorial.generated.tables.Teacher.TEACHER;
 
 @Repository
-public class CourseDaoImpl extends CourseDao {
+public class CourseDaoImpl extends CourseDao implements BaseDao<Course> {
     private final DSLContext jooq;
 
     public CourseDaoImpl(DSLContext jooq) {
@@ -53,5 +61,14 @@ public class CourseDaoImpl extends CourseDao {
         }
         course.setCreateDate(LocalDateTime.now());
         super.insert(course);
+    }
+
+    public List<Course> getCoursesByStudentIdd(Integer idd) {
+        return jooq.select(COURSE.fields())
+                .from(COURSE)
+                .join(STUDENT_TO_COURSE)
+                .on(COURSE.IDD.eq(STUDENT_TO_COURSE.COURSE_IDD))
+                .where(STUDENT_TO_COURSE.STUDENT_IDD.eq(idd))
+                .fetchInto(Course.class);
     }
 }

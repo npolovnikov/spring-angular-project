@@ -7,9 +7,12 @@ import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
+import ru.dfsystems.spring.tutorial.dao.BaseListDao;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
+import ru.dfsystems.spring.tutorial.dto.student.StudentParams;
 import ru.dfsystems.spring.tutorial.dto.teacher.TeacherParams;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Student;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Teacher;
 import ru.dfsystems.spring.tutorial.generated.tables.records.TeacherRecord;
 
@@ -20,7 +23,7 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Teacher.TEACHER;
 
 @Repository
 @AllArgsConstructor
-public class TeacherListDao {
+public class TeacherListDao implements BaseListDao<Teacher, TeacherParams> {
     private final DSLContext jooq;
 
     public Page<Teacher> list(PageParams<TeacherParams> pageParams) {

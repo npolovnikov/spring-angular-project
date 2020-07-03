@@ -4,15 +4,21 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.dfsystems.spring.tutorial.dto.BaseListDto;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
+import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentDto;
+import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentListDto;
+import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentParams;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonDto;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonListDto;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonParams;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonParams;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Lesson;
+import ru.dfsystems.spring.tutorial.service.InstrumentService;
 import ru.dfsystems.spring.tutorial.service.LessonService;
 import ru.dfsystems.spring.tutorial.service.LessonService;
 
@@ -21,44 +27,33 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/lesson", produces = "application/json; charset=UTF-8")
-@AllArgsConstructor
 @Api(value = "/lesson", description = "Оперции с уроками")
-public class LessonController {
+public class LessonController extends BaseController<LessonListDto, LessonDto, LessonParams, Lesson>{
     private LessonService lessonService;
 
-    @PostMapping("/list")
-    @ApiOperation(value = "Возвращает список уроков")
-    public Page<LessonListDto> getList(@RequestBody PageParams<LessonParams> pageParams) {
-        return lessonService.getLessonsByParams(pageParams);
-    }
-
-    @PostMapping
-    @ApiOperation(value = "Создает урок")
-    public void create(@RequestBody LessonDto lessonDto) {
-        lessonService.create(lessonDto);
-    }
-
-    @GetMapping("/{idd}")
-    @ApiOperation(value = "Возвращает урок")
-    public LessonDto get(@PathVariable("idd") Integer idd) {
-        return lessonService.get(idd);
-    }
-
-    @PatchMapping("/{idd}")
-    @ApiOperation(value = "Обновляет урок")
-    public LessonDto update(@PathVariable("idd") Integer idd, @RequestBody LessonDto lessonDto) {
-        return lessonService.update(idd, lessonDto);
-    }
-
-    @DeleteMapping("/{idd}")
-    @ApiOperation(value = "Удяляет урок")
-    public void delete(@PathVariable("idd") Integer idd) {
-        lessonService.delete(idd);
+    @Autowired
+    public LessonController(LessonService lessonService) {
+        super(lessonService);
+        this.lessonService = lessonService;
     }
 
     @PutMapping("/{idd}/instrument")
     @ApiOperation(value = "Присваивает инструмент уроку")
-    public void putLesson(@PathVariable("idd") Integer idd, @RequestBody Integer lessonIdd) {
-        lessonService.putInstrument(idd, lessonIdd);
+    public void putLesson(@PathVariable("idd") Integer idd, @RequestBody Integer instrumentIdd) {
+        lessonService.putInstrument(idd, instrumentIdd);
     }
+
+    @PutMapping("/{idd}/course")
+    @ApiOperation(value = "Присваивает курс уроку")
+    public void putCourse(@PathVariable("idd") Integer idd, @RequestBody Integer courseIdd) {
+        lessonService.putCourse(idd, courseIdd);
+    }
+
+    @PutMapping("/{idd}/room")
+    @ApiOperation(value = "Присваивает комнату уроку")
+    public void putRoom(@PathVariable("idd") Integer idd, @RequestBody Integer roomIdd) {
+        lessonService.putRoom(idd, roomIdd);
+    }
+
+
 }

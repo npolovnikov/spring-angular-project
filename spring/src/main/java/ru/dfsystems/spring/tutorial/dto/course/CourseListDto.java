@@ -21,11 +21,11 @@ public class CourseListDto extends BaseListDto {
     private String name;
     private String description;
     private TeacherDto teacher;
-    private int maxCountStudents;
+    private int maxCountStudent;
     private String status;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime DateStart;
+    private LocalDateTime dateStart;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime DateEnd;
+    private LocalDateTime dateEnd;
 }

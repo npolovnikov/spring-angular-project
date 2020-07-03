@@ -241,4 +241,95 @@
         </rollback>
     </changeSet>
 
+    <changeSet id="20200627-00" author="noskov">
+        <tagDatabase tag="changelog-2.0"/>
+    </changeSet>
+
+    <changeSet id="20200627-01" author="noskov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="LESSON_TO_COURSE" schemaName="public"/>
+            </not>
+        </preConditions>
+        <comment>Lesson 1. Liquibase. Создание таблицы LESSON_TO_COURSE</comment>
+        <sql>
+            create table LESSON_TO_COURSE(
+            id serial primary key,
+            lesson_idd int,
+            course_idd int
+            );
+        </sql>
+        <rollback>
+            <sql>
+                drop table LESSON_TO_COURSE;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200628-00" author="noskov">
+        <tagDatabase tag="changelog-2.0"/>
+    </changeSet>
+
+    <changeSet id="20200628-01" author="noskov">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="LESSON" schemaName="public"/>
+                <and>
+                    <not>
+                        <columnExists tableName="LESSON" columnName="IDD"/>
+                        <columnExists tableName="LESSON" columnName="CREATE_DATE"/>
+                        <columnExists tableName="LESSON" columnName="DELETE_DATE"/>
+                    </not>
+                </and>
+            </and>
+        </preConditions>
+        <comment>Lesson 1. Liquibase. Добавление столбцов к таблице LESSON</comment>
+        <sql>
+            alter table lesson
+            add COLUMN idd int not null,
+            add COLUMN create_date timestamp,
+            add COLUMN delete_date timestamp
+            ;
+        </sql>
+        <rollback>
+            <sql>
+                alter table lesson
+                drop COLUMN idd int not null,
+                drop COLUMN create_date timestamp,
+                drop COLUMN delete_date timestamp
+                ;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200703-00" author="noskov">
+        <tagDatabase tag="changelog-2.0"/>
+    </changeSet>
+
+    <changeSet id="20200703-01" author="noskov">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="ROOM" schemaName="public"/>
+                <and>
+                    <not>
+                        <columnExists tableName="max_students" columnName="IDD"/>
+                    </not>
+                </and>
+            </and>
+        </preConditions>
+        <comment>Lesson 1. Liquibase. Добавление столбцов к таблице ROOM</comment>
+        <sql>
+            alter table ROOM
+            add COLUMN max_students int
+            ;
+        </sql>
+        <rollback>
+            <sql>
+                alter table ROOM
+                drop COLUMN max_students int
+                ;
+            </sql>
+        </rollback>
+    </changeSet>
+
 </databaseChangeLog>

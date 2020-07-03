@@ -7,10 +7,13 @@ import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
+import ru.dfsystems.spring.tutorial.dao.BaseListDao;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
+import ru.dfsystems.spring.tutorial.dto.course.CourseParams;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentParams;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentParams;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
 import ru.dfsystems.spring.tutorial.generated.tables.records.InstrumentRecord;
@@ -22,7 +25,7 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMEN
 
 @Repository
 @AllArgsConstructor
-public class InstrumentListDao {
+public class InstrumentListDao implements BaseListDao<Instrument, InstrumentParams> {
     private final DSLContext jooq;
 
     public Page<Instrument> list(PageParams<InstrumentParams> pageParams) {

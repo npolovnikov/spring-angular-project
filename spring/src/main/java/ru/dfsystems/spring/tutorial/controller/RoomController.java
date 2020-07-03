@@ -1,5 +1,6 @@
 package ru.dfsystems.spring.tutorial.controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.dfsystems.spring.tutorial.dto.room.RoomDto;
@@ -20,6 +21,7 @@ public class RoomController extends BaseController<RoomListDto, RoomDto, RoomPar
     }
 
     @PutMapping("/{idd}/instrument")
+    @ApiOperation(value = "Присваивает инструмент комнате")
     public void putInstrument(@PathVariable("idd") Integer idd, @RequestBody Integer instrumentIdd) {
         roomService.putInstrument(idd, instrumentIdd);
     }
