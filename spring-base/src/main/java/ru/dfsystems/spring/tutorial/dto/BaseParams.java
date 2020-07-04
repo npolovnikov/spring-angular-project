@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class BaseParams {
+public abstract class BaseParams  implements Serializable {
     private Integer idd;
     private String orderBy;
     private String orderDir;
