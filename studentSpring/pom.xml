@@ -25,6 +25,10 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jooq</artifactId>
             <exclusions>
                 <exclusion>
@@ -67,6 +71,13 @@
             <type>pom</type>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>2.3.8</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -116,7 +127,13 @@
                             <includes>
                                 instruments |
                                 rooms |
-                                instruments_to_rooms
+                                instruments_to_rooms |
+                                courses |
+                                lessons |
+                                student_to_courses |
+                                students |
+                                teachers |
+                                users
                             </includes>
 
                             <schemata>
