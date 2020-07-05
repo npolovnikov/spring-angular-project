@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
         </dependency>
 
         <dependency>
@@ -70,6 +70,13 @@
             <type>pom</type>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>2.3.8</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -121,7 +128,14 @@
                             <includes>
                                 ROOM |
                                 INSTRUMENT |
-                                INSTRUMENT_TO_ROOM
+                                INSTRUMENT_TO_ROOM |
+                                COURSE |
+                                LESSON |
+                                LESSON_TO_ROOM |
+                                STUDENT |
+                                STUDENT_TO_COURSE |
+                                TEACHER |
+                                USER
                             </includes>
 
                             <schemata>

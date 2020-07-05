@@ -19,7 +19,10 @@
             <column name="ID" type="serial">
                 <constraints  primaryKey="true" nullable="false"/>
             </column>
-            <column name="IDD" type="int">
+            <column name="USERNAME" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PASSWORD" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="FIRST_NAME" type="varchar(50)">
