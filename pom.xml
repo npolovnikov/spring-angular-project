@@ -73,11 +73,11 @@
 
     <profiles>
         <profile>
-            <id>polovnikov</id>
+            <id>kusakin</id>
             <properties>
-                <url>jdbc:postgresql://127.0.0.1:5432/spring-angular-db</url>
-                <username>admin</username>
-                <password>admin</password>
+                <url>jdbc:postgresql://localhost:5432/spring-angular-db</url>
+                <username>postgres</username>
+                <password>123</password>
             </properties>
         </profile>
     </profiles>

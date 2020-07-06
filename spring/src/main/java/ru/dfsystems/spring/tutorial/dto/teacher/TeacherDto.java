@@ -12,7 +12,6 @@ public class TeacherDto extends BaseDto<TeacherHistoryDto> {
     private String firstName;
     private String middleName;
     private String lastName;
-    private String passport;
     private String contacts;
     private LocalDateTime birthDate;
     private String status;

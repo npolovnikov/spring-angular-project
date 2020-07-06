@@ -9,7 +9,7 @@ import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
 import java.time.LocalDateTime;
 
 @Repository
-public class CourseDaoImpl extends CourseDao {
+public class CourseDaoImpl extends CourseDao implements BaseDao<Course> {
     final DSLContext jooq;
 
     public CourseDaoImpl(DSLContext jooq) {
@@ -24,5 +24,10 @@ public class CourseDaoImpl extends CourseDao {
         }
         course.setCreateDate(LocalDateTime.now());
         super.insert(course);
+    }
+
+    @Override
+    public Course getActiveByIdd(Integer idd) {
+        return null;
     }
 }
