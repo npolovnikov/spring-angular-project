@@ -9,6 +9,8 @@ import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.course.CourseDto;
 import ru.dfsystems.spring.tutorial.dto.course.CourseListDto;
 import ru.dfsystems.spring.tutorial.dto.course.CourseParams;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
+import ru.dfsystems.spring.tutorial.service.BaseService;
 import ru.dfsystems.spring.tutorial.service.CourseService;
 
 /**
@@ -19,15 +21,20 @@ import ru.dfsystems.spring.tutorial.service.CourseService;
 @RestController
 @Tag(name = "Курс", description = "Api Курс")
 @RequestMapping(value = "/course", produces = "application/json; charset=UTF-8")
-@AllArgsConstructor
-public class CourseController {
+public class CourseController extends BaseController<CourseListDto, CourseDto, CourseParams, Course> {
 
     private CourseService courseService;
+
+    public CourseController(BaseService<CourseListDto, CourseDto, CourseParams, Course> service,
+                            CourseService courseService) {
+        super(service);
+        this.courseService = courseService;
+    }
 
     @PostMapping("/list")
     @Operation(summary = "Список курсов", description = "", tags = {"course"})
     public Page<CourseListDto> getList(@RequestBody PageParams<CourseParams> params) {
-        return courseService.getCoursesByParams(params);
+        return courseService.list(params);
     }
 
     @PostMapping

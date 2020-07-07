@@ -18,12 +18,12 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Teacher.TEACHER;
  */
 
 @Repository
-public class TeacherDaoImpl extends TeacherDao {
+public class TeacherDaoImpl extends TeacherDao implements BaseDao<Teacher>{
 
     private final DSLContext jooq;
 
-    public TeacherDaoImpl(Configuration configuration, DSLContext jooq) {
-        super(configuration);
+    public TeacherDaoImpl(DSLContext jooq) {
+        super(jooq.configuration());
         this.jooq = jooq;
     }
 

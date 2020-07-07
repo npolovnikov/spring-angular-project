@@ -20,45 +20,11 @@
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>abrakov</id>
-            <properties>
-                <url>jdbc:postgresql://localhost:5432/postgres</url>
-                <username>root</username>
-                <password>root</password>
-            </properties>
-        </profile>
-    </profiles>
-
     <build>
         <plugins>
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>3.10.0</version>
-                <configuration>
-                    <defaultSchemaName>public</defaultSchemaName>
-                    <changeLogFile>${basedir}/db/master.xml</changeLogFile>
-<!--                    <outputChangeLogFile>${basedir}/db/output.xml</outputChangeLogFile>-->
-                    <url>${url}</url>
-                    <username>${username}</username>
-                    <password>${password}</password>
-<!--                    <rollbackCount>2</rollbackCount>-->
-<!--                    <rollbackDate>2020-06-20</rollbackDate>-->
-<!--                    <rollbackTag>changelog-2.0</rollbackTag>-->
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>updateSQL</goal>
-                            <goal>update</goal>
-<!--                            <goal>generateChangeLog</goal>-->
-<!--                            <goal>rollback</goal>-->
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

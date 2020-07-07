@@ -2,13 +2,14 @@ package ru.dfsystems.spring.tutorial.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.teacher.TeacherDto;
 import ru.dfsystems.spring.tutorial.dto.teacher.TeacherListDto;
 import ru.dfsystems.spring.tutorial.dto.teacher.TeacherParams;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Teacher;
+import ru.dfsystems.spring.tutorial.service.BaseService;
 import ru.dfsystems.spring.tutorial.service.TeacherService;
 
 /**
@@ -19,15 +20,20 @@ import ru.dfsystems.spring.tutorial.service.TeacherService;
 @RestController
 @Tag(name = "Преподаватель", description = "Api Преподаватель")
 @RequestMapping(value = "/teacher", produces = "application/json; charset=UTF-8")
-@AllArgsConstructor
-public class TeacherController {
+public class TeacherController extends BaseController<TeacherListDto, TeacherDto, TeacherParams, Teacher> {
 
     private TeacherService teacherService;
+
+    public TeacherController(BaseService<TeacherListDto, TeacherDto, TeacherParams, Teacher> service,
+                             TeacherService teacherService) {
+        super(service);
+        this.teacherService = teacherService;
+    }
 
     @PostMapping("/list")
     @Operation(summary = "Список преподавателей", description = "", tags = {"teacher"})
     public Page<TeacherListDto> getList(@RequestBody PageParams<TeacherParams> params) {
-        return teacherService.getTeachersByParams(params);
+        return teacherService.list(params);
     }
 
     @PostMapping

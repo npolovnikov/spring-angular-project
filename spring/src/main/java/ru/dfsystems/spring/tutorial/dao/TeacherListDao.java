@@ -25,7 +25,7 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Teacher.TEACHER;
 
 @Repository
 @AllArgsConstructor
-public class TeacherListDao {
+public class TeacherListDao implements BaseListDao<Teacher,TeacherParams> {
 
     private final DSLContext jooq;
 

@@ -2,13 +2,15 @@ package ru.dfsystems.spring.tutorial.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.user.UserDto;
 import ru.dfsystems.spring.tutorial.dto.user.UserListDto;
 import ru.dfsystems.spring.tutorial.dto.user.UserParams;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.User;
+import ru.dfsystems.spring.tutorial.service.BaseService;
 import ru.dfsystems.spring.tutorial.service.UserService;
 
 /**
@@ -19,15 +21,20 @@ import ru.dfsystems.spring.tutorial.service.UserService;
 @RestController
 @Tag(name = "Пользователь", description = "Api Пользователь")
 @RequestMapping(value = "/user", produces = "application/json; charset=UTF-8")
-@AllArgsConstructor
-public class UserController {
+public class UserController extends BaseController<UserListDto, UserDto, UserParams, User> {
 
     private UserService userService;
+
+    @Autowired
+    public UserController(BaseService<UserListDto, UserDto, UserParams, User> service, UserService userService) {
+        super(service);
+        this.userService = userService;
+    }
 
     @PostMapping("/list")
     @Operation(summary = "Список пользователей", description = "", tags = {"user"})
     public Page<UserListDto> getList(@RequestBody PageParams<UserParams> params) {
-        return userService.getUsersByParams(params);
+        return userService.list(params);
     }
 
     @PostMapping

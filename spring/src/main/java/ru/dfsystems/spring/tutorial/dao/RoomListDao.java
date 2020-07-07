@@ -20,7 +20,7 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 
 @Repository
 @AllArgsConstructor
-public class RoomListDao {
+public class RoomListDao implements BaseListDao<Room,RoomParams> {
 
     private final DSLContext jooq;
 

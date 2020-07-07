@@ -16,9 +16,8 @@ import java.util.List;
  * Project spring-angular-project
  * Created by End on июль, 2020
  */
-@Mapper(componentModel = "spring")
-public interface StudentMapper {
-    StudentMapper STUDENT_MAPPER = Mappers.getMapper(StudentMapper.class);
+@Mapper
+public interface StudentMapper extends BaseMapper<Student, StudentDto, StudentListDto> {
 
     StudentListDto studentToStudentListDto(Student student);
 

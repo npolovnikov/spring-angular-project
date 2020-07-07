@@ -17,9 +17,7 @@ import java.util.List;
  * Created by End on июль, 2020
  */
 @Mapper
-public interface TeacherMapper {
-
-    TeacherMapper TEACHER_MAPPER = Mappers.getMapper(TeacherMapper.class);
+public interface TeacherMapper extends BaseMapper<Teacher, TeacherDto, TeacherListDto> {
 
     TeacherListDto teacherToTeacherListDto(Teacher teacher);
 

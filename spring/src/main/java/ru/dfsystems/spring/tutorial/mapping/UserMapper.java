@@ -2,12 +2,8 @@ package ru.dfsystems.spring.tutorial.mapping;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import ru.dfsystems.spring.tutorial.dto.room.RoomDto;
-import ru.dfsystems.spring.tutorial.dto.room.RoomListDto;
 import ru.dfsystems.spring.tutorial.dto.user.UserDto;
 import ru.dfsystems.spring.tutorial.dto.user.UserListDto;
-import ru.dfsystems.spring.tutorial.generated.tables.daos.UserDao;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.User;
 
 import java.util.ArrayList;
@@ -18,9 +14,7 @@ import java.util.List;
  * Created by End on июль, 2020
  */
 @Mapper
-public interface UserMapper {
-
-    UserMapper USER_MAPPER = Mappers.getMapper(UserMapper.class);
+public interface UserMapper extends BaseMapper<User, UserDto, UserListDto> {
 
     UserListDto userToUserListDto(User user);
 

@@ -18,12 +18,12 @@ import static ru.dfsystems.spring.tutorial.generated.tables.User.USER;
  */
 
 @Repository
-public class UserDaoImpl extends UserDao {
+public class UserDaoImpl extends UserDao implements BaseDao<User> {
 
     private final DSLContext jooq;
 
-    public UserDaoImpl(Configuration configuration, DSLContext jooq) {
-        super(configuration);
+    public UserDaoImpl(DSLContext jooq) {
+        super(jooq.configuration());
         this.jooq = jooq;
     }
 

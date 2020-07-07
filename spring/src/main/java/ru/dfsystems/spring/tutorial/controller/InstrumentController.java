@@ -9,6 +9,8 @@ import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentDto;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentListDto;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentParams;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
+import ru.dfsystems.spring.tutorial.service.BaseService;
 import ru.dfsystems.spring.tutorial.service.InstrumentService;
 
 /**
@@ -19,15 +21,20 @@ import ru.dfsystems.spring.tutorial.service.InstrumentService;
 @RestController
 @Tag(name = "Иструмент", description = "Api Инструмент")
 @RequestMapping(value = "/instrument", produces = "application/json; charset=UTF-8")
-@AllArgsConstructor
-public class InstrumentController {
+public class InstrumentController extends BaseController<InstrumentListDto, InstrumentDto, InstrumentParams, Instrument> {
 
     private InstrumentService instrumentService;
+
+    public InstrumentController(BaseService<InstrumentListDto, InstrumentDto, InstrumentParams, Instrument> service,
+                                InstrumentService instrumentService) {
+        super(service);
+        this.instrumentService = instrumentService;
+    }
 
     @PostMapping("/list")
     @Operation(summary = "Список инструментов", description = "", tags = {"instrument"})
     public Page<InstrumentListDto> getList(@RequestBody PageParams<InstrumentParams> params) {
-        return instrumentService.getInstrumentsByParams(params);
+        return instrumentService.list(params);
     }
 
     @PostMapping

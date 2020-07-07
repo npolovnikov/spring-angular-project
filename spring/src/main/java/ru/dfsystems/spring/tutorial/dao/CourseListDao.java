@@ -26,7 +26,7 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Student.STUDENT;
 
 @Repository
 @AllArgsConstructor
-public class CourseListDao {
+public class CourseListDao implements BaseListDao<Course,CourseParams> {
 
     private final DSLContext jooq;
 

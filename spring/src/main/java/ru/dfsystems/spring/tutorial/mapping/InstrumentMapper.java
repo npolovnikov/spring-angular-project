@@ -4,10 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentDto;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentListDto;
-import ru.dfsystems.spring.tutorial.dto.user.UserDto;
-import ru.dfsystems.spring.tutorial.dto.user.UserListDto;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +15,7 @@ import java.util.List;
  */
 
 @Mapper
-public interface InstrumentMapper {
-
-    InstrumentMapper INSTRUMENT_MAPPER = Mappers.getMapper(InstrumentMapper.class);
+public interface InstrumentMapper  extends BaseMapper<Instrument, InstrumentDto, InstrumentListDto> {
 
     InstrumentListDto instrumentToInstrumentListDto(Instrument instrument);
 

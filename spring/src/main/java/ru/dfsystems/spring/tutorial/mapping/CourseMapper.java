@@ -4,10 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import ru.dfsystems.spring.tutorial.dto.course.CourseDto;
 import ru.dfsystems.spring.tutorial.dto.course.CourseListDto;
-import ru.dfsystems.spring.tutorial.dto.lesson.LessonDto;
-import ru.dfsystems.spring.tutorial.dto.lesson.LessonListDto;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Lesson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +15,7 @@ import java.util.List;
  */
 
 @Mapper
-public interface CourseMapper {
-
-    CourseMapper COURSE_MAPPER = Mappers.getMapper(CourseMapper.class);
+public interface CourseMapper extends BaseMapper<Course, CourseDto, CourseListDto> {
 
     CourseListDto courseToCourseListDto(Course course);
 
@@ -30,8 +25,7 @@ public interface CourseMapper {
 
     default List<CourseListDto> courseListToCourseListDto(List<Course> courses) {
         List<CourseListDto> courseDto = new ArrayList<>();
-
-        for (Course course: courses) {
+        for (Course course : courses) {
             courseDto.add(courseToCourseListDto(course));
         }
         return courseDto;

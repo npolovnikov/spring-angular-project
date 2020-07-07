@@ -25,7 +25,7 @@ import static ru.dfsystems.spring.tutorial.generated.tables.User.USER;
 
 @Repository
 @AllArgsConstructor
-public class UserListDao {
+public class UserListDao implements BaseListDao<User,UserParams> {
 
     private final DSLContext jooq;
 

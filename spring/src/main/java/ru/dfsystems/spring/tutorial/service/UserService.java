@@ -1,8 +1,11 @@
 package ru.dfsystems.spring.tutorial.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.dfsystems.spring.tutorial.dao.BaseDao;
+import ru.dfsystems.spring.tutorial.dao.BaseListDao;
 import ru.dfsystems.spring.tutorial.dao.UserDaoImpl;
 import ru.dfsystems.spring.tutorial.dao.UserListDao;
 import ru.dfsystems.spring.tutorial.dto.Page;
@@ -15,6 +18,7 @@ import ru.dfsystems.spring.tutorial.dto.user.UserParams;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.UserDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.User;
+import ru.dfsystems.spring.tutorial.mapping.BaseMapper;
 import ru.dfsystems.spring.tutorial.mapping.RoomMapper;
 import ru.dfsystems.spring.tutorial.mapping.UserMapper;
 
@@ -27,46 +31,11 @@ import java.util.List;
  */
 
 @Service
-@AllArgsConstructor
-public class UserService {
 
-    private UserDaoImpl userDao;
-    private UserListDao userListDao;
+public class UserService extends BaseService<UserListDto, UserDto, UserParams, User> {
 
-    public Page<UserListDto> getUsersByParams(PageParams<UserParams> pageParams) {
-        Page<User> page = userListDao.list(pageParams);
-        List<UserListDto> list = UserMapper.USER_MAPPER.userListToUserListDto(page.getList());
-        return new Page<>(list, page.getTotalCount());
+    @Autowired
+    public UserService(BaseMapper<User, UserDto, UserListDto> baseMapper, BaseListDao<User, UserParams> listDao, BaseDao<User> baseDao) {
+        super(baseMapper, listDao, baseDao);
     }
-
-    @Transactional
-    public void create(UserDto userDto) {
-        userDao.create(UserMapper.USER_MAPPER.userDtoToUser(userDto));
-    }
-
-    public UserDto get(Integer idd) {
-       return UserMapper.USER_MAPPER.userToUserDto(userDao.getActiveByIdd(idd));
-    }
-
-    @Transactional
-    public void delete(Integer idd) {
-        User user = userDao.getActiveByIdd(idd);
-        user.setDeleteDate(LocalDateTime.now());
-        userDao.update(user);
-    }
-
-    public UserDto update(Integer idd, UserDto userDto) {
-        User user = userDao.getActiveByIdd(idd);
-        if (user == null) {
-            throw new RuntimeException("ошибка");
-        }
-        user.setDeleteDate(LocalDateTime.now());
-        userDao.update(user);
-
-        User newUser = UserMapper.USER_MAPPER.userDtoToUser(userDto);
-        newUser.setIdd(user.getIdd());
-        userDao.create(newUser);
-        return UserMapper.USER_MAPPER.userToUserDto(newUser);
-    }
-
 }

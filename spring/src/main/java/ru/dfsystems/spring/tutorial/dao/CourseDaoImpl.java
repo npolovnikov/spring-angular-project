@@ -25,9 +25,14 @@ import static ru.dfsystems.spring.tutorial.generated.tables.StudentToCourse.STUD
  */
 
 @Repository
-public class CourseDaoImpl extends CourseDao {
+public class CourseDaoImpl extends CourseDao implements BaseDao<Course> {
 
     private final DSLContext jooq;
+
+    public CourseDaoImpl(DSLContext jooq) {
+        super(jooq.configuration());
+        this.jooq = jooq;
+    }
 
     public List<Student> getStudentsByCourseIdd(Integer idd) {
         return jooq.select(COURSE.fields())
@@ -36,11 +41,6 @@ public class CourseDaoImpl extends CourseDao {
                 .on(STUDENT.IDD.eq(STUDENT_TO_COURSE.STUDENT_IDD))
                 .where(STUDENT_TO_COURSE.COURSE_IDD.eq(idd))
                 .fetchInto(Student.class);
-    }
-
-    public CourseDaoImpl(Configuration configuration, DSLContext jooq) {
-        super(configuration);
-        this.jooq = jooq;
     }
 
     public Course getActiveByIdd(Integer idd) {

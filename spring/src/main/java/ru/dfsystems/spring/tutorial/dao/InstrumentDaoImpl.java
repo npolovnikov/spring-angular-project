@@ -52,15 +52,7 @@ public class InstrumentDaoImpl extends InstrumentDao implements BaseDao<Instrume
         super.insert(instrument);
     }
 
-    @Override
-    public void create(Instrument instrument) {
-        instrument.setId(jooq.nextval(Sequences.INSTRUMENT_ID_SEQ));
-        if (instrument.getIdd() == null) {
-            instrument.setIdd(instrument.getId());
-        }
-        instrument.setCreateDate(LocalDateTime.now());
-        super.insert(instrument);
-    }
+
 
     @Override
     public Instrument getActiveByIdd(Integer idd) {
@@ -70,9 +62,4 @@ public class InstrumentDaoImpl extends InstrumentDao implements BaseDao<Instrume
                 .fetchOneInto(Instrument.class);
     }
 
-    public List<Instrument> getHistory(Integer idd) {
-        return jooq.selectFrom(INSTRUMENT)
-                .where(INSTRUMENT.IDD.eq(idd))
-                .fetchInto(Instrument.class);
-    }
 }

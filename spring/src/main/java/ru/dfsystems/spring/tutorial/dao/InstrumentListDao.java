@@ -25,7 +25,7 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMEN
 
 @Repository
 @AllArgsConstructor
-public class InstrumentListDao {
+public class InstrumentListDao implements BaseListDao<Instrument,InstrumentParams> {
 
     private final DSLContext jooq;
 

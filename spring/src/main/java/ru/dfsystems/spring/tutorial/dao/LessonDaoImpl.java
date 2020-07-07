@@ -25,6 +25,11 @@ public class LessonDaoImpl extends LessonDao {
 
     private final DSLContext jooq;
 
+    public LessonDaoImpl( DSLContext jooq) {
+        super(jooq.configuration());
+        this.jooq = jooq;
+    }
+
     public List<Instrument> getInstrumentsByLessonId(Integer id) {
         return jooq.select(LESSON.fields())
                 .from(LESSON)
@@ -32,11 +37,6 @@ public class LessonDaoImpl extends LessonDao {
                 .on(INSTRUMENT.IDD.eq(LESSON_TO_INSTRUMENT.INSTRUMENT_IDD))
                 .where(LESSON_TO_INSTRUMENT.LESSON_ID.eq(id))
                 .fetchInto(Instrument.class);
-    }
-
-    public LessonDaoImpl(Configuration configuration, DSLContext jooq) {
-        super(configuration);
-        this.jooq = jooq;
     }
 
     public Lesson getById(Integer id) {

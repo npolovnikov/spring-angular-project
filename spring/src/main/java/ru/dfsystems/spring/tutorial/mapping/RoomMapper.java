@@ -15,10 +15,8 @@ import java.util.List;
  * Project spring-angular-project
  * Created by End on июль, 2020
  */
-@Mapper(componentModel = "spring")
-public interface RoomMapper {
-
-    RoomMapper ROOM_MAPPER = Mappers.getMapper(RoomMapper.class);
+@Mapper
+public interface RoomMapper extends BaseMapper<Room,RoomDto, RoomListDto> {
 
     RoomListDto roomToRoomListDto(Room room);
 
