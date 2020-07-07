@@ -2,7 +2,7 @@ package ru.dfsystems.spring.tutorial.dto.instrument;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.dfsystems.spring.tutorial.dto.BaseDto;
+import ru.dfsystems.spring.tutorial.dto.dto.BaseDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomListDto;
 
 import java.util.List;

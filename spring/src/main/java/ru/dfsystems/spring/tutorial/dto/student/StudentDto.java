@@ -3,7 +3,7 @@ package ru.dfsystems.spring.tutorial.dto.student;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import ru.dfsystems.spring.tutorial.dto.BaseDto;
+import ru.dfsystems.spring.tutorial.dto.dto.BaseDto;
 
 import java.time.LocalDateTime;
 

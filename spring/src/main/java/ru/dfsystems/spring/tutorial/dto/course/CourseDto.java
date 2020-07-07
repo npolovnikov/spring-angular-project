@@ -1,12 +1,10 @@
 package ru.dfsystems.spring.tutorial.dto.course;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import ru.dfsystems.spring.tutorial.dto.BaseDto;
+import ru.dfsystems.spring.tutorial.dto.dto.BaseDto;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonListDto;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter

@@ -1,9 +1,6 @@
 package ru.dfsystems.spring.tutorial.dto.user;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import ru.dfsystems.spring.tutorial.dto.BaseHistoryDto;
-
-import java.time.LocalDateTime;
+import ru.dfsystems.spring.tutorial.dto.dto.BaseHistoryDto;
 
 public class UserHistoryDto extends BaseHistoryDto {
 

@@ -2,7 +2,7 @@ package ru.dfsystems.spring.tutorial.dto.instrument;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.dfsystems.spring.tutorial.dto.BaseHistoryDto;
+import ru.dfsystems.spring.tutorial.dto.dto.BaseHistoryDto;
 
 @Getter
 @Setter

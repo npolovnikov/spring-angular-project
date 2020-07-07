@@ -1,4 +1,4 @@
-package ru.dfsystems.spring.tutorial.dto;
+package ru.dfsystems.spring.tutorial.dto.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

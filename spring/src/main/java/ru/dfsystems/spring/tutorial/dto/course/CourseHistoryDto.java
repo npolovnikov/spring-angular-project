@@ -1,7 +1,7 @@
 package ru.dfsystems.spring.tutorial.dto.course;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import ru.dfsystems.spring.tutorial.dto.BaseHistoryDto;
+import ru.dfsystems.spring.tutorial.dto.dto.BaseHistoryDto;
 
 import java.time.LocalDateTime;
 
