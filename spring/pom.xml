@@ -25,6 +25,11 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jooq</artifactId>
             <exclusions>
                 <!--Исключили jooq из библиотеки, чтобы использовать свою версию-->
@@ -70,6 +75,11 @@
             <artifactId>liquibase</artifactId>
             <type>pom</type>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>2.3.8</version>
         </dependency>
     </dependencies>
 
@@ -122,7 +132,14 @@
                             <includes>
                                 ROOM |
                                 INSTRUMENT |
-                                INSTRUMENT_TO_ROOM
+                                INSTRUMENT_TO_ROOM |
+                                STUDENT |
+                                COURSE |
+                                STUDENT_TO_COURSE |
+                                TEACHER |
+                                USER |
+                                LESSON |
+                                INSTRUMENT_TO_LESSON
                             </includes>
 
                             <schemata>
