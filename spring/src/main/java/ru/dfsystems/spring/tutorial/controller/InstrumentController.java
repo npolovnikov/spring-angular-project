@@ -12,6 +12,7 @@ import ru.dfsystems.spring.tutorial.service.InstrumentService;
 @RestController
 @RequestMapping(value = "/instrument", produces = "application/json; charset=UTF-8")
 public class InstrumentController extends BaseController<InstrumentListDto, InstrumentDto, InstrumentParams, Instrument> {
+
     @Autowired
     public InstrumentController(InstrumentService instrumentService) {
         super(instrumentService);

@@ -6,9 +6,12 @@ import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
+import ru.dfsystems.spring.tutorial.dao.BaseListDao;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
+import ru.dfsystems.spring.tutorial.dto.room.RoomParams;
 import ru.dfsystems.spring.tutorial.dto.student.StudentParams;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Student;
 import ru.dfsystems.spring.tutorial.generated.tables.records.StudentRecord;
 
@@ -19,10 +22,11 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Student.STUDENT;
 
 @Repository
 @AllArgsConstructor
-public class StudentListDao {
+public class StudentListDao implements BaseListDao<Student, StudentParams> {
     private final DSLContext jooq;
 
-    public Page<Student> getSortedList(PageParams<StudentParams> pageParams) {
+    @Override
+    public Page<Student> list(PageParams<StudentParams> pageParams) {
         final StudentParams params = pageParams.getParams() == null ?
                 new StudentParams() :
                 pageParams.getParams();

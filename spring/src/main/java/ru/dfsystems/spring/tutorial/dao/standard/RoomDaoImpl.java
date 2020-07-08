@@ -3,9 +3,11 @@ package ru.dfsystems.spring.tutorial.dao.standard;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.dao.BaseDao;
+import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.RoomDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.InstrumentToRoom.INSTRUMENT_TO_ROOM;
@@ -36,12 +38,12 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
     }
 
     public void create(Room room) {
-//        room.setId(jooq.nextval(Sequences.ROOM_ID_SEQ));
-//        if (room.getIdd() == null) {
-//            room.setIdd(room.getId());
-//        }
-//        room.setCreateDate(LocalDateTime.now());
-//        super.insert(room);
+        room.setId(jooq.nextval(Sequences.ROOM_ID_SEQ));
+        if (room.getIdd() == null) {
+            room.setIdd(room.getId());
+        }
+        room.setCreateDate(LocalDateTime.now());
+        super.insert(room);
     }
 
     public List<Room> getRoomsByInstrumentIdd(Integer idd) {

@@ -20,7 +20,7 @@ public abstract class BaseController<List extends BaseListDto, Dto extends BaseD
         return service.list(pageParams);
     }
 
-    @PostMapping
+    @PostMapping()
     public void create(@RequestBody Dto dto) {
         service.create(dto);
     }

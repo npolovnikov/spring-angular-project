@@ -6,6 +6,7 @@ import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
+import ru.dfsystems.spring.tutorial.dao.BaseListDao;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.user.UserParams;
@@ -19,11 +20,10 @@ import static ru.dfsystems.spring.tutorial.generated.tables.User.USER;
 
 @Repository
 @AllArgsConstructor
-public class UserListDao {
+public class UserListDao implements BaseListDao<User, UserParams> {
     private final DSLContext jooq;
 
-
-    public Page<User> getSortedList(PageParams<UserParams> pageParams) {
+    public Page<User> list(PageParams<UserParams> pageParams) {
         final UserParams params = pageParams.getParams() == null ? new UserParams() : pageParams.getParams();
         val listQuery = getUserSelect(params);
 

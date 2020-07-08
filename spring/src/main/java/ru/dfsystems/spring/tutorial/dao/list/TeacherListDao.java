@@ -6,6 +6,7 @@ import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
+import ru.dfsystems.spring.tutorial.dao.BaseListDao;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.teacher.TeacherParams;
@@ -19,10 +20,11 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Teacher.TEACHER;
 
 @Repository
 @AllArgsConstructor
-public class TeacherListDao {
+public class TeacherListDao implements BaseListDao<Teacher, TeacherParams> {
     private final DSLContext jooq;
 
-    public Page<Teacher> getSortedList(PageParams<TeacherParams> pageParams) {
+    @Override
+    public Page<Teacher> list(PageParams<TeacherParams> pageParams) {
         final TeacherParams params = pageParams.getParams() == null ? new TeacherParams() : pageParams.getParams();
         val listQuery = getTeacherSelect(params);
 

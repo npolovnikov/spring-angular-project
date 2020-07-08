@@ -11,6 +11,7 @@ import ru.dfsystems.spring.tutorial.service.RoomService;
 @RestController
 @RequestMapping(value = "/room", produces = "application/json; charset=UTF-8")
 public class RoomController extends BaseController<RoomListDto, RoomDto, RoomParams, Room> {
+
     private RoomService roomService;
 
     @Autowired
