@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LessonParams {
+    private Integer idd;
     private String name;
     private String description;
     private String orderBy;

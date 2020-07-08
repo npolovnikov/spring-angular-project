@@ -1,19 +1,18 @@
 package ru.dfsystems.spring.origin.controller;
 
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.dfsystems.spring.origin.dto.BaseListDto;
+import org.springframework.web.bind.annotation.*;
 import ru.dfsystems.spring.origin.dto.Page;
 import ru.dfsystems.spring.origin.dto.PageParams;
+import ru.dfsystems.spring.origin.dto.room.RoomDto;
+import ru.dfsystems.spring.origin.dto.room.RoomHistoryDto;
+import ru.dfsystems.spring.origin.dto.user.UserDto;
+import ru.dfsystems.spring.origin.dto.user.UserHistoryDto;
+import ru.dfsystems.spring.origin.dto.user.UserListDto;
 import ru.dfsystems.spring.origin.dto.user.UserParams;
-import ru.dfsystems.spring.origin.generated.tables.pojos.Users;
 import ru.dfsystems.spring.origin.service.UserService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/users", produces = "application/json; charset=UTF-8")
@@ -21,18 +20,34 @@ import java.util.stream.Collectors;
 public class UserController {
     private UserService userService;
 
-
     @PostMapping("/list")
-    public Page<BaseListDto> getList(PageParams<UserParams> pageParams) {
-        Page<Users> page = userService.getUsersByParams(pageParams);
-        List<BaseListDto> list = mapper(page.getList());
-        return new Page<>(list, page.getTotalCount());
+    public Page<UserListDto> getList(@RequestBody PageParams<UserParams> pageParams) {
+        return userService.getUsersByParams(pageParams);
     }
 
-    private List<BaseListDto> mapper(List<Users> allStudents) {
-        ModelMapper mapper = new ModelMapper();
-        return allStudents.stream()
-                .map(r -> mapper.map(r, BaseListDto.class))
-                .collect(Collectors.toList());
+    @PostMapping
+    public void create(@RequestBody UserDto userDto){
+        userService.create(userDto);
     }
+
+    @GetMapping("/{idd}")
+    public UserDto get(@PathVariable("idd") Integer idd){
+        return userService.get(idd);
+    }
+
+    @PatchMapping("/{idd}")
+    public UserDto update(@PathVariable("idd") Integer idd, @RequestBody UserDto userDto){
+        return userService.update(idd, userDto);
+    }
+
+    @DeleteMapping("/{idd}")
+    public void delete(@PathVariable("idd") Integer idd){
+        userService.delete(idd);
+    }
+
+    @GetMapping("/{idd}/history")
+    public List<UserHistoryDto> getHistory(@PathVariable("idd") Integer idd){
+        return userService.getHistory(idd);
+    }
+
 }

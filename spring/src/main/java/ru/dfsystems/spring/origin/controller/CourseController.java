@@ -2,13 +2,14 @@ package ru.dfsystems.spring.origin.controller;
 
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.dfsystems.spring.origin.dto.BaseListDto;
+import ru.dfsystems.spring.origin.dto.Course.CourseDto;
+import ru.dfsystems.spring.origin.dto.Course.CourseListDto;
 import ru.dfsystems.spring.origin.dto.Page;
 import ru.dfsystems.spring.origin.dto.PageParams;
 import ru.dfsystems.spring.origin.dto.Course.CourseParams;
+import ru.dfsystems.spring.origin.dto.room.RoomDto;
 import ru.dfsystems.spring.origin.generated.tables.pojos.Course;
 import ru.dfsystems.spring.origin.service.CourseService;
 
@@ -21,11 +22,29 @@ import java.util.stream.Collectors;
 public class CourseController {
     private CourseService courseService;
 
-    @PostMapping("/course")
-    public Page<BaseListDto> getList(PageParams<CourseParams> pageParams) {
-        Page<Course> page = courseService.getCoursesByParams(pageParams);
-        List<BaseListDto> list = mapper(page.getList());
-        return new Page<>(list, page.getTotalCount());
+    @PostMapping("/list")
+    public Page<CourseListDto> getList(@RequestBody PageParams<CourseParams> pageParams) {
+        return courseService.getCoursesByParams(pageParams);
+    }
+
+    @PostMapping
+    public void create(@RequestBody CourseDto courseDto){
+        courseService.create(courseDto);
+    }
+
+    @DeleteMapping("/{idd}")
+    public void delete(@PathVariable("idd") Integer idd){
+        courseService.delete(idd);
+    }
+
+    @GetMapping("/{idd}")
+    public CourseDto get(@PathVariable("idd") Integer idd){
+        return courseService.get(idd);
+    }
+
+    @PatchMapping("/{idd}")
+    public CourseDto update(@PathVariable("idd") Integer idd, @RequestBody CourseDto courseDto){
+        return courseService.update(idd, courseDto);
     }
 
     private List<BaseListDto> mapper(List<Course> allCourses) {

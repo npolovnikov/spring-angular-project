@@ -15,6 +15,7 @@ public class UserListDto extends BaseListDto {
     private String middleName;
     private String lastName;
     private String passport;
+    private String status;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDateTime birthDateStart;
 }

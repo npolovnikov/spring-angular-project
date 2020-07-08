@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class CourseListDto extends BaseListDto {
-    private int maxCountOfStudents;
+    private Integer maxCountOfStudents;
     private String name;
     private String description;
     private String status;
-    private int teacherId;
+    private Integer teacherId;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startDateStart;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")

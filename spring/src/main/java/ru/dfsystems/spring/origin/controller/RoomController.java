@@ -2,7 +2,6 @@ package ru.dfsystems.spring.origin.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.dfsystems.spring.origin.dto.BaseListDto;
 import ru.dfsystems.spring.origin.dto.Page;
 import ru.dfsystems.spring.origin.dto.PageParams;
 import ru.dfsystems.spring.origin.dto.room.RoomDto;
@@ -34,6 +33,11 @@ public class RoomController {
         return roomService.get(idd);
     }
 
+    @PatchMapping("/{idd}")
+    public RoomDto update(@PathVariable("idd") Integer idd, @RequestBody RoomDto roomDto){
+        return roomService.update(idd, roomDto);
+    }
+
     @GetMapping("/{idd}/history")
     public List<RoomHistoryDto> getHistory(@PathVariable("idd") Integer idd){
         return roomService.getHistory(idd);
@@ -43,9 +47,8 @@ public class RoomController {
     public void delete(@PathVariable("idd") Integer idd){
         roomService.delete(idd);
     }
-
-    @PutMapping("/{idd}/instrument")
-    public void putInstrument(@PathVariable("idd") Integer idd, @RequestBody Integer instrumentIdd){
+    @PutMapping("/{idd}/{idd}")
+    public void putInstrument(@PathVariable("idd") Integer idd, @PathVariable("idd") Integer instrumentIdd){
         roomService.putInstrument(idd, instrumentIdd);
     }
 }

@@ -2,12 +2,16 @@ package ru.dfsystems.spring.origin.controller;
 
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.dfsystems.spring.origin.dto.BaseListDto;
+import ru.dfsystems.spring.origin.dto.Course.CourseListDto;
 import ru.dfsystems.spring.origin.dto.Page;
 import ru.dfsystems.spring.origin.dto.PageParams;
+import ru.dfsystems.spring.origin.dto.room.RoomDto;
+import ru.dfsystems.spring.origin.dto.room.RoomHistoryDto;
+import ru.dfsystems.spring.origin.dto.teacher.TeacherDto;
+import ru.dfsystems.spring.origin.dto.teacher.TeacherHistoryDto;
+import ru.dfsystems.spring.origin.dto.teacher.TeacherListDto;
 import ru.dfsystems.spring.origin.dto.teacher.TeacherParams;
 import ru.dfsystems.spring.origin.generated.tables.pojos.Teacher;
 import ru.dfsystems.spring.origin.service.TeacherService;
@@ -16,22 +20,43 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/student", produces = "application/json; charset=UTF-8")
+@RequestMapping(value = "/teacher", produces = "application/json; charset=UTF-8")
 @AllArgsConstructor
 public class TeacherController {
     private TeacherService teacherService;
 
     @PostMapping("/list")
-    public Page<BaseListDto> getList(PageParams<TeacherParams> pageParams) {
-        Page<Teacher> page = teacherService.getTeachersByParams(pageParams);
-        List<BaseListDto> list = mapper(page.getList());
-        return new Page<>(list, page.getTotalCount());
+    public Page<TeacherListDto> getList(@RequestBody PageParams<TeacherParams> pageParams) {
+        return teacherService.getTeachersByParams(pageParams);
     }
 
-    private List<BaseListDto> mapper(List<Teacher> allTeachers) {
-        ModelMapper mapper = new ModelMapper();
-        return allTeachers.stream()
-                .map(r -> mapper.map(r, BaseListDto.class))
-                .collect(Collectors.toList());
+    @PostMapping
+    public void create(@RequestBody TeacherDto teacherDto){
+        teacherService.create(teacherDto);
+    }
+
+    @GetMapping("/{idd}")
+    public TeacherDto get(@PathVariable("idd") Integer idd){
+        return teacherService.get(idd);
+    }
+
+    @PatchMapping("/{idd}")
+    public TeacherDto update(@PathVariable("idd") Integer idd, @RequestBody TeacherDto teacherDto){
+        return teacherService.update(idd, teacherDto);
+    }
+
+    @GetMapping("/{idd}/history")
+    public List<TeacherHistoryDto> getHistory(@PathVariable("idd") Integer idd){
+        return teacherService.getHistory(idd);
+    }
+
+    @DeleteMapping("/{idd}")
+    public void delete(@PathVariable("idd") Integer idd){
+        teacherService.delete(idd);
+    }
+
+    @GetMapping("/{idd}/course/list")
+    public List<CourseListDto> getCourse(@PathVariable("idd") Integer idd){
+        return teacherService.getCourse(idd);
     }
 }

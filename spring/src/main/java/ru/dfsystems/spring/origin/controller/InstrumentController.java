@@ -2,13 +2,14 @@ package ru.dfsystems.spring.origin.controller;
 
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.dfsystems.spring.origin.dto.BaseListDto;
 import ru.dfsystems.spring.origin.dto.Page;
 import ru.dfsystems.spring.origin.dto.PageParams;
+import ru.dfsystems.spring.origin.dto.instrument.InstrumentDto;
+import ru.dfsystems.spring.origin.dto.instrument.InstrumentListDto;
 import ru.dfsystems.spring.origin.dto.instrument.InstrumentParams;
+import ru.dfsystems.spring.origin.dto.room.RoomDto;
 import ru.dfsystems.spring.origin.generated.tables.pojos.Instrument;
 import ru.dfsystems.spring.origin.service.InstrumentService;
 
@@ -21,18 +22,24 @@ import java.util.stream.Collectors;
 public class InstrumentController {
     private InstrumentService instrumentService;
 
-
-    @PostMapping("/instrument")
-    public Page<BaseListDto> getList(PageParams<InstrumentParams> pageParams){
-        Page<Instrument> page = instrumentService.getInstrumentByParams(pageParams);
-        List<BaseListDto> list = mapper(page.getList());
-        return new Page<>(list, page.getTotalCount());
+    @PostMapping("/list")
+    public Page<InstrumentListDto> getList(@RequestBody PageParams<InstrumentParams> pageParams){
+        return instrumentService.getInstrumentByParams(pageParams);
     }
 
-    private List<BaseListDto> mapper(List<Instrument> allInstruments) {
-        ModelMapper mapper = new ModelMapper();
-        return allInstruments.stream()
-                .map(r -> mapper.map(r, BaseListDto.class))
-                .collect(Collectors.toList());
+    @PostMapping
+    public void create(@RequestBody InstrumentDto instrumentDto){
+        instrumentService.create(instrumentDto);
     }
+
+    @GetMapping("/{idd}")
+    public InstrumentDto get(@PathVariable("idd") Integer idd){
+        return instrumentService.get(idd);
+    }
+
+    @DeleteMapping("/{idd}")
+    public void delete(@PathVariable("idd") Integer idd){
+        instrumentService.delete(idd);
+    }
+
 }

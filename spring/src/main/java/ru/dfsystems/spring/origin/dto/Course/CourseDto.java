@@ -13,7 +13,6 @@ import java.util.List;
 @Getter
 @Setter
 public class CourseDto extends BaseDto<CourseHistoryDto> {
-    private int maxCountOfStudents;
     private String name;
     private String description;
     private String status;
