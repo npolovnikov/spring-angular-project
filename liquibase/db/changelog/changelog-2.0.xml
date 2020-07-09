@@ -123,12 +123,15 @@
         <sql>
             create table LESSON(
             id serial primary key,
+            idd int not null,
             name varchar(100) not null,
             description varchar(1000),
             course_idd int not null,
             room_idd int ,
             lesson_date_start timestamp not null,
-            lesson_date_end timestamp not null
+            lesson_date_end timestamp not null,
+            create_date timestamp not null,
+            delete_date timestamp
             );
         </sql>
         <rollback>
