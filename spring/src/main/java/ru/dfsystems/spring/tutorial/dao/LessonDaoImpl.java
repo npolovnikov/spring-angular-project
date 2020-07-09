@@ -12,7 +12,7 @@ import static ru.dfsystems.spring.tutorial.generated.tables.InstrumentToLesson.I
 import static ru.dfsystems.spring.tutorial.generated.tables.Lesson.LESSON;
 
 @Repository
-public class LessonDaoImpl extends LessonDao {
+public class LessonDaoImpl extends LessonDao implements BaseDao<Lesson>{
 
     final DSLContext jooq;
 
@@ -39,4 +39,13 @@ public class LessonDaoImpl extends LessonDao {
     }
 
 
+    @Override
+    public void create(Lesson lesson) {
+
+    }
+
+    @Override
+    public Lesson getActiveByIdd(Integer idd) {
+        return null;
+    }
 }

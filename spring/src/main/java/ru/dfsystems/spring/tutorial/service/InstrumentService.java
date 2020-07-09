@@ -11,7 +11,7 @@ import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
 import ru.dfsystems.spring.tutorial.mapping.MappingService;
 
 @Service
-public class InstrumentService  extends BaseService<InstrumentListDto, InstrumentDto, InstrumentParams, Instrument> {
+public class InstrumentService extends BaseService<InstrumentListDto, InstrumentDto, InstrumentParams, Instrument> {
 
     @Autowired
     public InstrumentService(InstrumentListDao instrumentListDao, InstrumentDaoImpl instrumentDao, MappingService mappingService) {

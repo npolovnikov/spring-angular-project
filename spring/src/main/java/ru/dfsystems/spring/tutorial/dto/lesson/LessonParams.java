@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LessonParams {
     private Integer id;
+    private Integer idd;
     private String name;
     private String description;
 
@@ -25,4 +26,10 @@ public class LessonParams {
     private LocalDateTime lessonDateEndFrom;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime lessonDateEndTo;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime createDateStart;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime createDateEnd;
+
 }
