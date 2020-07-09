@@ -7,5 +7,5 @@ public interface BaseDao<Entity extends BaseJooq> {
 
     Entity getActiveByIdd(Integer idd);
 
-    void update(Entity room);
+    void update(Entity entity);
 }

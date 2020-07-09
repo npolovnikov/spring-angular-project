@@ -85,4 +85,5 @@ public class RoomListDao implements BaseListDao<Room, RoomParams> {
 
         return listSortBy.toArray(new SortField[0]);
     }
+
 }

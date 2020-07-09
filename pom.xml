@@ -80,6 +80,14 @@
                 <password>admin</password>
             </properties>
         </profile>
+        <profile>
+            <id>ushakov</id>
+            <properties>
+                <url>jdbc:postgresql://127.0.0.1:5432/spring-angular-db</url>
+                <username>postgres</username>
+                <password>Qwe12345</password>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
