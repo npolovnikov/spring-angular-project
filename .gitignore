@@ -31,3 +31,8 @@ build/
 .vscode/
 /.mvn/
 /logs/
+
+### Angular ###
+/angular/node_modules/
+/angular/node/
+/angular/dist/
