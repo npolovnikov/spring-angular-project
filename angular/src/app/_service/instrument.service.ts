@@ -7,12 +7,12 @@ import {CommonService} from "./common.service";
 @Injectable({
   providedIn: 'root'
 })
-export class RoomService {
+export class InstrumentService {
 
   constructor(private _httpClient: HttpClient) {}
 
-  getRoomList(sort: string, order: string, page: number, pageSize: number): Observable<Page> {
-    const href = '/api/room/list';
+  getInstrumentList(sort: string, order: string, page: number, pageSize: number): Observable<Page> {
+    const href = '/api/instrument/list';
 
     return CommonService.getObjectList(this._httpClient, href, sort, order, page, pageSize);
   }

@@ -11,12 +11,25 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { InstrumentComponent } from './instrument/instrument.component';
+import { CourseComponent } from './course/course.component';
+import { LessonComponent } from './lesson/lesson.component';
+import { StudentComponent } from './student/student.component';
+import { TeacherComponent } from './teacher/teacher.component';
+import { MenuComponent } from './menu/menu.component';
+import {MatMenuModule} from "@angular/material/menu";
+import {MatButtonModule} from "@angular/material/button";
+
 
 @NgModule({
   declarations: [
     AppComponent,
     RoomComponent,
-    InstrumentComponent
+    InstrumentComponent,
+    CourseComponent,
+    LessonComponent,
+    StudentComponent,
+    TeacherComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -27,6 +40,8 @@ import { InstrumentComponent } from './instrument/instrument.component';
     MatTableModule,
     MatProgressSpinnerModule,
     HttpClientModule,
+    MatMenuModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
