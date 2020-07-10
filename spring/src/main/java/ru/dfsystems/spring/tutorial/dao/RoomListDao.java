@@ -19,7 +19,7 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 
 @Repository
 @AllArgsConstructor
-public class RoomListDao {
+public class RoomListDao implements BaseListDao<Room, RoomParams> {
     private final DSLContext jooq;
 
     public Page<Room> list(PageParams<RoomParams> pageParams) {
@@ -45,8 +45,8 @@ public class RoomListDao {
         if (params.getNumber() != null){
             condition = condition.and(ROOM.NUMBER.like(params.getNumber()));
         }
-        if (params.getCreateDateStart() != null && params.getCreateDateEnd() != null){
-            condition = condition.and(ROOM.CREATE_DATE.between(params.getCreateDateStart(), params.getCreateDateEnd()));
+        if (params.getCreateDateFrom() != null && params.getCreateDateTo() != null){
+            condition = condition.and(ROOM.CREATE_DATE.between(params.getCreateDateFrom(), params.getCreateDateTo()));
         }
 
         val sort = getOrderBy(params.getOrderBy(), params.getOrderDir());

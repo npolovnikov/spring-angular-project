@@ -4,7 +4,6 @@ import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.RoomDao;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 
 import java.time.LocalDateTime;
@@ -13,7 +12,7 @@ import java.util.List;
 import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 
 @Repository
-public class RoomDaoImpl extends RoomDao {
+public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
     private final DSLContext jooq;
 
     public RoomDaoImpl(DSLContext jooq) {

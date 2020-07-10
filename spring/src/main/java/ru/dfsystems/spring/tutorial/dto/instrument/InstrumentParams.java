@@ -1,4 +1,4 @@
-package ru.dfsystems.spring.tutorial.dto.room;
+package ru.dfsystems.spring.tutorial.dto.instrument;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RoomParams {
+public class InstrumentParams {
     private Integer idd;
+    private String name;
     private String number;
-    private String block;
     private String orderBy;
     private String orderDir;
 
