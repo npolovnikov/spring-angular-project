@@ -1,10 +1,9 @@
-import {HttpClient} from '@angular/common/http';
 import {Component, ViewChild, AfterViewInit} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {merge, Observable, of as observableOf} from 'rxjs';
+import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-import {Room} from "../_model/room";
+import {RoomList} from "../_model/roomList";
 import {RoomService} from "../_service/room.service";
 
 @Component({
@@ -15,7 +14,7 @@ import {RoomService} from "../_service/room.service";
 export class RoomComponent implements AfterViewInit {
   sizeOption:number[] = [2, 5, 10];
   displayedColumns: string[] = ['idd', 'number', 'block', 'createDate'];
-  data: Room[];
+  data: RoomList[];
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -34,7 +33,7 @@ export class RoomComponent implements AfterViewInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this._roomService.getRoomList(
+          return this._roomService.getObjectList(
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {
