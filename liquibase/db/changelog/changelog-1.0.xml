@@ -134,7 +134,7 @@
     </changeSet>
 
     <changeSet id="20200620-06" author="polovikov">
-        <preConditions>
+        <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="INSTRUMENT_TO_ROOM" schemaName="lessons"/>
             </not>
