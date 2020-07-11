@@ -18,5 +18,5 @@ public class StudentDto extends BaseDto<BaseHistoryDto>{
     private String passport;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate birth_date;
+    private LocalDate birthDate;
 }

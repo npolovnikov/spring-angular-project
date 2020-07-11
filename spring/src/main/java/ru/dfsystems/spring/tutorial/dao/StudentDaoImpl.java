@@ -65,6 +65,7 @@ public class StudentDaoImpl extends StudentDao  implements  BaseDao<Student>,Bas
         orderMap.put("firstName", STUDENT.FIRST_NAME);
         orderMap.put("lastName", STUDENT.LAST_NAME);
         orderMap.put("middleName", STUDENT.MIDDLE_NAME);
+        orderMap.put("birthDate", STUDENT.BIRTH_DATE);
         val sort = SQLer.getSortField(orderMap, STUDENT.IDD, pageParams.getOrderBy(), pageParams.getOrderDir());
 
         return jooq.selectFrom(STUDENT)
