@@ -10,11 +10,13 @@ import ru.dfsystems.spring.tutorial.dao.RoomDaoImpl;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentDto;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentHistoryDto;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentListDto;
+import ru.dfsystems.spring.tutorial.dto.lesson.LessonDto;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonListDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomHistoryDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomListDto;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Lesson;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 
 import javax.annotation.PostConstruct;
@@ -59,6 +61,17 @@ public class MappingService implements BaseMapping {
                 .addMappings(mapper -> mapper.using(instrumentHistory).map(Instrument::getIdd, InstrumentDto::setHistory))
                 .addMappings(mapper -> mapper.using(lessonListByInstrumentIdd).map(Instrument::getIdd, InstrumentDto::setLessons))
                 .addMappings(mapper -> mapper.using(roomListByInstrumentIdd).map(Instrument::getIdd, InstrumentDto::setRooms));
+
+        /**
+         * Lesson
+         */
+        //TODO Добавить маппинг курса
+        Converter<Integer, RoomListDto> roomListDto =
+                context -> map(roomDao.getRoomByLessonIdd(context.getSource()), RoomListDto.class);
+        modelMapper.typeMap(Lesson.class, LessonDto.class)
+                .addMappings(mapper -> mapper.using(roomListDto).map(Lesson::getIdd, LessonDto::setRoom));
+
+
 
     }
 
