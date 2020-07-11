@@ -1,4 +1,4 @@
-export interface Room {
+export interface RoomList {
   idd:number;
   number:string;
   block:string;

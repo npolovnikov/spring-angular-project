@@ -42,7 +42,7 @@ public class InstrumentListDao implements BaseListDao<Instrument, InstrumentPara
     }
 
     private SelectSeekStepN<InstrumentRecord> getInstrumentSelect(InstrumentParams params){
-        var condition = ROOM.DELETE_DATE.isNull();
+        var condition = INSTRUMENT.DELETE_DATE.isNull();
         if (params.getIdd() != null){
             condition = condition.and(INSTRUMENT.IDD.like(params.getIdd()));
         }
