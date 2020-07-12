@@ -45,6 +45,7 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
         }
         room.setCreateDate(LocalDateTime.now());
         super.insert(room);
+        return room;
     }
 
     public List<Room> getRoomsByInstrumentIdd(Integer idd) {

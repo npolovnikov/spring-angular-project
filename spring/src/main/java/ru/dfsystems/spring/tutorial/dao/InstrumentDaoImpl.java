@@ -88,12 +88,13 @@ public class InstrumentDaoImpl extends InstrumentDao  implements BaseDao<Instrum
     }
 
     @Override
-    public void create(Instrument instrument) {
-        instrument.setId(jooq.nextval(Sequences.LESSON_ID_SEQ));
+    public Instrument create(Instrument instrument) {
+        instrument.setId(jooq.nextval(Sequences.INSTRUMENT_ID_SEQ));
         if (instrument.getIdd() == null) {
             instrument.setIdd(instrument.getId());
         }
         instrument.setCreateDate(LocalDateTime.now());
         super.insert(instrument);
+        return instrument;
     }
 }
