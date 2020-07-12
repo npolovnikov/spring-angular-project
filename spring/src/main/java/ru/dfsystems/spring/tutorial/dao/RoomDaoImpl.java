@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
+import static ru.dfsystems.spring.tutorial.generated.tables.InstrumentToRoom.INSTRUMENT_TO_ROOM;
 
 @Repository
 public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
@@ -40,5 +41,14 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
         }
         room.setCreateDate(LocalDateTime.now());
         super.insert(room);
+    }
+
+    public List<Room> getRoomsByInstrumentIdd(Integer idd) {
+        return jooq.select(ROOM.fields())
+                .from(ROOM)
+                .join(INSTRUMENT_TO_ROOM)
+                .on(ROOM.IDD.eq(INSTRUMENT_TO_ROOM.ROOM_IDD))
+                .where(INSTRUMENT_TO_ROOM.INSTRUMENT_IDD.eq(idd))
+                .fetchInto(Room.class);
     }
 }

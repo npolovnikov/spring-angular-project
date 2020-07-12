@@ -8,15 +8,17 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class LessonListDto extends BaseListDto {
+public class LessonListDto {
 
     private Integer       id;
     private String        name;
     private String        description;
+
     private Integer       courseIdd;
     private Integer       roomIdd;
+
     private LocalDateTime lessonDateStart;
     private LocalDateTime lessonDateEnd;
-    private String        extraInstruments;
+    private String  extraInstruments;
 
 }

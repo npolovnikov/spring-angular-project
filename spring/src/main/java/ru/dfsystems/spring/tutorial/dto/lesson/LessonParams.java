@@ -10,17 +10,24 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LessonParams {
 
-    private Integer       id;
-    private String        name;
-    private String        description;
+    private Integer id;
+    private String name;
+    private String description;
+    private String orderBy;
+    private String orderDir;
 
-    private Integer       courseIdd;
-    private Integer       roomIdd;
+    private Integer courseIdd;
+    private Integer roomIdd;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime lessonDateStart;
+    private LocalDateTime lessonDateStartPrior;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime lessonDateEnd;
+    private LocalDateTime lessonDateStartLater;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime lessonDateEndPrior;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime lessonDateEndLater;
+
     private String        extraInstruments;
-
 }

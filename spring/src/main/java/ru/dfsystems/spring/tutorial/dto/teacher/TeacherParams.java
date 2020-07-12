@@ -16,6 +16,8 @@ public class TeacherParams {
     private String        lastName;
     private String        passport;
     private String        status;
+    private String orderBy;
+    private String orderDir;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime createDateStart;

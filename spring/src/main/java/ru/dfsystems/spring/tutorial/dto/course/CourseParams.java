@@ -12,16 +12,28 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CourseParams {
 
-    private Integer idd;
-    private String        name;
-    private String        description;
-    private Integer       teacherIdd;
-    private Integer       maxCountStudent;
-    private String        status;
+    private String idd;
+    private String name;
+    private String description;
+    private String teacherIdd;
+    private String maxCountStudent;
+    private String status;
+    private String orderBy;
+    private String orderDir;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime startDate;
+    private LocalDateTime startDateStart;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime endDate;
+    private LocalDateTime startDateEnd;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime endDateStart;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime endDateEnd;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime createDateStart;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime createDateEnd;
 
 }

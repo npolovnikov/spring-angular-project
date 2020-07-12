@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class StudentListDto extends BaseListDto {
+
     private String        firstName;
     private String        middleName;
     private String        lastName;

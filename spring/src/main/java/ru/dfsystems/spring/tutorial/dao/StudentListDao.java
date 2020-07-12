@@ -2,7 +2,6 @@ package ru.dfsystems.spring.tutorial.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.val;
-import lombok.var;
 import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
@@ -16,12 +15,11 @@ import ru.dfsystems.spring.tutorial.generated.tables.records.StudentRecord;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import static ru.dfsystems.spring.tutorial.generated.tables.Student.STUDENT;
 
 @Repository
 @AllArgsConstructor
-public class StudentListDao {
+public class StudentListDao implements BaseListDao<Student, StudentParams> {
     private final DSLContext jooq;
 
     public Page<Student> list(PageParams<StudentParams> pageParams) {
@@ -37,6 +35,7 @@ public class StudentListDao {
                 .fetchInto(Student.class);
 
         return new Page<>(list, count);
+
     }
 
     private SelectSeekStepN<StudentRecord> getStudentSelect(StudentParams params){

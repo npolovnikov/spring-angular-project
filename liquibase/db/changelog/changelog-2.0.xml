@@ -14,13 +14,25 @@
     <changeSet id="20200622-01" author="ovcharov">
         <preConditions onFail="MARK_RAN">
             <not>
+                <sequenceExists sequenceName="STUDENT_ID_SEQ" schemaName="public"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="STUDENT_ID_SEQ" dataType="int" schemaName="public"/>
+        <rollback>
+            <dropSequence sequenceName="STUDENT_ID_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200622-02" author="ovcharov">
+        <preConditions onFail="MARK_RAN">
+            <not>
                 <tableExists tableName="STUDENT" schemaName="public"/>
             </not>
         </preConditions>
         <comment>Создание таблицы STUDENT</comment>
         <createTable tableName="STUDENT">
-            <column name="ID" type="serial" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
+            <column name="ID" type="integer" defaultValueSequenceNext="STUDENT_ID_SEQ">
+                <constraints primaryKey="true"/>
             </column>
             <column name="IDD" type="int">
                 <constraints nullable="false"/>
@@ -41,7 +53,7 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="20200622-02" author="ovcharov">
+    <changeSet id="20200622-03" author="ovcharov">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="TEACHER" schemaName="public"/>
@@ -61,7 +73,6 @@
                 delete_date timestamp,
                 status varchar(10)
             );
-            create unique index idx_teacher_idd on TEACHER (idd);
         </sql>
         <rollback>
             <sql>
@@ -70,7 +81,7 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="20200622-03" author="ovcharov">
+    <changeSet id="20200622-04" author="ovcharov">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="USERS" schemaName="public"/>
@@ -83,7 +94,19 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="20200622-04" author="ovcharov">
+    <changeSet id="20200622-05" author="ovcharov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="COURSE_ID_SEQ" schemaName="public"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="COURSE_ID_SEQ" dataType="int" schemaName="public"/>
+        <rollback>
+            <dropSequence sequenceName="COURSE_ID_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200622-06" author="ovcharov">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="COURSE" schemaName="public"/>
@@ -91,8 +114,8 @@
         </preConditions>
         <comment>Создание таблицы COURSE</comment>
         <createTable tableName="COURSE">
-            <column name="ID" type="serial" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
+            <column name="ID" type="integer" defaultValueSequenceNext="COURSE_ID_SEQ">
+                <constraints primaryKey="true"/>
             </column>
             <column name="IDD" type="int">
                 <constraints nullable="false"/>
@@ -114,7 +137,7 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="20200622-05" author="ovcharov">
+    <changeSet id="20200622-07" author="ovcharov">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="STUDENT_TO_COURSE" schemaName="public"/>
@@ -134,7 +157,7 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="20200622-06" author="ovcharov">
+    <changeSet id="20200622-08" author="ovcharov">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="LESSON" schemaName="public"/>
@@ -160,7 +183,7 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="20200622-07" author="ovcharov">
+    <changeSet id="20200622-09" author="ovcharov">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="LESSON_TO_INSTRUMENT" schemaName="public"/>
