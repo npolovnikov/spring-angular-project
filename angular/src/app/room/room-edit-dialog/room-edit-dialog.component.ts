@@ -1,10 +1,12 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {Room} from "../../_model/room";
 import {RoomService} from "../../_service/room.service";
 import {SelectionModel} from "@angular/cdk/collections";
 import {AddInstrumentDialogComponent} from "./add-instrument-dialog/add-instrument-dialog.component";
 import {InstrumentService} from "../../_service/instrument.service";
+import {MatTable} from "@angular/material/table";
+import {InstrumentList} from "../../_model/instrument-list";
 
 @Component({
   selector: 'app-room-edit-dialog',
@@ -12,6 +14,8 @@ import {InstrumentService} from "../../_service/instrument.service";
   styleUrls: ['./room-edit-dialog.component.scss']
 })
 export class RoomEditDialogComponent implements OnInit {
+  @ViewChild(MatTable) instrumentTable: MatTable<InstrumentList>;
+
   data:Room = new Room();
 
   instrumentsDisplayedColumns: string [] = ['select', 'idd', 'name', 'number', 'createDate'];
@@ -69,6 +73,7 @@ export class RoomEditDialogComponent implements OnInit {
     this.data.instruments
       = this.data.instruments.filter(obj => obj.idd !== this.selection.selected[0].idd);
     this.selection.clear();
+    this.instrumentTable.renderRows();
   }
 
   onAddInstrument() {
@@ -78,6 +83,7 @@ export class RoomEditDialogComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.data.instruments.push(result);
+      this.instrumentTable.renderRows();
     });
   }
 }
