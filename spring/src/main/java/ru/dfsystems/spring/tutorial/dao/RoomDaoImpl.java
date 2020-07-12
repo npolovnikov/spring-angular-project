@@ -38,7 +38,7 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
     }
 
     @Override
-    public void create(Room room) {
+    public Room create(Room room) {
         room.setId(jooq.nextval(Sequences.ROOM_ID_SEQ));
         if (room.getIdd() == null) {
             room.setIdd(room.getId());

@@ -11,16 +11,16 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { InstrumentComponent } from './instrument/instrument.component';
-import {MatIconModule} from "@angular/material/icon";
-import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 import { RoomEditDialogComponent } from './room/room-edit-dialog/room-edit-dialog.component';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatDialogModule} from "@angular/material/dialog";
-import {FormsModule} from "@angular/forms";
-import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatDialogModule} from '@angular/material/dialog';
+import {FormsModule} from '@angular/forms';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AddInstrumentDialogComponent } from './room/room-edit-dialog/add-instrument-dialog/add-instrument-dialog.component';
-import {MatSelectModule} from "@angular/material/select";
+import {MatSelectModule} from '@angular/material/select';
 import { StudentComponent } from './student/student.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -31,7 +31,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RoomComponent,
     InstrumentComponent,
     RoomEditDialogComponent,
-    AddInstrumentDialogComponent
+    AddInstrumentDialogComponent,
     InstrumentComponent,
     StudentComponent
   ],

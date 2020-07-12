@@ -1,10 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {Room} from "../../_model/room";
+import {RoomList} from "../../_model/room-list";
 import {RoomService} from "../../_service/room.service";
 import {SelectionModel} from "@angular/cdk/collections";
 import {AddInstrumentDialogComponent} from "./add-instrument-dialog/add-instrument-dialog.component";
-import {InstrumentService} from "../../_service/instrument.service";
+// import {InstrumentService} from "../../_service/instrument.service";
 
 @Component({
   selector: 'app-room-edit-dialog',
@@ -12,7 +12,7 @@ import {InstrumentService} from "../../_service/instrument.service";
   styleUrls: ['./room-edit-dialog.component.scss']
 })
 export class RoomEditDialogComponent implements OnInit {
-  data:Room = new Room();
+  data: RoomList = new RoomList();
 
   instrumentsDisplayedColumns: string [] = ['select', 'idd', 'name', 'number', 'createDate'];
   selection = new SelectionModel(false, []);
@@ -23,7 +23,7 @@ export class RoomEditDialogComponent implements OnInit {
 
   constructor(
     private _roomService:RoomService,
-    private _instrumentService:InstrumentService,
+    // private _instrumentService:InstrumentService,
     public dialogRef: MatDialogRef<RoomEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public idd: number,
     public dialog: MatDialog) {}
@@ -35,7 +35,7 @@ export class RoomEditDialogComponent implements OnInit {
         .pipe()
         .subscribe(room => {this.data = room});
     } else {
-      this.data.instruments = [];
+      // this.data.instruments = [];
     }
   }
 
@@ -66,8 +66,8 @@ export class RoomEditDialogComponent implements OnInit {
   }
 
   onDeleteInstrument() {
-    this.data.instruments
-      = this.data.instruments.filter(obj => obj.idd !== this.selection.selected[0].idd);
+    // this.data.instruments
+    //   = this.data.instruments.filter(obj => obj.idd !== this.selection.selected[0].idd);
     this.selection.clear();
   }
 
@@ -76,8 +76,8 @@ export class RoomEditDialogComponent implements OnInit {
       width: '750px'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.data.instruments.push(result);
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   this.data.instruments.push(result);
+    // });
   }
 }
