@@ -3,7 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Page} from "../_model/page";
 import {PageParams} from "../_model/page-params";
-import {Room} from "../_model/room";
 import {InstrumentList} from "../_model/instrument-list";
 
 @Injectable({
@@ -19,7 +18,7 @@ export class InstrumentService {
     return this._httpClient.post<Page>(href, new PageParams(page*pageSize, pageSize, {
       orderBy:sort,
       orderDir:order
-    }));
+    }, null, null));
   }
 
   getInstrumentByIdd(idd: number): Observable<InstrumentList> {

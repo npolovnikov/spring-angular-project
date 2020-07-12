@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Page} from "../_model/page";
 import {PageParams} from "../_model/page-params";
-import {RoomList} from "../_model/room-list";
+import {Room} from '../_model/room';
 
 @Injectable({
   providedIn: 'root'
@@ -21,18 +21,18 @@ export class RoomService {
     }, null, null));
   }
 
-  getRoomByIdd(idd: number): Observable<RoomList> {
+  getRoomByIdd(idd: number): Observable<Room> {
     const href = '/api/room/' + idd;
 
-    return this._httpClient.get<RoomList>(href);
+    return this._httpClient.get<Room>(href);
   }
 
-  updateRoom(idd: number, data: RoomList):Observable<Object> {
+  updateRoom(idd: number, data: Room):Observable<Object> {
     const href = '/api/room/' + idd;
     return this._httpClient.patch(href, data);
   }
 
-  createRoom(data: RoomList):Observable<Object> {
+  createRoom(data: Room):Observable<Object> {
     const href = '/api/room';
     return this._httpClient.post(href, data);
   }
