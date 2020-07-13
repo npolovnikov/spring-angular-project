@@ -15,7 +15,13 @@ public class RoomParams {
     private Integer idd;
     private String number;
     private String block;
+    /**
+     * По какому полю сортируем
+     */
     private String orderBy;
+    /**
+     * По возрастанию/убыванию (asc/desc)
+     */
     private String orderDir;
 
     /**

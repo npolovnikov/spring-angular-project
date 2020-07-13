@@ -1,8 +1,7 @@
-package ru.dfsystems.spring.tutorial.dao;
+package ru.dfsystems.spring.tutorial.dao.course;
 
 import lombok.AllArgsConstructor;
 import lombok.val;
-import lombok.var;
 import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.course.CourseParams;
-import ru.dfsystems.spring.tutorial.generated.tables.daos.CourseDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
 import ru.dfsystems.spring.tutorial.generated.tables.records.CourseRecord;
 
@@ -21,13 +19,13 @@ import static ru.dfsystems.spring.tutorial.generated.Tables.COURSE;
 
 @Repository
 @AllArgsConstructor
-public class CourseDaoImpl extends CourseDao {
+public class CourseListDao {
     private final DSLContext jooq;
 
     /**
      * Возвращает page курсов с выбранными параметрами
      */
-    public Page<Course> getCoursesByParams(PageParams<CourseParams> pageParams) {
+    public Page<Course> list(PageParams<CourseParams> pageParams) {
         final CourseParams params = pageParams.getParams() == null ? new CourseParams() : pageParams.getParams();
         /* получаем записи, соответствующие параметрам */
         val listQuery = getCourseSelect(params);
@@ -50,7 +48,7 @@ public class CourseDaoImpl extends CourseDao {
      */
     private SelectSeekStepN<CourseRecord> getCourseSelect(CourseParams params) {
         var condition = COURSE.DELETE_DATE.isNull();
-        if (!params.getName().isEmpty()) {
+        if (params.getName() != null) {
             condition = condition.and(COURSE.NAME.like(params.getName()));
         }
         if (params.getTeacherIdd() != null) {
@@ -59,7 +57,7 @@ public class CourseDaoImpl extends CourseDao {
         if (params.getMaxCountStudent() != null) {
             condition = condition.and(COURSE.MAX_COUNT_STUDENT.equal((params.getMaxCountStudent())));
         }
-        if (!params.getStatus().isEmpty()) {
+        if (params.getStatus() != null) {
             condition = condition.and(COURSE.STATUS.like(params.getStatus()));
         }
         if (params.getStartDateStart() != null && params.getStartDateEnd() != null) {
@@ -84,7 +82,7 @@ public class CourseDaoImpl extends CourseDao {
      */
     private SortField[] getOrderBy(String orderBy, String orderDir) {
         /* определяем направление сортировки */
-        val asc = orderDir != null && orderDir.equalsIgnoreCase("asc");
+        val asc = orderDir == null || orderDir.equalsIgnoreCase("asc");
 
         /* Если orderBy не заполнен, сортируем по IDD */
         if (orderBy == null) {

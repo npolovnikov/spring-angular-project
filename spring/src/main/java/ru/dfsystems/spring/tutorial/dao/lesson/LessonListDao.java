@@ -1,4 +1,4 @@
-package ru.dfsystems.spring.tutorial.dao;
+package ru.dfsystems.spring.tutorial.dao.lesson;
 
 import lombok.AllArgsConstructor;
 import lombok.val;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonParams;
-import ru.dfsystems.spring.tutorial.generated.tables.daos.LessonDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Lesson;
 import ru.dfsystems.spring.tutorial.generated.tables.records.LessonRecord;
 
@@ -22,13 +21,13 @@ import static ru.dfsystems.spring.tutorial.generated.Tables.LESSON;
 
 @Repository
 @AllArgsConstructor
-public class LessonDaoImpl extends LessonDao {
+public class LessonListDao {
     private final DSLContext jooq;
 
     /**
      * Возвращает page уроков в с выбранными параметрами
      */
-    public Page<Lesson> getLessonsByParams(PageParams<LessonParams> pageParams) {
+    public Page<Lesson> list(PageParams<LessonParams> pageParams) {
         final LessonParams params = pageParams.getParams() == null ? new LessonParams() : pageParams.getParams();
         /* получаем записи, соответствующие параметрам */
         val listQuery = getLessonSelect(params);
@@ -50,7 +49,7 @@ public class LessonDaoImpl extends LessonDao {
      */
     private SelectSeekStepN<LessonRecord> getLessonSelect(LessonParams params) {
         Condition condition = DSL.noCondition();
-        if (!params.getName().isEmpty()) {
+        if (params.getName() != null) {
             condition = condition.and(LESSON.NAME.like(params.getName()));
         }
         if (params.getCourseIdd() != null) {
@@ -59,7 +58,7 @@ public class LessonDaoImpl extends LessonDao {
         if (params.getRoomIdd() != null) {
             condition = condition.and(LESSON.ROOM_IDD.equal(params.getRoomIdd()));
         }
-        if (!params.getExtraInstruments().isEmpty()) {
+        if (params.getExtraInstruments() != null) {
             condition = condition.and(LESSON.EXTRA_INSTRUMENTS.like(params.getExtraInstruments()));
         }
         if (params.getLessonDateStartStart() != null && params.getLessonDateStartEnd() != null) {
@@ -82,7 +81,7 @@ public class LessonDaoImpl extends LessonDao {
      */
     private SortField[] getOrderBy(String orderBy, String orderDir) {
         /* определяем направление сортировки */
-        val asc = orderDir != null && orderDir.equalsIgnoreCase("asc");
+        val asc = orderDir == null || orderDir.equalsIgnoreCase("asc");
 
         /* Если orderBy не заполнен, сортируем по ID */
         if (orderBy == null) {

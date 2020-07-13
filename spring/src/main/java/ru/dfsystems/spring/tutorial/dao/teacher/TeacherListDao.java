@@ -1,40 +1,38 @@
-package ru.dfsystems.spring.tutorial.dao;
+package ru.dfsystems.spring.tutorial.dao.teacher;
 
 import lombok.AllArgsConstructor;
 import lombok.val;
-import lombok.var;
 import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
-import ru.dfsystems.spring.tutorial.dto.user.UserParams;
-import ru.dfsystems.spring.tutorial.generated.tables.daos.UserDao;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.User;
-import ru.dfsystems.spring.tutorial.generated.tables.records.UserRecord;
+import ru.dfsystems.spring.tutorial.dto.teacher.TeacherParams;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Teacher;
+import ru.dfsystems.spring.tutorial.generated.tables.records.TeacherRecord;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.dfsystems.spring.tutorial.generated.Tables.USER;
+import static ru.dfsystems.spring.tutorial.generated.Tables.TEACHER;
 
 @Repository
 @AllArgsConstructor
-public class UserDaoImpl extends UserDao {
+public class TeacherListDao {
     private final DSLContext jooq;
 
     /**
-     * Возвращает page юзеров с выбранными параметрами
+     * Возвращает page учителей с выбранными параметрами
      */
-    public Page<User> getUsersByParams(PageParams<UserParams> pageParams) {
-        final UserParams params = pageParams.getParams() == null ? new UserParams() : pageParams.getParams();
+    public Page<Teacher> list(PageParams<TeacherParams> pageParams) {
+        final TeacherParams params = pageParams.getParams() == null ? new TeacherParams() : pageParams.getParams();
         /* получаем записи, соответствующие параметрам */
-        val listQuery = getUserSelect(params);
+        val listQuery = getTeacherSelect(params);
 
-        List<User> list = listQuery.offset(pageParams.getStart())
+        List<Teacher> list = listQuery.offset(pageParams.getStart())
                 .limit(pageParams.getPage())
-                .fetchInto(User.class);
+                .fetchInto(Teacher.class);
 
         val count = jooq.selectCount()
                 .from(listQuery)
@@ -47,33 +45,33 @@ public class UserDaoImpl extends UserDao {
     /**
      * Возвращает записи, соответствующие выбранным параметрам
      */
-    private SelectSeekStepN<UserRecord> getUserSelect(UserParams params) {
-        var condition = USER.DELETE_DATE.isNull();
-        if (!params.getFirstName().isEmpty()) {
-            condition = condition.and(USER.FIRST_NAME.like(params.getFirstName()));
+    private SelectSeekStepN<TeacherRecord> getTeacherSelect(TeacherParams params) {
+        var condition = TEACHER.DELETE_DATE.isNull();
+        if (params.getFirstName() != null) {
+            condition = condition.and(TEACHER.FIRST_NAME.like(params.getFirstName()));
         }
-        if (!params.getMiddleName().isEmpty()) {
-            condition = condition.and(USER.MIDDLE_NAME.like(params.getMiddleName()));
+        if (params.getMiddleName() != null) {
+            condition = condition.and(TEACHER.MIDDLE_NAME.like(params.getMiddleName()));
         }
-        if (!params.getLastName().isEmpty()) {
-            condition = condition.and(USER.LAST_NAME.like(params.getLastName()));
+        if (params.getLastName() != null) {
+            condition = condition.and(TEACHER.LAST_NAME.like(params.getLastName()));
         }
-        if (!params.getPassport().isEmpty()) {
-            condition = condition.and(USER.PASSPORT.like(params.getPassport()));
+        if (params.getPassport() != null) {
+            condition = condition.and(TEACHER.PASSPORT.like(params.getPassport()));
         }
-        if (!params.getStatus().isEmpty()) {
-            condition = condition.and(USER.STATUS.like(params.getStatus()));
+        if (params.getStatus() != null) {
+            condition = condition.and(TEACHER.STATUS.like(params.getStatus()));
         }
         if (params.getBirthDateStart() != null && params.getBirthDateEnd() != null) {
-            condition = condition.and(USER.BIRTH_DATE.between(params.getBirthDateStart(), params.getBirthDateEnd()));
+            condition = condition.and(TEACHER.BIRTH_DATE.between(params.getBirthDateStart(), params.getBirthDateEnd()));
         }
         if (params.getCreateDateStart() != null && params.getCreateDateEnd() != null) {
-            condition = condition.and(USER.CREATE_DATE.between(params.getCreateDateStart(), params.getCreateDateEnd()));
+            condition = condition.and(TEACHER.CREATE_DATE.between(params.getCreateDateStart(), params.getCreateDateEnd()));
         }
         /* получаем сортировку */
         val sort = getOrderBy(params.getOrderBy(), params.getOrderDir());
         /* Возвращаем записи, соответствующие условию, в порядке полученной сортировки */
-        return jooq.selectFrom(USER)
+        return jooq.selectFrom(TEACHER)
                 .where(condition)
                 .orderBy(sort);
     }
@@ -83,13 +81,13 @@ public class UserDaoImpl extends UserDao {
      */
     private SortField[] getOrderBy(String orderBy, String orderDir) {
         /* определяем направление сортировки */
-        val asc = orderDir != null && orderDir.equalsIgnoreCase("asc");
+        val asc = orderDir == null || orderDir.equalsIgnoreCase("asc");
 
         /* Если orderBy не заполнен, сортируем по IDD */
         if (orderBy == null) {
             return asc
-                    ? new SortField[]{USER.IDD.asc()}
-                    : new SortField[]{USER.IDD.desc()};
+                    ? new SortField[]{TEACHER.IDD.asc()}
+                    : new SortField[]{TEACHER.IDD.desc()};
         }
         /* Если в orderBy перечислено несколько сортировок, получаем из них массив */
         val orderArray = orderBy.split(",");
@@ -97,32 +95,31 @@ public class UserDaoImpl extends UserDao {
         List<SortField> listSortBy = new ArrayList<>();
         for (val order : orderArray) {
             if (order.equalsIgnoreCase("idd")) {
-                listSortBy.add(asc ? USER.IDD.asc() : USER.IDD.desc());
+                listSortBy.add(asc ? TEACHER.IDD.asc() : TEACHER.IDD.desc());
             }
             if (order.equalsIgnoreCase("firstName")) {
-                listSortBy.add(asc ? USER.FIRST_NAME.asc() : USER.FIRST_NAME.desc());
+                listSortBy.add(asc ? TEACHER.FIRST_NAME.asc() : TEACHER.FIRST_NAME.desc());
             }
             if (order.equalsIgnoreCase("middleName")) {
-                listSortBy.add(asc ? USER.MIDDLE_NAME.asc() : USER.MIDDLE_NAME.desc());
+                listSortBy.add(asc ? TEACHER.MIDDLE_NAME.asc() : TEACHER.MIDDLE_NAME.desc());
             }
             if (order.equalsIgnoreCase("lastName")) {
-                listSortBy.add(asc ? USER.LAST_NAME.asc() : USER.LAST_NAME.desc());
+                listSortBy.add(asc ? TEACHER.LAST_NAME.asc() : TEACHER.LAST_NAME.desc());
             }
             if (order.equalsIgnoreCase("passport")) {
-                listSortBy.add(asc ? USER.PASSPORT.asc() : USER.PASSPORT.desc());
+                listSortBy.add(asc ? TEACHER.PASSPORT.asc() : TEACHER.PASSPORT.desc());
             }
             if (order.equalsIgnoreCase("status")) {
-                listSortBy.add(asc ? USER.STATUS.asc() : USER.STATUS.desc());
+                listSortBy.add(asc ? TEACHER.STATUS.asc() : TEACHER.STATUS.desc());
             }
             if (order.equalsIgnoreCase("birthDate")) {
-                listSortBy.add(asc ? USER.BIRTH_DATE.asc() : USER.BIRTH_DATE.desc());
+                listSortBy.add(asc ? TEACHER.BIRTH_DATE.asc() : TEACHER.BIRTH_DATE.desc());
             }
             if (order.equalsIgnoreCase("createDate")) {
-                listSortBy.add(asc ? USER.CREATE_DATE.asc() : USER.CREATE_DATE.desc());
+                listSortBy.add(asc ? TEACHER.CREATE_DATE.asc() : TEACHER.CREATE_DATE.desc());
             }
         }
         /* возвращает SortField массив с первым элементом - new SortField[0] (1ая полученная сортировка) */
         return listSortBy.toArray(new SortField[0]);
     }
 }
-

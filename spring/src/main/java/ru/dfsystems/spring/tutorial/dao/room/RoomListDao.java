@@ -1,41 +1,41 @@
-package ru.dfsystems.spring.tutorial.dao;
+package ru.dfsystems.spring.tutorial.dao.room;
 
 import lombok.AllArgsConstructor;
 import lombok.val;
-import lombok.var;
 import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
-import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentParams;
-import ru.dfsystems.spring.tutorial.generated.tables.daos.InstrumentDao;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
-import ru.dfsystems.spring.tutorial.generated.tables.records.InstrumentRecord;
+import ru.dfsystems.spring.tutorial.dto.room.RoomParams;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
+import ru.dfsystems.spring.tutorial.generated.tables.records.RoomRecord;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.dfsystems.spring.tutorial.generated.Tables.INSTRUMENT;
+import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 
 @Repository
 @AllArgsConstructor
-public class InstrumentDaoImpl extends InstrumentDao {
+public class RoomListDao {
     private final DSLContext jooq;
 
     /**
-     * Возвращает page инструментов с выбранными параметрами
+     * Возвращает page кабинетов с выбранными параметрами
      */
-    public Page<Instrument> getInstrumentsByParams(PageParams<InstrumentParams> pageParams) {
-        final InstrumentParams params = pageParams.getParams() == null ? new InstrumentParams() : pageParams.getParams();
+    public Page<Room> list(PageParams<RoomParams> pageParams) {
+        final RoomParams params = pageParams.getParams() == null ? new RoomParams() : pageParams.getParams();
         /* получаем записи, соответствующие параметрам */
-        val listQuery = getInstrumentSelect(params);
+        val listQuery = getRoomSelect(params);
 
-        List<Instrument> list = listQuery.offset(pageParams.getStart())
+        /* кабинеты, соответствующие параметрам, выводимые в количестве page начиная с элемента под номером start */
+        List<Room> list = listQuery.offset(pageParams.getStart())
                 .limit(pageParams.getPage())
-                .fetchInto(Instrument.class);
+                .fetchInto(Room.class);
 
+        /* количество полученных кабинетов, соответствующих параметрам */
         val count = jooq.selectCount()
                 .from(listQuery)
                 .fetchOne(0, Long.class);
@@ -47,21 +47,22 @@ public class InstrumentDaoImpl extends InstrumentDao {
     /**
      * Возвращает записи, соответствующие выбранным параметрам
      */
-    private SelectSeekStepN<InstrumentRecord> getInstrumentSelect(InstrumentParams params) {
-        var condition = INSTRUMENT.DELETE_DATE.isNull();
-        if (!params.getName().isEmpty()) {
-            condition = condition.and(INSTRUMENT.NAME.like(params.getName()));
+    private SelectSeekStepN<RoomRecord> getRoomSelect(RoomParams params) {
+        /* определяем условие поиска кабинетов */
+        var condition = ROOM.DELETE_DATE.isNull();
+        if (params.getBlock() != null) {
+            condition = condition.and(ROOM.BLOCK.like(params.getBlock()));
         }
-        if (!params.getNumber().isEmpty()) {
-            condition = condition.and(INSTRUMENT.NUMBER.like(params.getNumber()));
+        if (params.getNumber() != null) {
+            condition = condition.and(ROOM.NUMBER.like(params.getNumber()));
         }
         if (params.getCreateDateStart() != null && params.getCreateDateEnd() != null) {
-            condition = condition.and(INSTRUMENT.CREATE_DATE.between(params.getCreateDateStart(), params.getCreateDateEnd()));
+            condition = condition.and(ROOM.CREATE_DATE.between(params.getCreateDateStart(), params.getCreateDateEnd()));
         }
         /* получаем сортировку */
         val sort = getOrderBy(params.getOrderBy(), params.getOrderDir());
         /* Возвращаем записи, соответствующие условию, в порядке полученной сортировки */
-        return jooq.selectFrom(INSTRUMENT)
+        return jooq.selectFrom(ROOM)
                 .where(condition)
                 .orderBy(sort);
     }
@@ -71,13 +72,13 @@ public class InstrumentDaoImpl extends InstrumentDao {
      */
     private SortField[] getOrderBy(String orderBy, String orderDir) {
         /* определяем направление сортировки */
-        val asc = orderDir != null && orderDir.equalsIgnoreCase("asc");
+        val asc = orderDir == null || orderDir.equalsIgnoreCase("asc");
 
         /* Если orderBy не заполнен, сортируем по IDD */
         if (orderBy == null) {
             return asc
-                    ? new SortField[]{INSTRUMENT.IDD.asc()}
-                    : new SortField[]{INSTRUMENT.IDD.desc()};
+                    ? new SortField[]{ROOM.IDD.asc()}
+                    : new SortField[]{ROOM.IDD.desc()};
         }
         /* Если в orderBy перечислено несколько сортировок, получаем из них массив */
         val orderArray = orderBy.split(",");
@@ -85,16 +86,16 @@ public class InstrumentDaoImpl extends InstrumentDao {
         List<SortField> listSortBy = new ArrayList<>();
         for (val order : orderArray) {
             if (order.equalsIgnoreCase("idd")) {
-                listSortBy.add(asc ? INSTRUMENT.IDD.asc() : INSTRUMENT.IDD.desc());
+                listSortBy.add(asc ? ROOM.IDD.asc() : ROOM.IDD.desc());
             }
-            if (order.equalsIgnoreCase("name")) {
-                listSortBy.add(asc ? INSTRUMENT.NAME.asc() : INSTRUMENT.NAME.desc());
+            if (order.equalsIgnoreCase("block")) {
+                listSortBy.add(asc ? ROOM.BLOCK.asc() : ROOM.BLOCK.desc());
             }
             if (order.equalsIgnoreCase("number")) {
-                listSortBy.add(asc ? INSTRUMENT.NUMBER.asc() : INSTRUMENT.NUMBER.desc());
+                listSortBy.add(asc ? ROOM.NUMBER.asc() : ROOM.NUMBER.desc());
             }
             if (order.equalsIgnoreCase("createDate")) {
-                listSortBy.add(asc ? INSTRUMENT.CREATE_DATE.asc() : INSTRUMENT.CREATE_DATE.desc());
+                listSortBy.add(asc ? ROOM.CREATE_DATE.asc() : ROOM.CREATE_DATE.desc());
             }
         }
         /* возвращает SortField массив с первым элементом - new SortField[0] (1ая полученная сортировка) */
