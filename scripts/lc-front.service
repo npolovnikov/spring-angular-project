@@ -1,0 +1,11 @@
+[Unit]
+Description=Front LearningCourses
+After=network-online.target
+
+[Service]
+Restart=on-failure
+WorkingDirectory=/var/lib/jenkins/workspace/LearningCourses/angular
+ExecStart=npm run start
+
+[Install]
+WantedBy=multi-user.target

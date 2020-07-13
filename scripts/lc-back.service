@@ -1,0 +1,11 @@
+[Unit]
+Description=Back LearningCourses
+After=network-online.target
+
+[Service]
+Restart=on-failure
+WorkingDirectory=/var/lib/jenkins/workspace/LearningCourses/spring/target
+ExecStart=/usr/lib/jvm/jre-11/bin/java -jar spring-1.0-SNAPSHOT.jar
+
+[Install]
+WantedBy=multi-user.target
