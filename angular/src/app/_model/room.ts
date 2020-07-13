@@ -6,8 +6,4 @@ export class Room extends BaseEntity<RoomHistory>{
   number:string;
   block:string;
   instruments:InstrumentList[];
-
-  toString(): string {
-    return "Номер " + this.number + ", Корпус " + this.block;
-  }
 }

@@ -6,6 +6,7 @@ import {LessonComponent} from "./lesson/lesson.component";
 import {StudentComponent} from "./student/student.component";
 import {TeacherComponent} from "./teacher/teacher.component";
 import {CourseComponent} from "./course/course.component";
+import {LoginComponent} from "./login/login.component";
 
 
 const routes: Routes = [
@@ -14,9 +15,10 @@ const routes: Routes = [
   {path:'lesson', component:LessonComponent},
   {path:'student', component:StudentComponent},
   {path:'teacher', component:TeacherComponent},
-  {path:'course', component:CourseComponent}
-  //
-  // {path:'**', redirectTo:'/room'}
+  {path:'course', component:CourseComponent},
+  {path:'login', component:LoginComponent},
+
+  {path:'**', redirectTo:'/login'}
 ];
 
 @NgModule({

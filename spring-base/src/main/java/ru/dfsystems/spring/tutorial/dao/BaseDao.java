@@ -5,7 +5,7 @@ import ru.dfsystems.spring.tutorial.generate.BaseJooq;
 import java.util.List;
 
 public interface BaseDao<Entity extends BaseJooq> {
-    void create(Entity entity);
+    Entity create(Entity entity);
 
     Entity getActiveByIdd(Integer idd);
 
