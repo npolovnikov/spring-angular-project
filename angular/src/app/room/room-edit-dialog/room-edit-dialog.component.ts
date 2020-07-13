@@ -6,7 +6,7 @@ import {SelectionModel} from "@angular/cdk/collections";
 import {AddInstrumentDialogComponent} from "./add-instrument-dialog/add-instrument-dialog.component";
 import {InstrumentService} from "../../_service/instrument.service";
 import {MatTable} from "@angular/material/table";
-import {InstrumentList} from "../../_model/instrument-list";
+import {InstrumentList} from "../../_model/instrumentList";
 
 @Component({
   selector: 'app-room-edit-dialog',

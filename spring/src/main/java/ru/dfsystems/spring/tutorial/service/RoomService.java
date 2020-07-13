@@ -6,8 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.dfsystems.spring.tutorial.dao.room.RoomDaoImpl;
 import ru.dfsystems.spring.tutorial.dao.room.RoomListDao;
 import ru.dfsystems.spring.tutorial.dao.InstrumentToRoomDaoImpl;
-import ru.dfsystems.spring.tutorial.dao.RoomDaoImpl;
-import ru.dfsystems.spring.tutorial.dao.RoomListDao;
 import ru.dfsystems.spring.tutorial.dto.BaseListDto;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentListDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomDto;
