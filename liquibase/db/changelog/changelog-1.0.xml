@@ -6,7 +6,7 @@
         xmlns:pro="http://www.liquibase.org/xml/ns/pro"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
     http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd ">
-    <changeSet id="20200620-00" author="polovnikov">
+    <changeSet id="20200620-00" author="nik">
         <preConditions onFail="MARK_RAN">
             <not>
                 <sequenceExists sequenceName="INSTRUMENT_ID_SEQ" schemaName="public"/>
@@ -18,7 +18,7 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="20200622-01" author="polovnikov">
+    <changeSet id="20200622-01" author="nik">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="INSTRUMENT" schemaName="public"/>
@@ -35,11 +35,11 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="20200620-02-0" author="polovnikov">
+    <changeSet id="20200620-02-0" author="nik">
         <tagDatabase tag="changelog-2.0"/>
     </changeSet>
 
-    <changeSet id="20200622-02" author="polovnikov">
+    <changeSet id="20200622-02" author="nik">
         <preConditions onFail="MARK_RAN">
             <and>
                 <tableExists tableName="INSTRUMENT" schemaName="public"/>
@@ -59,7 +59,7 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="20200620-03" author="polovnkov">
+    <changeSet id="20200620-03" author="nik">
         <preConditions onFail="MARK_RAN">
             <and>
                 <tableExists tableName="INSTRUMENT" schemaName="public"/>
@@ -94,7 +94,7 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="20200620-04" author="polovnikov">
+    <changeSet id="20200620-04" author="nik">
         <preConditions onFail="MARK_RAN">
             <and>
                 <tableExists tableName="INSTRUMENT" schemaName="public"/>
@@ -109,7 +109,7 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="20200620-05" author="polovnikov">
+    <changeSet id="20200620-05" author="nik">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="ROOM" schemaName="public"/>
@@ -133,7 +133,7 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="20200620-06" author="polovikov">
+    <changeSet id="20200620-06" author="nik">
         <preConditions>
             <not>
                 <tableExists tableName="INSTRUMENT_TO_ROOM" schemaName="public"/>

@@ -1,5 +1,5 @@
 package ru.dfsystems.spring.tutorial.dao;
-/*
+
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
@@ -42,4 +42,3 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
         super.insert(room);
     }
 }
-*/
