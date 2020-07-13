@@ -9,13 +9,17 @@ import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentParams;
+import ru.dfsystems.spring.tutorial.dto.room.RoomParams;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 import ru.dfsystems.spring.tutorial.generated.tables.records.InstrumentRecord;
+import ru.dfsystems.spring.tutorial.generated.tables.records.RoomRecord;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMENT;
+import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 
 @Repository
 @AllArgsConstructor
@@ -75,7 +79,7 @@ public class InstrumentListDao implements BaseListDao<Instrument, InstrumentPara
             if (order.equalsIgnoreCase("idd")){
                 listSortBy.add(asc ? INSTRUMENT.IDD.asc() : INSTRUMENT.IDD.desc());
             }
-            if (order.equalsIgnoreCase("name")){
+            if (order.equalsIgnoreCase("block")){
                 listSortBy.add(asc ? INSTRUMENT.NAME.asc() : INSTRUMENT.NAME.desc());
             }
             if (order.equalsIgnoreCase("number")){
@@ -88,5 +92,4 @@ public class InstrumentListDao implements BaseListDao<Instrument, InstrumentPara
 
         return listSortBy.toArray(new SortField[0]);
     }
-
 }

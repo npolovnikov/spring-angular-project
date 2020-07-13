@@ -1,16 +1,19 @@
+
 package ru.dfsystems.spring.tutorial.dao;
 
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.RoomDao;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
+import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMENT;
 import static ru.dfsystems.spring.tutorial.generated.tables.InstrumentToRoom.INSTRUMENT_TO_ROOM;
+import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 
 @Repository
 public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
@@ -34,13 +37,14 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
                 .fetchInto(Room.class);
     }
 
-    public void create(Room room) {
-       room.setId(jooq.nextval(Sequences.ROOM_ID_SEQ));
+    public Room create(Room room) {
+        room.setId(jooq.nextval(Sequences.ROOM_ID_SEQ));
         if (room.getIdd() == null) {
             room.setIdd(room.getId());
         }
         room.setCreateDate(LocalDateTime.now());
         super.insert(room);
+        return room;
     }
 
     public List<Room> getRoomsByInstrumentIdd(Integer idd) {

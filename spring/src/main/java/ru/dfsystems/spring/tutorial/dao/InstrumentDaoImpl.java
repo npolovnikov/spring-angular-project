@@ -11,8 +11,6 @@ import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMENT;
 import static ru.dfsystems.spring.tutorial.generated.tables.InstrumentToRoom.INSTRUMENT_TO_ROOM;
-import static ru.dfsystems.spring.tutorial.generated.tables.Lesson.LESSON;
-import static ru.dfsystems.spring.tutorial.generated.tables.LessonToInstrument.LESSON_TO_INSTRUMENT;
 
 @Repository
 public class InstrumentDaoImpl extends InstrumentDao implements BaseDao<Instrument> {
@@ -25,20 +23,23 @@ public class InstrumentDaoImpl extends InstrumentDao implements BaseDao<Instrume
 
     public List<Instrument> getInstrumentsByRoomIdd(Integer idd) {
         return jooq.select(INSTRUMENT.fields())
-                    .from(INSTRUMENT)
-                        .join(INSTRUMENT_TO_ROOM)
-                            .on(INSTRUMENT.IDD.eq(INSTRUMENT_TO_ROOM.INSTRUMENT_IDD))
-                    .where(INSTRUMENT_TO_ROOM.ROOM_IDD.eq(idd))
-                    .fetchInto(Instrument.class);
+                .from(INSTRUMENT)
+                .join(INSTRUMENT_TO_ROOM)
+                .on(INSTRUMENT.IDD.eq(INSTRUMENT_TO_ROOM.INSTRUMENT_IDD))
+                .where(INSTRUMENT_TO_ROOM.ROOM_IDD.eq(idd))
+                .fetchInto(Instrument.class);
+
     }
+
     @Override
-    public void create(Instrument instrument) {
+    public Instrument create(Instrument instrument) {
         instrument.setId(jooq.nextval(Sequences.INSTRUMENT_ID_SEQ));
         if (instrument.getIdd() == null) {
             instrument.setIdd(instrument.getId());
         }
         instrument.setCreateDate(LocalDateTime.now());
         super.insert(instrument);
+        return instrument;
     }
 
     @Override
@@ -52,15 +53,6 @@ public class InstrumentDaoImpl extends InstrumentDao implements BaseDao<Instrume
     public List<Instrument> getHistory(Integer idd) {
         return jooq.selectFrom(INSTRUMENT)
                 .where(INSTRUMENT.IDD.eq(idd))
-                .fetchInto(Instrument.class);
-    }
-
-    public List<Instrument> getInstrumentsByLessonId(Integer id) {
-        return jooq.select(LESSON.fields())
-                .from(LESSON)
-                .join(LESSON_TO_INSTRUMENT)
-                .on(INSTRUMENT.IDD.eq(LESSON_TO_INSTRUMENT.INSTRUMENT_IDD))
-                .where(LESSON_TO_INSTRUMENT.LESSON_ID.eq(id))
                 .fetchInto(Instrument.class);
     }
 }
