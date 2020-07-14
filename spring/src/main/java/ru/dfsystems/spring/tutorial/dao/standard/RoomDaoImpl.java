@@ -6,6 +6,7 @@ import ru.dfsystems.spring.tutorial.dao.BaseDao;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.RoomDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
+import ru.dfsystems.spring.tutorial.security.UserContext;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,10 +18,12 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 @Repository
 public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
     private final DSLContext jooq;
+    private UserContext userContext;
 
-    public RoomDaoImpl(DSLContext jooq) {
+    public RoomDaoImpl(DSLContext jooq, UserContext userContext) {
         super(jooq.configuration());
         this.jooq = jooq;
+        this.userContext = userContext;
     }
 
     public Room getActiveByIdd(Integer idd) {
@@ -36,13 +39,15 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
                 .fetchInto(Room.class);
     }
 
-    public void create(Room room) {
+    public Room create(Room room) {
         room.setId(jooq.nextval(Sequences.ROOM_ID_SEQ));
         if (room.getIdd() == null) {
             room.setIdd(room.getId());
         }
         room.setCreateDate(LocalDateTime.now());
+        room.setUserId(userContext.getUser().getId());
         super.insert(room);
+        return room;
     }
 
     public List<Room> getRoomsByInstrumentIdd(Integer idd) {
