@@ -21,6 +21,7 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Course.COURSE;
 @Repository
 @AllArgsConstructor
 public class CourseListDao implements BaseListDao<Course, CourseParams> {
+
     private final DSLContext jooq;
 
     @Override

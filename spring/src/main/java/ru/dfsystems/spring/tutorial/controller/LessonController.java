@@ -1,21 +1,15 @@
 package ru.dfsystems.spring.tutorial.controller;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.dfsystems.spring.tutorial.dto.Page;
-import ru.dfsystems.spring.tutorial.dto.PageParams;
-import ru.dfsystems.spring.tutorial.dto.course.CourseDto;
-import ru.dfsystems.spring.tutorial.dto.course.CourseListDto;
-import ru.dfsystems.spring.tutorial.dto.course.CourseParams;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonDto;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonListDto;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonParams;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Lesson;
-import ru.dfsystems.spring.tutorial.service.BaseService;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 import ru.dfsystems.spring.tutorial.service.LessonService;
 
 @RestController
@@ -28,5 +22,10 @@ public class LessonController extends BaseController<LessonListDto, LessonDto, L
     public LessonController(LessonService service) {
         super(service);
         lessonService = service;
+    }
+
+    @GetMapping("/{idd}/room")
+    public Room getRoomFromLessonByIdd(@PathVariable("idd") Integer idd) {
+        return lessonService.getRoomFromLessonByIdd(idd);
     }
 }

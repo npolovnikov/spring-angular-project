@@ -10,17 +10,13 @@ import ru.dfsystems.spring.tutorial.dao.BaseListDao;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentParams;
-import ru.dfsystems.spring.tutorial.dto.room.RoomParams;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 import ru.dfsystems.spring.tutorial.generated.tables.records.InstrumentRecord;
-import ru.dfsystems.spring.tutorial.generated.tables.records.RoomRecord;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMENT;
-import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 
 @Repository
 @AllArgsConstructor
@@ -42,18 +38,18 @@ public class InstrumentListDao implements BaseListDao<Instrument, InstrumentPara
         return new Page<>(list, count);
     }
 
-    private SelectSeekStepN<InstrumentRecord> getInstrumentSelect(InstrumentParams params){
-        var condition = ROOM.DELETE_DATE.isNull();
-        if (params.getIdd() != null){
+    private SelectSeekStepN<InstrumentRecord> getInstrumentSelect(InstrumentParams params) {
+        var condition = INSTRUMENT.DELETE_DATE.isNull();
+        if (params.getIdd() != null) {
             condition = condition.and(INSTRUMENT.IDD.like(params.getIdd()));
         }
-        if (params.getName() != null){
+        if (params.getName() != null) {
             condition = condition.and(INSTRUMENT.NAME.like(params.getName()));
         }
-        if (params.getNumber() != null){
+        if (params.getNumber() != null) {
             condition = condition.and(INSTRUMENT.NUMBER.like(params.getNumber()));
         }
-        if (params.getCreateDateStart() != null && params.getCreateDateEnd() != null){
+        if (params.getCreateDateStart() != null && params.getCreateDateEnd() != null) {
             condition = condition.and(INSTRUMENT.CREATE_DATE.between(params.getCreateDateStart(), params.getCreateDateEnd()));
         }
 
@@ -64,10 +60,10 @@ public class InstrumentListDao implements BaseListDao<Instrument, InstrumentPara
                 .orderBy(sort);
     }
 
-    private SortField[] getOrderBy(String orderBy, String orderDir){
+    private SortField[] getOrderBy(String orderBy, String orderDir) {
         val asc = orderDir == null || orderDir.equalsIgnoreCase("asc");
 
-        if (orderBy == null){
+        if (orderBy == null) {
             return asc
                     ? new SortField[]{INSTRUMENT.IDD.asc()}
                     : new SortField[]{INSTRUMENT.IDD.desc()};
@@ -76,17 +72,17 @@ public class InstrumentListDao implements BaseListDao<Instrument, InstrumentPara
         val orderArray = orderBy.split(",");
 
         List<SortField> listSortBy = new ArrayList<>();
-        for (val order: orderArray){
-            if (order.equalsIgnoreCase("idd")){
+        for (val order : orderArray) {
+            if (order.equalsIgnoreCase("idd")) {
                 listSortBy.add(asc ? INSTRUMENT.IDD.asc() : INSTRUMENT.IDD.desc());
             }
-            if (order.equalsIgnoreCase("block")){
+            if (order.equalsIgnoreCase("block")) {
                 listSortBy.add(asc ? INSTRUMENT.NAME.asc() : INSTRUMENT.NAME.desc());
             }
-            if (order.equalsIgnoreCase("number")){
+            if (order.equalsIgnoreCase("number")) {
                 listSortBy.add(asc ? INSTRUMENT.NUMBER.asc() : INSTRUMENT.NUMBER.desc());
             }
-            if (order.equalsIgnoreCase("createDate")){
+            if (order.equalsIgnoreCase("createDate")) {
                 listSortBy.add(asc ? INSTRUMENT.CREATE_DATE.asc() : INSTRUMENT.CREATE_DATE.desc());
             }
         }

@@ -6,10 +6,10 @@ import ru.dfsystems.spring.tutorial.dao.BaseDao;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.LessonDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Lesson;
-
-import java.time.LocalDateTime;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Lesson.LESSON;
+import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 
 @Repository
 public class LessonDaoImpl extends LessonDao implements BaseDao<Lesson> {
@@ -26,10 +26,17 @@ public class LessonDaoImpl extends LessonDao implements BaseDao<Lesson> {
         super.insert(lesson);
     }
 
-    public Lesson getActiveByIdd(Integer id) {
+    public Lesson getActiveByIdd(Integer idd) {
         return jooq.select(LESSON.fields())
                 .from(LESSON)
-                .where(LESSON.ID.eq(id))
+                .where(LESSON.IDD.eq(idd))
                 .fetchOneInto(Lesson.class);
+    }
+
+    public Room getRoomFromLessonByIdd(Integer idd) {
+        return jooq.select(ROOM.fields())
+                .from(ROOM)
+                .where(LESSON.IDD.eq(idd).and(ROOM.IDD.eq(LESSON.ROOM_IDD)))
+                .fetchOneInto(Room.class);
     }
 }

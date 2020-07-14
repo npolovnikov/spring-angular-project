@@ -6,12 +6,13 @@ import ru.dfsystems.spring.tutorial.dao.BaseDao;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.CourseDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Lesson;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Course.COURSE;
+import static ru.dfsystems.spring.tutorial.generated.tables.Lesson.LESSON;
 
 @Repository
 public class CourseDaoImpl extends CourseDao implements BaseDao<Course> {
@@ -43,5 +44,11 @@ public class CourseDaoImpl extends CourseDao implements BaseDao<Course> {
         return jooq.selectFrom(COURSE)
                 .where(COURSE.IDD.eq(idd))
                 .fetchInto(Course.class);
+    }
+
+    public List<Lesson> getLessonsByIdd(Integer idd){
+        return jooq.selectFrom(LESSON)
+                .where(LESSON.COURSE_IDD.eq(idd))
+                .fetchInto(Lesson.class);
     }
 }

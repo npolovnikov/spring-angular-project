@@ -143,6 +143,7 @@
                         </jdbc>
 
                         <generator>
+
                             <strategy>
                                 <name>ru.dfsystems.spring.tutorial.generate.CustomJooqGeneratorStrategy</name>
                             </strategy>

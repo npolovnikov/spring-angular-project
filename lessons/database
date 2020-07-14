@@ -12,6 +12,7 @@ Student(
 )
 Teacher()
 User()
+
 Course(
     id serial,
     idd int,
@@ -41,6 +42,7 @@ Room(
     create_date timestamp,
     delete_date timestamp
 )
+
 Lesson(
     id serial,
     name varchar(100),
