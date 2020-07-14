@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.dfsystems.spring.tutorial.dto.BaseDto;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonListDto;
-import ru.dfsystems.spring.tutorial.dto.teacher.TeacherDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
 public class CourseDto extends BaseDto<CourseHistoryDto> {
     private String name;
     private String description;
-    private TeacherDto teacher;
+    private Integer teacherIdd;
     private Integer maxCountStudent;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startDate;

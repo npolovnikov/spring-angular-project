@@ -33,12 +33,13 @@ public class TeacherDaoImpl extends TeacherDao implements BaseDao<Teacher> {
                 .fetchInto(Teacher.class);
     }
 
-    public void create(Teacher course) {
-        course.setId(jooq.nextval(Sequences.TEACHER_ID_SEQ));
-        if (course.getIdd() == null) {
-            course.setIdd(course.getId());
+    public Teacher create(Teacher teacher) {
+        teacher.setId(jooq.nextval(Sequences.TEACHER_ID_SEQ));
+        if (teacher.getIdd() == null) {
+            teacher.setIdd(teacher.getId());
         }
-        course.setCreateDate(LocalDateTime.now());
-        super.insert(course);
+        teacher.setCreateDate(LocalDateTime.now());
+        super.insert(teacher);
+        return teacher;
     }
 }

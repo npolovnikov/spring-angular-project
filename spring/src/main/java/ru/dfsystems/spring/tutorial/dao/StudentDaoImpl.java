@@ -33,12 +33,13 @@ public class StudentDaoImpl extends StudentDao implements BaseDao<Student> {
                 .fetchInto(Student.class);
     }
 
-    public void create(Student course) {
-        course.setId(jooq.nextval(Sequences.STUDENT_ID_SEQ));
-        if (course.getIdd() == null) {
-            course.setIdd(course.getId());
+    public Student create(Student student) {
+        student.setId(jooq.nextval(Sequences.STUDENT_ID_SEQ));
+        if (student.getIdd() == null) {
+            student.setIdd(student.getId());
         }
-        course.setCreateDate(LocalDateTime.now());
-        super.insert(course);
+        student.setCreateDate(LocalDateTime.now());
+        super.insert(student);
+        return student;
     }
 }

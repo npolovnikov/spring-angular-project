@@ -4,22 +4,22 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-import {RoomList} from "../_model/room-list";
-import {RoomService} from "../_service/room.service";
-import {RoomEditDialogComponent} from "./room-edit-dialog/room-edit-dialog.component";
+import {CourseList} from "../_model/course-list";
+import {CourseService} from "../_service/course.service";
+import {CourseEditDialogComponent} from "./course-edit-dialog/course-edit-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {SelectionModel} from "@angular/cdk/collections";
 
 @Component({
-  selector: 'app-room',
-  templateUrl: './room.component.html',
-  styleUrls: ['./room.component.scss']
+  selector: 'app-course',
+  templateUrl: './course.component.html',
+  styleUrls: ['./course.component.scss']
 })
-export class RoomComponent implements AfterViewInit {
+export class CourseComponent implements AfterViewInit {
   sizeOption:number[] = [2, 5, 10];
-  displayedColumns: string[] = ['select', 'idd', 'number', 'block', 'createDate'];
-  data: RoomList[];
-  selection = new SelectionModel<RoomList>(false, []);
+  displayedColumns: string[] = ['select', 'idd', 'name', 'description', 'maxCountStudent', 'startDate', 'endDate', 'createDate', 'status'];
+  data: CourseList[];
+  selection = new SelectionModel<CourseList>(false, []);
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -28,7 +28,7 @@ export class RoomComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _roomService: RoomService, public dialog: MatDialog) {}
+  constructor(private _courseService: CourseService, public dialog: MatDialog) {}
 
   ngAfterViewInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -36,7 +36,7 @@ export class RoomComponent implements AfterViewInit {
   }
 
   openCreateDialog() {
-    const dialogRef = this.dialog.open(RoomEditDialogComponent, {
+    const dialogRef = this.dialog.open(CourseEditDialogComponent, {
       width: '750px'
     });
 
@@ -49,7 +49,7 @@ export class RoomComponent implements AfterViewInit {
     if (this.selection.selected[0] == null) {
       return;
     }
-    const dialogRef = this.dialog.open(RoomEditDialogComponent, {
+    const dialogRef = this.dialog.open(CourseEditDialogComponent, {
       width: '750px',
       data: this.selection.selected[0]?.idd
     });
@@ -59,11 +59,11 @@ export class RoomComponent implements AfterViewInit {
     });
   }
 
-  deleteRoom() {
+  deleteCourse() {
     if (this.selection.selected[0] == null) {
       return;
     }
-    this._roomService.deleteRoomByIdd(this.selection.selected[0].idd);
+    this._courseService.deleteCourseByIdd(this.selection.selected[0].idd);
     this.selection.clear();
     this.refresh();
   }
@@ -74,7 +74,7 @@ export class RoomComponent implements AfterViewInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this._roomService.getRoomList(
+          return this._courseService.getCourseList(
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {

@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 public class LessonHistoryDto extends BaseHistoryDto {
     private String name;
     private String description;
-    private CourseDto course;
-    private RoomDto room;
+    private Integer courseIdd;
+    private Integer roomIdd;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime lessonDateStart;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")

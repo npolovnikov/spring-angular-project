@@ -33,12 +33,13 @@ public class LessonDaoImpl extends LessonDao implements BaseDao<Lesson> {
                 .fetchInto(Lesson.class);
     }
 
-    public void create(Lesson Lesson) {
-        Lesson.setId(jooq.nextval(Sequences.ROOM_ID_SEQ));
-        if (Lesson.getIdd() == null) {
-            Lesson.setIdd(Lesson.getId());
+    public Lesson create(Lesson lesson) {
+        lesson.setId(jooq.nextval(Sequences.ROOM_ID_SEQ));
+        if (lesson.getIdd() == null) {
+            lesson.setIdd(lesson.getId());
         }
-        Lesson.setCreateDate(LocalDateTime.now());
-        super.insert(Lesson);
+        lesson.setCreateDate(LocalDateTime.now());
+        super.insert(lesson);
+        return lesson;
     }
 }

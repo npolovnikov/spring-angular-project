@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class CourseHistoryDto extends BaseHistoryDto {
     private String name;
     private String description;
-    private TeacherDto teacherIdd;
+    private Integer teacherIdd;
     private Integer maxCountStudent;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startDate;
