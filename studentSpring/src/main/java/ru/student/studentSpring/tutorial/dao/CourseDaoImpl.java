@@ -10,14 +10,25 @@ import org.springframework.stereotype.Repository;
 import ru.student.studentSpring.tutorial.dto.Page;
 import ru.student.studentSpring.tutorial.dto.PageParams;
 import ru.student.studentSpring.tutorial.dto.course.CoursesParams;
+import ru.student.studentSpring.tutorial.generated.Sequences;
 import ru.student.studentSpring.tutorial.generated.tables.daos.CoursesDao;
 import ru.student.studentSpring.tutorial.generated.tables.pojos.Courses;
+import ru.student.studentSpring.tutorial.generated.tables.pojos.Instruments;
+import ru.student.studentSpring.tutorial.generated.tables.pojos.Students;
+import ru.student.studentSpring.tutorial.generated.tables.pojos.Teachers;
 import ru.student.studentSpring.tutorial.generated.tables.records.CoursesRecord;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static ru.student.studentSpring.tutorial.generated.tables.Courses.COURSES;
+import static ru.student.studentSpring.tutorial.generated.tables.InstrumentsToRooms.INSTRUMENTS_TO_ROOMS;
+import static ru.student.studentSpring.tutorial.generated.tables.Lessons.LESSONS;
+import static ru.student.studentSpring.tutorial.generated.tables.Instruments.INSTRUMENTS;
+import static ru.student.studentSpring.tutorial.generated.tables.Teachers.TEACHERS;
+import static ru.student.studentSpring.tutorial.generated.tables.StudentToCourses.STUDENT_TO_COURSES;
+
 
 
 @Repository
@@ -33,87 +44,39 @@ public class CourseDaoImpl extends CoursesDao {
                 .fetchOneInto(Courses.class);
     }
 
-
-    public Page<Courses> getCoursesByParam(PageParams<CoursesParams> pageParams) {
-        final CoursesParams params = pageParams.getParams() == null
-                ? new CoursesParams() : pageParams.getParams();
-        val listQuery = getCourseSelect(params);
-
-        val count = jooq.selectCount()
-                .from(listQuery)
-                .fetchOne(0, Long.class);
-
-        List<Courses> list = listQuery.offset(pageParams.getStart())
-                .limit(pageParams.getPage())
-                .fetchInto(Courses.class);
-        return new Page<>(list, count);
-    }
-
-    private SelectSeekStepN<CoursesRecord> getCourseSelect(CoursesParams params) {
-        var condition = COURSES.DELETE_DATE.isNull();
-        if (!params.getName().isEmpty()) {
-            condition = condition.and(COURSES.NAME.like(params.getName()));
-        }
-        if (!params.getDescription().isEmpty()) {
-            condition = condition.and(COURSES.DESCRIPTION.like(params.getDescription()));
-        }
-
-        if (params.getStartDate() != null && params.getEndDate() != null) {
-            condition = condition.and(COURSES.START_DATE.between(params.getStartDate(),
-                    params.getEndDate()));
-        }
-
-        if (params.getStartDate() != null && params.getEndDate() != null) {
-            condition = condition.and(COURSES.END_DATE.between(params.getStartDate(),
-                    params.getEndDate()));
-        }
-
-        if (params.getCreateDateStart() != null && params.getCreateDateEnd() != null) {
-            condition = condition.and(COURSES.CREATE_DATE.between(params.getCreateDateStart(),
-                    params.getCreateDateEnd()));
-        }
-
-        val sort = getOrderBy(params.getOrderBy(), params.getOrderDir());
-
+    public List<Courses> getHistory(Integer idd) {
         return jooq.selectFrom(COURSES)
-                .where(condition)
-                .orderBy(sort);
+                .where(COURSES.IDD.eq(idd))
+                .fetchInto(Courses.class);
     }
 
-    private SortField[] getOrderBy(String orderBy, String orderDir) {
-        val asc = orderDir != null && orderDir.equalsIgnoreCase("asc");
-
-        if (orderBy == null) {
-            return asc
-                    ? new SortField[]{COURSES.IDD.asc()}
-                    : new SortField[]{COURSES.IDD.desc()};
-
+    public void create(Courses course) {
+        course.setId(jooq.nextval(Sequences.COURSES_ID_SEQ));
+        if (course.getIdd() == null) {
+            course.setIdd(course.getId());
         }
-
-        val orderArray = orderBy.split(",");
-
-        List<SortField> listSortBy = new ArrayList<>();
-        for (val order: orderArray) {
-            if (order.equalsIgnoreCase("idd")) {
-                listSortBy.add(asc ? COURSES.IDD.asc() : COURSES.IDD.desc());
-            }
-            if (order.equalsIgnoreCase("name")) {
-                listSortBy.add(asc ? COURSES.NAME.asc() : COURSES.NAME.desc());
-            }
-            if (order.equalsIgnoreCase("description")) {
-                listSortBy.add(asc ? COURSES.DESCRIPTION.asc() : COURSES.DESCRIPTION.desc());
-            }
-            if (order.equalsIgnoreCase("startDate")) {
-                listSortBy.add(asc ? COURSES.START_DATE.asc() : COURSES.START_DATE.desc());
-            }
-            if (order.equalsIgnoreCase("endDate")) {
-                listSortBy.add(asc ? COURSES.END_DATE.asc() : COURSES.END_DATE.desc());
-            }
-            if (order.equalsIgnoreCase("createDate")) {
-                listSortBy.add(asc ? COURSES.CREATE_DATE.asc() : COURSES.CREATE_DATE.desc());
-            }
-        }
-
-        return listSortBy.toArray(new SortField[0]);
+        course.setCreateDate(LocalDateTime.now());
+        super.insert(course);
     }
+
+    public List<Courses> getCourses(Integer idd) {
+        return jooq.select(COURSES.fields())
+                .from(COURSES)
+                .join(LESSONS)
+                .on(COURSES.IDD.eq(LESSONS.COURSE_IDD))
+                .where(LESSONS.COURSE_IDD.eq(idd))
+                .fetchInto(Courses.class);
+
+    }
+
+    public List<Courses> getCoursesByStudent(Integer idd) {
+        return jooq.select(COURSES.fields())
+                .from(COURSES)
+                .join(STUDENT_TO_COURSES)
+                .on(COURSES.IDD.eq(STUDENT_TO_COURSES.COURSE_IDD))
+                .where(STUDENT_TO_COURSES.COURSE_IDD.eq(idd))
+                .fetchInto(Courses.class);
+
+    }
+
 }

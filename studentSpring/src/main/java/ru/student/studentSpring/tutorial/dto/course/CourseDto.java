@@ -7,18 +7,20 @@ import ru.student.studentSpring.tutorial.dto.BaseDto;
 import ru.student.studentSpring.tutorial.dto.teacher.TeacherListDto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 public class CourseDto extends BaseDto<CourseHistoryDto> {
     private String name;
     private String description;
-    private TeacherListDto teacher;
-    private Integer max_count_student;
+    private Integer maxCountStudent;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime start_date;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime end_date;
+    private List<TeacherListDto> teacher;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDateTime startDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDateTime endDate;
     private String status;
 }

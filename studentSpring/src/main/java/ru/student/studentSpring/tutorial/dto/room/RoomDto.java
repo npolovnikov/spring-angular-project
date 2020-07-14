@@ -14,6 +14,7 @@ public class RoomDto extends BaseDto<RoomHistoryDto> {
     private String number;
     private String block;
 
+    private List<RoomHistoryDto> history;
     private List<InstrumentListDto> instruments;
 
 }

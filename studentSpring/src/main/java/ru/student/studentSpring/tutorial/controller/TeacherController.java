@@ -2,14 +2,22 @@ package ru.student.studentSpring.tutorial.controller;
 
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.student.studentSpring.tutorial.dto.BaseListDto;
 import ru.student.studentSpring.tutorial.dto.Page;
 import ru.student.studentSpring.tutorial.dto.PageParams;
+import ru.student.studentSpring.tutorial.dto.instrument.InstrumentDto;
+import ru.student.studentSpring.tutorial.dto.instrument.InstrumentHistoryDto;
+import ru.student.studentSpring.tutorial.dto.instrument.InstrumentListDto;
+import ru.student.studentSpring.tutorial.dto.instrument.InstrumentParams;
+import ru.student.studentSpring.tutorial.dto.student.StudentParams;
+import ru.student.studentSpring.tutorial.dto.teacher.TeacherDto;
+import ru.student.studentSpring.tutorial.dto.teacher.TeacherHistoryDto;
+import ru.student.studentSpring.tutorial.dto.teacher.TeacherListDto;
 import ru.student.studentSpring.tutorial.dto.teacher.TeacherParams;
+import ru.student.studentSpring.tutorial.generated.tables.pojos.Students;
 import ru.student.studentSpring.tutorial.generated.tables.pojos.Teachers;
+import ru.student.studentSpring.tutorial.service.InstrumentService;
 import ru.student.studentSpring.tutorial.service.TeacherService;
 
 import java.util.List;
@@ -19,20 +27,39 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/teacher", produces = "application/json; charset=UTF-8")
 @AllArgsConstructor
 public class TeacherController {
-    private TeacherService teacherService;
-    private ModelMapper mapper = new ModelMapper();
+
+    private final TeacherService teacherService;
 
     @PostMapping("/list")
-    public Page<BaseListDto> getList(PageParams<TeacherParams> pageParams) {
-        Page<Teachers> page = teacherService.getTeachersByParam(pageParams);
-        List<BaseListDto> list = mapper(page.getList());
-        return new Page<>(list, page.getTotalCount());
+    public Page<TeacherListDto> getList(@RequestBody PageParams<TeacherParams> pageParams) {
+
+        return teacherService.getTeachersByParam(pageParams);
     }
 
-
-    private List<BaseListDto> mapper(List<Teachers> allRooms) {
-        return allRooms
-                .stream().map(r -> mapper.map(r, BaseListDto.class))
-                .collect(Collectors.toList());
+    @PostMapping
+    public void create(@RequestBody TeacherDto teacherDto) {
+        teacherService.create(teacherDto);
     }
+
+    @GetMapping("/{idd}")
+    public TeacherDto get(@PathVariable(name = "idd") Integer idd) {
+
+        return teacherService.get(idd);
+    }
+
+    @PatchMapping("/{idd}")
+    public TeacherDto update(@PathVariable(name = "idd") Integer idd, @RequestBody TeacherDto teacherDto) {
+
+        return teacherService.update(idd, teacherDto);
+    }
+
+    @GetMapping("/{idd}/history")
+    public List<TeacherHistoryDto> getHistory(@PathVariable(name = "idd") Integer idd) {
+        return teacherService.getHistory(idd);
+    }
+    @DeleteMapping("/{idd}")
+    public void delete(@PathVariable(name = "idd") Integer idd) {
+        teacherService.delete(idd);
+    }
+
 }

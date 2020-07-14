@@ -78,6 +78,12 @@
             <version>2.3.8</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.10.5</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -133,7 +139,16 @@
                                 student_to_courses |
                                 students |
                                 teachers |
-                                users
+                                users |
+                                instruments_id_seq |
+                                rooms_id_seq |
+                                instruments_to_rooms_id_seq |
+                                courses_id_seq |
+                                lessons_id_seq |
+                                student_to_courses_id_seq |
+                                students_id_seq |
+                                teachers_id_seq |
+                                users_id_seq |
                             </includes>
 
                             <schemata>
@@ -151,6 +166,7 @@
                             <generate>
                                 <pojos>true</pojos>
                                 <daos>true</daos>
+                                <sequences>true</sequences>
                                 <validationAnnotations>true</validationAnnotations>
                                 <springAnnotations>true</springAnnotations>
                                 <globalObjectReferences>true</globalObjectReferences>

@@ -1,41 +1,55 @@
 package ru.student.studentSpring.tutorial.controller;
 
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.student.studentSpring.tutorial.dto.BaseListDto;
+import org.springframework.web.bind.annotation.*;
 import ru.student.studentSpring.tutorial.dto.Page;
 import ru.student.studentSpring.tutorial.dto.PageParams;
+import ru.student.studentSpring.tutorial.dto.course.CourseDto;
+import ru.student.studentSpring.tutorial.dto.course.CourseHistoryDto;
+import ru.student.studentSpring.tutorial.dto.course.CourseListDto;
 import ru.student.studentSpring.tutorial.dto.course.CoursesParams;
-import ru.student.studentSpring.tutorial.dto.room.RoomParams;
-import ru.student.studentSpring.tutorial.generated.tables.pojos.Courses;
-import ru.student.studentSpring.tutorial.generated.tables.pojos.Rooms;
 import ru.student.studentSpring.tutorial.service.CourseService;
-import ru.student.studentSpring.tutorial.service.RoomService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/course", produces = "application/json; charset=UTF-8")
 @AllArgsConstructor
 public class CourseController {
-    private CourseService courseService;
-    private ModelMapper mapper = new ModelMapper();
+
+
+    private final CourseService courseService;
 
     @PostMapping("/list")
-    public Page<BaseListDto> getList(PageParams<CoursesParams> pageParams) {
-        Page<Courses> page = courseService.getCoursesByParam(pageParams);
-        List<BaseListDto> list = mapper(page.getList());
-        return new Page<>(list, page.getTotalCount());
+    public Page<CourseListDto> getList(@RequestBody PageParams<CoursesParams> pageParams) {
+
+        return courseService.getCourseByParam(pageParams);
     }
 
-
-    private List<BaseListDto> mapper(List<Courses> allCourses) {
-        return allCourses
-                .stream().map(r -> mapper.map(r, BaseListDto.class))
-                .collect(Collectors.toList());
+    @PostMapping
+    public void create(@RequestBody CourseDto courseDto) {
+        courseService.create(courseDto);
     }
+
+    @GetMapping("/{idd}")
+    public CourseDto get(@PathVariable(name = "idd") Integer idd) {
+
+        return courseService.get(idd);
+    }
+
+    @PatchMapping("/{idd}")
+    public CourseDto update(@PathVariable(name = "idd") Integer idd, @RequestBody CourseDto courseDto) {
+
+        return courseService.update(idd, courseDto);
+    }
+
+    @GetMapping("/{idd}/history")
+    public List<CourseHistoryDto> getHistory(@PathVariable(name = "idd") Integer idd) {
+        return courseService.getHistory(idd);
+    }
+    @DeleteMapping("/{idd}")
+    public void delete(@PathVariable(name = "idd") Integer idd) {
+        courseService.delete(idd);
+    }
+
 }

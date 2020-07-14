@@ -1,38 +1,53 @@
 package ru.student.studentSpring.tutorial.controller;
 
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.student.studentSpring.tutorial.dto.BaseListDto;
+import org.springframework.web.bind.annotation.*;
 import ru.student.studentSpring.tutorial.dto.Page;
 import ru.student.studentSpring.tutorial.dto.PageParams;
+import ru.student.studentSpring.tutorial.dto.instrument.InstrumentDto;
+import ru.student.studentSpring.tutorial.dto.instrument.InstrumentHistoryDto;
+import ru.student.studentSpring.tutorial.dto.instrument.InstrumentListDto;
 import ru.student.studentSpring.tutorial.dto.instrument.InstrumentParams;
-import ru.student.studentSpring.tutorial.generated.tables.pojos.Instruments;
 import ru.student.studentSpring.tutorial.service.InstrumentService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/instrument", produces = "application/json; charset=UTF-8")
 @AllArgsConstructor
 public class InstrumentController {
-    private InstrumentService instrumentService;
-    private ModelMapper mapper = new ModelMapper();
+    private final InstrumentService instrumentService;
 
     @PostMapping("/list")
-    public Page<BaseListDto> getList(PageParams<InstrumentParams> pageParams) {
-        Page<Instruments> page = instrumentService.getInstrumentsByParam(pageParams);
-        List<BaseListDto> list = mapper(page.getList());
-        return new Page<>(list, page.getTotalCount());
+    public Page<InstrumentListDto> getList(@RequestBody PageParams<InstrumentParams> pageParams) {
+
+        return instrumentService.getInstrumentsByParam(pageParams);
     }
 
-
-    private List<BaseListDto> mapper(List<Instruments> allInstruments) {
-        return allInstruments
-                .stream().map(r -> mapper.map(r, BaseListDto.class))
-                .collect(Collectors.toList());
+    @PostMapping
+    public void create(@RequestBody InstrumentDto instrumentDto) {
+        instrumentService.create(instrumentDto);
     }
+
+    @GetMapping("/{idd}")
+    public InstrumentDto get(@PathVariable(name = "idd") Integer idd) {
+
+        return instrumentService.get(idd);
+    }
+
+    @PatchMapping("/{idd}")
+    public InstrumentDto update(@PathVariable(name = "idd") Integer idd, @RequestBody InstrumentDto instrumentDto) {
+
+        return instrumentService.update(idd, instrumentDto);
+    }
+
+    @GetMapping("/{idd}/history")
+    public List<InstrumentHistoryDto> getHistory(@PathVariable(name = "idd") Integer idd) {
+        return instrumentService.getHistory(idd);
+    }
+    @DeleteMapping("/{idd}")
+    public void delete(@PathVariable(name = "idd") Integer idd) {
+        instrumentService.delete(idd);
+    }
+
 }
