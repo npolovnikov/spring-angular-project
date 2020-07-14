@@ -183,4 +183,18 @@
             drop table LESSON_TO_INSTRUMENT;
         </rollback>
     </changeSet>
+
+    <changeSet id="20200713-08" author="ivonin">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="LESSON" schemaName="public"/>
+                <not>
+                    <columnExists tableName="LESSON" columnName="idd"/>
+                </not>
+            </and>
+        </preConditions>
+        <sql>
+            alter table LESSON add column idd int;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

@@ -41,7 +41,7 @@ public class LessonListDao implements BaseListDao<Lesson, LessonParams> {
 
     private SelectSeekStepN<LessonRecord> getLessonSelect(LessonParams params) {
         var condition = LESSON.LESSON_DATE_END.isNotNull();
-        if (!params.getName().isEmpty()) {
+        if (params.getName()!= null) {
             condition = condition.and(LESSON.NAME.like(params.getName()));
         }
         if (params.getCourseId() != null) {
@@ -50,7 +50,7 @@ public class LessonListDao implements BaseListDao<Lesson, LessonParams> {
         if (params.getRoomId() != null) {
             condition = condition.and(LESSON.ROOM_IDD.like(params.getRoomId().toString()));
         }
-        if (params.getDescription().isEmpty()) {
+        if (params.getDescription() != null) {
             condition = condition.and(LESSON.DESCRIPTION.like(params.getDescription()));
         }
         if (params.getLessonDateStart() != null) {
@@ -68,7 +68,7 @@ public class LessonListDao implements BaseListDao<Lesson, LessonParams> {
     }
 
     private SortField[] getOrderBy(String orderBy, String orderDir) {
-        val asc = orderDir != null && orderDir.equalsIgnoreCase("asc");
+        val asc = orderDir == null || orderDir.equalsIgnoreCase("asc");
 
         if (orderBy == null) {
             return asc
