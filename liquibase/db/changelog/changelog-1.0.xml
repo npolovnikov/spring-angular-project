@@ -51,7 +51,7 @@
         <comment>Lesson 2. Liquibase. Добавление колонки к INSTRUMENT</comment>
         <addColumn tableName="INSTRUMENT">
             <column name="IDD" type="int">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
         </addColumn>
         <rollback>
@@ -119,7 +119,7 @@
         <sql>
             create table ROOM (
                 id serial primary key,
-                idd int NOT NULL UNIQUE,
+                idd int NOT NULL,
                 number varchar(5),
                 block varchar(5),
                 create_date timestamp(0) not null,

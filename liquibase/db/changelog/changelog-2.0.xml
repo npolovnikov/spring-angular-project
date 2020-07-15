@@ -17,7 +17,7 @@
         <sql>
             create table STUDENT (
             id serial primary key,
-            idd int NOT NULL UNIQUE,
+            idd int NOT NULL,
             first_name varchar(50),
             middle_name varchar(50),
             last_name varchar(50),
@@ -45,7 +45,7 @@
         <sql>
             create table COURSE (
             id serial primary key,
-            idd int NOT NULL UNIQUE,
+            idd int NOT NULL,
             name varchar(100),
             description varchar(500),
             teacher_idd int,
@@ -74,8 +74,8 @@
         <sql>
             create table STUDENT_TO_COURSE (
             id serial primary key,
-            student_idd int references STUDENT (idd),
-            course_idd int references COURSE (idd),
+            student_idd int,
+            course_idd int,
             success boolean
             );
         </sql>
@@ -96,7 +96,7 @@
         <sql>
             create table TEACHER (
             id serial primary key,
-            idd int NOT NULL UNIQUE,
+            idd int NOT NULL,
             first_name varchar(50),
             middle_name varchar(50),
             last_name varchar(50),
@@ -124,7 +124,7 @@
         <sql>
             create table "user" (
             id serial primary key,
-            idd int NOT NULL UNIQUE,
+            idd int NOT NULL,
             first_name varchar(50),
             middle_name varchar(50),
             last_name varchar(50),
@@ -154,8 +154,8 @@
             id serial primary key,
             name varchar(100),
             description varchar(1000),
-            course_idd int references COURSE (idd),
-            room_idd int references ROOM (idd),
+            course_idd int,
+            room_idd int,
             lesson_date_start timestamp(0),
             lesson_date_end timestamp(0),
             extra_instruments varchar(1000)
@@ -178,8 +178,8 @@
         <sql>
             create table INSTRUMENT_TO_LESSON (
             id serial primary key,
-            instrument_idd int references INSTRUMENT (idd),
-            lesson_id int references LESSON (id)
+            instrument_idd int,
+            lesson_id int
             );
         </sql>
         <rollback>

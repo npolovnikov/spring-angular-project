@@ -1,3 +1,5 @@
+server:
+  port: 8080
 spring:
   mvc:
     servlet:
@@ -10,10 +12,10 @@ spring:
     username: ${db.username:postgres}
     password: ${db.password:password}
     driver-class-name: org.postgresql.Driver
-#    hikari:
-#      auto-commit: true
-#      connection-timeout: 60000
-#      maximum-pool-size: 50
+    hikari:
+      auto-commit: true
+      connection-timeout: 60000
+      maximum-pool-size: 50
 logging:
   file:
     max-history: 20

@@ -6,6 +6,7 @@ import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
+import ru.dfsystems.spring.tutorial.dao.BaseListDao;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.room.RoomParams;
@@ -19,7 +20,7 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 
 @Repository
 @AllArgsConstructor
-public class RoomListDao {
+public class RoomListDao implements BaseListDao<Room, RoomParams> {
     private final DSLContext jooq;
 
     /**

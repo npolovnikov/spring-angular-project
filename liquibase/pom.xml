@@ -16,49 +16,14 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.14</version>
         </dependency>
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>magidin</id>
-            <properties>
-                <url>jdbc:postgresql://127.0.0.1:5432/spring-angular-db</url>
-                <username>postgres</username>
-                <password>password</password>
-            </properties>
-        </profile>
-    </profiles>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>3.10.0</version>
-                <configuration>
-                    <defaultSchemaName>public</defaultSchemaName>
-                    <changeLogFile>${basedir}/db/master.xml</changeLogFile>
-<!--                    <outputChangeLogFile>${basedir}/db/output.xml</outputChangeLogFile>-->
-                    <url>${url}</url>
-                    <username>${username}</username>
-                    <password>${password}</password>
-<!--                    <rollbackCount>1</rollbackCount>-->
-<!--                    <rollbackDate>2020-06-20</rollbackDate>-->
-<!--                    <rollbackTag>changelog-2.0</rollbackTag>-->
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>updateSQL</goal>
-                            <goal>update</goal>
-<!--                            <goal>generateChangeLog</goal>-->
-<!--                            <goal>rollback</goal>-->
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

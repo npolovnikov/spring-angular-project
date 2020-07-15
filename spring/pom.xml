@@ -2,20 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.1.RELEASE</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>spring-angular-project</artifactId>
+        <groupId>ru.dfsystems</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
-    <groupId>ru.dfsystems</groupId>
     <artifactId>spring</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <org.jooq.version>3.13.2</org.jooq.version>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -43,31 +37,26 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
         </dependency>
 
         <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>jooq</artifactId>
-            <version>${org.jooq.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>jooq-codegen-maven</artifactId>
-            <version>${org.jooq.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>jooq-meta</artifactId>
-            <version>${org.jooq.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
         </dependency>
         <!--Зависимость модуля liquibase, чтобы он собрался до модуля spring и сгенерировал таблицы-->
         <dependency>
@@ -76,10 +65,16 @@
             <type>pom</type>
             <version>${project.version}</version>
         </dependency>
+        <!--Зависимость модуля spring-base, чтобы он собрался до модуля spring и скомпилировал класс генератора-->
+        <dependency>
+            <groupId>ru.dfsystems</groupId>
+            <artifactId>spring-base</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
-            <version>2.3.8</version>
         </dependency>
     </dependencies>
 
@@ -88,77 +83,11 @@
             <plugin>
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-codegen-maven</artifactId>
-                <version>${org.jooq.version}</version>
-
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-
-                <dependencies>
-                    <dependency>
-                        <groupId>org.postgresql</groupId>
-                        <artifactId>postgresql</artifactId>
-                        <version>42.2.14</version>
-                    </dependency>
-                </dependencies>
-
-                <configuration>
-                    <jdbc>
-                        <driver>org.postgresql.Driver</driver>
-                        <url>jdbc:postgresql://127.0.0.1:5432/spring-angular-db</url>
-                        <username>postgres</username>
-                        <password>password</password>
-                    </jdbc>
-
-                    <generator>
-                        <strategy>
-                            <matchers>
-                                <tables>
-                                    <table>
-                                        <pojoClass>
-                                            <transform>PASCAL</transform>
-                                        </pojoClass>
-                                    </table>
-                                </tables>
-                            </matchers>
-                        </strategy>
-
-                        <database>
-                            <name>org.jooq.meta.postgres.PostgresDatabase</name>
-                            <includes>
-                                .*
-                            </includes>
-                            <excludes></excludes>
-
-                            <schemata>
-                                <schema>
-                                    <inputSchema>public</inputSchema>
-                                </schema>
-                            </schemata>
-                        </database>
-
-                        <target>
-                            <packageName>ru.dfsystems.spring.tutorial.generated</packageName>
-                            <directory>target/generated-sources/jooq</directory>
-                        </target>
-
-                        <generate>
-                            <pojos>true</pojos>
-                            <daos>true</daos>
-                            <sequences>true</sequences>
-                            <validationAnnotations>true</validationAnnotations>
-                            <springAnnotations>true</springAnnotations>
-                            <globalObjectReferences>true</globalObjectReferences>
-                            <javaTimeTypes>true</javaTimeTypes>
-                        </generate>
-                    </generator>
-                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
-
 </project>

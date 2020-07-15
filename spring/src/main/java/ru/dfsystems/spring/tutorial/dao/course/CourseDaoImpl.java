@@ -2,6 +2,7 @@ package ru.dfsystems.spring.tutorial.dao.course;
 
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
+import ru.dfsystems.spring.tutorial.dao.BaseDao;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.CourseDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
@@ -12,7 +13,7 @@ import java.util.List;
 import static ru.dfsystems.spring.tutorial.generated.Tables.COURSE;
 
 @Repository
-public class CourseDaoImpl extends CourseDao {
+public class CourseDaoImpl extends CourseDao implements BaseDao<Course> {
     private final DSLContext jooq;
 
     public CourseDaoImpl(DSLContext jooq) {
