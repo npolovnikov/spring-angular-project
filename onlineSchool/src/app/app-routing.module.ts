@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {RoomComponent} from "./room/room.component";
-import {MainComponent} from "./mainPage/main.component";
+import {MainPageComponent} from "./mainPage/mainPage.component";
 
 
 const routes: Routes = [
+  {path:'main', component:MainPageComponent},
   {path:'room', component:RoomComponent},
-  {path:'main', component:MainComponent},
+  {path:'lesson', component:RoomComponent},
+  {path:'instrument', component:RoomComponent},
 
-  {path: '**', redirectTo:'/main'}
+{path: '**', redirectTo:'/main'}
 ];
 
 @NgModule({
