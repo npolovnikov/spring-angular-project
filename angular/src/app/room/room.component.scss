@@ -3,7 +3,7 @@
   min-height: 200px;
 }
 
-.example-table-container {
+.table-container {
   position: relative;
   max-height: 400px;
   overflow: auto;
@@ -40,4 +40,9 @@ table {
 
 .mat-column-created {
   max-width: 124px;
+}
+
+.button-panel {
+  display: flex;
+  justify-content: flex-end;
 }
