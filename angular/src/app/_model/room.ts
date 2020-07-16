@@ -6,4 +6,7 @@ export class Room extends BaseEntity<RoomHistory>{
   number:string;
   block:string;
   instruments:InstrumentList[];
+  getName() {
+    return "room";
+  }
 }

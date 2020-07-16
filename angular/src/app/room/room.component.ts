@@ -3,7 +3,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-import {RoomList} from "../_model/roomList";
+import {RoomList} from "../_model/room-list";
 import {RoomService} from "../_service/room.service";
 import {RoomEditDialogComponent} from "./room-edit-dialog/room-edit-dialog.component";
 import {MatDialog} from "@angular/material/dialog";

@@ -7,7 +7,4 @@ export class CourseList extends BaseListEntity{
   startDate:string;
   endDate:string;
   status:string;
-  getName() {
-    return "course";
-  }
 }

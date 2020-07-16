@@ -5,6 +5,9 @@ import {merge, of as observableOf} from "rxjs";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
 import {TeacherList} from "../_model/teacherList";
 import {TeacherService} from "../_service/teacher.service";
+import {SelectionModel} from "@angular/cdk/collections";
+import {EditTeacherDialogComponent} from "./edit-teacher-dialog/edit-teacher-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-teacher',
@@ -13,8 +16,9 @@ import {TeacherService} from "../_service/teacher.service";
 })
 export class TeacherComponent implements AfterViewInit {
   sizeOption:number[] = [2, 5, 10];
-  displayedColumns: string[] = ['idd', 'firstName', 'middleName', 'lastName', 'passport', 'birthDate', 'status', 'createDate'];
+  displayedColumns: string[] = ['select', 'idd', 'firstName', 'middleName', 'lastName', 'passport', 'birthDate', 'status', 'createDate'];
   data: TeacherList[];
+  selection = new SelectionModel<TeacherList>(false, []);
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -23,11 +27,25 @@ export class TeacherComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _teacherService: TeacherService) {}
+  constructor(private _teacherService: TeacherService, public dialog: MatDialog) {}
 
   ngAfterViewInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.refresh();
+  }
 
+  openEditDialog() {
+    const dialogRef = this.dialog.open(EditTeacherDialogComponent, {
+      width: '750px',
+      data: this.selection.selected[0]?.idd
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
+    });
+  }
+
+  refresh() {
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),

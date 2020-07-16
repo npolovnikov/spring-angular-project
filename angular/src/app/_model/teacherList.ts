@@ -7,7 +7,4 @@ export class TeacherList extends BaseListEntity{
   passport:string;
   birthDate:string;
   status:string;
-  getName() {
-    return "teacher";
-  }
 }

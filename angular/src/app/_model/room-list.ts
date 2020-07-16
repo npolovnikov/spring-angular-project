@@ -1,6 +1,9 @@
-export interface RoomList {
-  idd:number;
+import {BaseListEntity} from "./base-list-entity";
+
+export class RoomList extends BaseListEntity{
   number:string;
   block:string;
-  createDate:string;
+  getName() {
+    return "room";
+  }
 }

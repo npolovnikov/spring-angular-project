@@ -1,9 +1,6 @@
 import {BaseListEntity} from "./base-list-entity";
 
-export class InstrumentList extends BaseListEntity{
+export class InstrumentList extends BaseListEntity {
   name:string;
   number:string;
-  getName() {
-    return "instrument";
-  }
 }

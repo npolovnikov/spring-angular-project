@@ -30,6 +30,11 @@ import {AddInstrumentDialogComponent} from "./room/room-edit-dialog/add-instrume
 import {ErrorDialogComponent} from "./error-dialog/error-dialog.component";
 import {LoginComponent} from "./login/login.component";
 import {AuthInterceptor} from "./_service/auth.interceptor";
+import { EditCourseDialogComponent } from './course/edit-course-dialog/edit-course-dialog.component';
+import { EditLessonDialogComponent } from './lesson/edit-lesson-dialog/edit-lesson-dialog.component';
+import { EditStudentDialogComponent } from './student/edit-student-dialog/edit-student-dialog.component';
+import { EditInstrumentDialogComponent } from './instrument/edit-instrument-dialog/edit-instrument-dialog.component';
+import { EditTeacherDialogComponent } from './teacher/edit-teacher-dialog/edit-teacher-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +49,12 @@ import {AuthInterceptor} from "./_service/auth.interceptor";
     RoomEditDialogComponent,
     AddInstrumentDialogComponent,
     ErrorDialogComponent,
-    LoginComponent
+    LoginComponent,
+    EditLessonDialogComponent,
+    EditStudentDialogComponent,
+    EditCourseDialogComponent,
+    EditInstrumentDialogComponent,
+    EditTeacherDialogComponent,
   ],
   imports: [
     BrowserModule,

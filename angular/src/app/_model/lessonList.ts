@@ -7,7 +7,4 @@ export class LessonList extends BaseListEntity{
   room:Room;
   lessonDateStart:string;
   lessonDateEnd:string;
-  getName() {
-    return "lesson";
-  }
 }

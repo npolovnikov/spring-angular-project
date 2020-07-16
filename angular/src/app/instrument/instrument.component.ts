@@ -5,16 +5,21 @@ import {merge, of as observableOf} from "rxjs";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
 import {InstrumentList} from "../_model/instrumentList";
 import {InstrumentService} from "../_service/instrument.service";
+import {MatDialog} from "@angular/material/dialog";
+import {SelectionModel} from "@angular/cdk/collections";
+import {EditInstrumentDialogComponent} from "./edit-instrument-dialog/edit-instrument-dialog.component";
 
 @Component({
   selector: 'app-instrument',
   templateUrl: './instrument.component.html',
   styleUrls: ['./instrument.component.scss']
 })
+
 export class InstrumentComponent implements AfterViewInit {
   sizeOption:number[] = [2, 5, 10];
-  displayedColumns: string[] = ['idd', 'name', 'number', 'createDate'];
+  displayedColumns: string[] = ['select', 'idd', 'name', 'number', 'createDate'];
   data: InstrumentList[];
+  selection = new SelectionModel<InstrumentList>(false, []);
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -23,11 +28,25 @@ export class InstrumentComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _instrumentService: InstrumentService) {}
+  constructor(private _instrumentService: InstrumentService, public dialog: MatDialog) {}
 
   ngAfterViewInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.refresh();
+  }
 
+  openEditDialog() {
+    const dialogRef = this.dialog.open(EditInstrumentDialogComponent, {
+      width: '750px',
+      data: this.selection.selected[0]?.idd
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
+    });
+  }
+
+  refresh() {
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),

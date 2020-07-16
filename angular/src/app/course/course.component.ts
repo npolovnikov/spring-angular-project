@@ -5,6 +5,9 @@ import {merge, of as observableOf} from "rxjs";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
 import {CourseService} from "../_service/course.service";
 import {CourseList} from "../_model/courseList";
+import {SelectionModel} from "@angular/cdk/collections";
+import {MatDialog} from "@angular/material/dialog";
+import {EditCourseDialogComponent} from "./edit-course-dialog/edit-course-dialog.component";
 
 @Component({
   selector: 'app-course',
@@ -13,8 +16,9 @@ import {CourseList} from "../_model/courseList";
 })
 export class CourseComponent implements AfterViewInit {
   sizeOption:number[] = [2, 5, 10];
-  displayedColumns: string[] = ['idd', 'name', 'description', 'maxCountStudent', 'startDate', 'endDate', 'status', 'createDate'];
+  displayedColumns: string[] = ['select', 'idd', 'name', 'description', 'maxCountStudent', 'startDate', 'endDate', 'status', 'createDate'];
   data: CourseList[];
+  selection = new SelectionModel<CourseList>(false, []);
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -23,11 +27,25 @@ export class CourseComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _courseService: CourseService) {}
+  constructor(private _courseService: CourseService, public dialog: MatDialog) {}
 
   ngAfterViewInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.refresh();
+  }
 
+  openEditDialog() {
+    const dialogRef = this.dialog.open(EditCourseDialogComponent, {
+      width: '750px',
+      data: this.selection.selected[0]?.idd
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
+    });
+  }
+
+  refresh() {
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),

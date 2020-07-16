@@ -35,7 +35,7 @@ export class RoomEditDialogComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.idd) {
-      this._roomService.getRoomByIdd(this.idd)
+      this._roomService.getByIdd(this.idd)
         .pipe()
         .subscribe(room => {this.data = room});
     } else {
@@ -57,7 +57,7 @@ export class RoomEditDialogComponent implements OnInit {
 
   onSaveClick() {
     if (this.idd){
-      this._roomService.updateRoom(this.idd, this.data)
+      this._roomService.update(this.idd, this.data)
         .toPromise()
         .then(res => this.dialogRef.close())
         .catch(error => console.log(error));
