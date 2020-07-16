@@ -5,9 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.student.studentSpring.tutorial.dto.BaseDto;
 import ru.student.studentSpring.tutorial.dto.course.CourseListDto;
-import ru.student.studentSpring.tutorial.dto.instrument.InstrumentListDto;
-import ru.student.studentSpring.tutorial.dto.room.RoomHistoryDto;
-import ru.student.studentSpring.tutorial.dto.teacher.TeacherHistoryDto;
 
 import java.time.LocalDateTime;
 import java.util.List;

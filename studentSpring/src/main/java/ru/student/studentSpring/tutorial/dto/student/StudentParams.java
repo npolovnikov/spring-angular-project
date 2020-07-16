@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StudentParams {
-    private Integer idd;
+    private Long idd;
     private String firstName;
     private String lastName;
     private String middleName;

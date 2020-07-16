@@ -6,7 +6,6 @@ import ru.student.studentSpring.tutorial.generated.Sequences;
 import ru.student.studentSpring.tutorial.generated.tables.daos.LessonsDao;
 import ru.student.studentSpring.tutorial.generated.tables.pojos.Lessons;
 
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -34,8 +33,8 @@ public class LessonDaoImpl extends LessonsDao {
     }
 
     public void create(Lessons lesson) {
-        lesson.setId(jooq.nextval(Sequences.LESSONS_ID_SEQ));
-        lesson.getLessonDateStart(LocalDateTime.now());
+        lesson.setId(jooq.nextval(Sequences.LESSONS_ID_SEQ).intValue());
+        lesson.setLessonDateStart(LocalDateTime.now());
         super.insert(lesson);
     }
 }

@@ -1,39 +1,24 @@
 package ru.student.studentSpring.tutorial.dao;
 
 import lombok.AllArgsConstructor;
-import lombok.val;
-import lombok.var;
 import org.jooq.DSLContext;
-import org.jooq.SelectSeekStepN;
-import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
-import ru.student.studentSpring.tutorial.dto.Page;
-import ru.student.studentSpring.tutorial.dto.PageParams;
-import ru.student.studentSpring.tutorial.dto.course.CoursesParams;
 import ru.student.studentSpring.tutorial.generated.Sequences;
 import ru.student.studentSpring.tutorial.generated.tables.daos.CoursesDao;
 import ru.student.studentSpring.tutorial.generated.tables.pojos.Courses;
-import ru.student.studentSpring.tutorial.generated.tables.pojos.Instruments;
-import ru.student.studentSpring.tutorial.generated.tables.pojos.Students;
-import ru.student.studentSpring.tutorial.generated.tables.pojos.Teachers;
-import ru.student.studentSpring.tutorial.generated.tables.records.CoursesRecord;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import static ru.student.studentSpring.tutorial.generated.tables.Courses.COURSES;
-import static ru.student.studentSpring.tutorial.generated.tables.InstrumentsToRooms.INSTRUMENTS_TO_ROOMS;
 import static ru.student.studentSpring.tutorial.generated.tables.Lessons.LESSONS;
-import static ru.student.studentSpring.tutorial.generated.tables.Instruments.INSTRUMENTS;
-import static ru.student.studentSpring.tutorial.generated.tables.Teachers.TEACHERS;
 import static ru.student.studentSpring.tutorial.generated.tables.StudentToCourses.STUDENT_TO_COURSES;
 
 
 
 @Repository
 @AllArgsConstructor
-public class CourseDaoImpl extends CoursesDao {
+public class CourseDaoImpl extends CoursesDao implements BaseDao<Courses> {
 
     private final DSLContext jooq;
 
@@ -51,7 +36,7 @@ public class CourseDaoImpl extends CoursesDao {
     }
 
     public void create(Courses course) {
-        course.setId(jooq.nextval(Sequences.COURSES_ID_SEQ));
+        course.setId(jooq.nextval(Sequences.COURSES_ID_SEQ).intValue());
         if (course.getIdd() == null) {
             course.setIdd(course.getId());
         }

@@ -12,7 +12,7 @@ import java.util.List;
 import static ru.student.studentSpring.tutorial.generated.tables.Students.STUDENTS;
 
 @Repository
-public class StudentDaoImpl extends StudentsDao {
+public class StudentDaoImpl extends StudentsDao implements BaseDao<Students> {
 
     private final DSLContext jooq;
 
@@ -35,7 +35,7 @@ public class StudentDaoImpl extends StudentsDao {
     }
 
     public void create(Students student) {
-        student.setId(jooq.nextval(Sequences.STUDENTS_ID_SEQ));
+        student.setId(jooq.nextval(Sequences.STUDENTS_ID_SEQ).intValue());
         if (student.getIdd() == null) {
             student.setIdd(student.getId());
         }

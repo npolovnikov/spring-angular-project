@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class InstrumentParams {
-    private Integer idd;
+    private Long idd;
     private String number;
     private String name;
     private String orderBy;

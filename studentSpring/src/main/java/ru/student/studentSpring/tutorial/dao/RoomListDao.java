@@ -20,7 +20,7 @@ import static ru.student.studentSpring.tutorial.generated.tables.Rooms.ROOMS;
 
 @Repository
 @AllArgsConstructor
-public class RoomListDao {
+public class RoomListDao implements BaseListDao<Rooms, RoomParams> {
     private final DSLContext jooq;
 
     public Page<Rooms> list(PageParams<RoomParams> pageParams) {

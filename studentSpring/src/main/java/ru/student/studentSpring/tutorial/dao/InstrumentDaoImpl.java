@@ -14,7 +14,7 @@ import static ru.student.studentSpring.tutorial.generated.tables.InstrumentsToRo
 
 
 @Repository
-public class InstrumentDaoImpl extends InstrumentsDao {
+public class InstrumentDaoImpl extends InstrumentsDao implements BaseDao<Instruments> {
 
     private final DSLContext jooq;
 
@@ -47,7 +47,7 @@ public class InstrumentDaoImpl extends InstrumentsDao {
     }
 
     public void create(Instruments instrument) {
-        instrument.setId(jooq.nextval(Sequences.INSTRUMENTS_ID_SEQ));
+        instrument.setId(jooq.nextval(Sequences.INSTRUMENTS_ID_SEQ).intValue());
         if (instrument.getIdd() == null) {
             instrument.setIdd(instrument.getId());
         }

@@ -9,7 +9,9 @@ import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
 import ru.student.studentSpring.tutorial.dto.Page;
 import ru.student.studentSpring.tutorial.dto.PageParams;
+import ru.student.studentSpring.tutorial.dto.room.RoomParams;
 import ru.student.studentSpring.tutorial.dto.teacher.TeacherParams;
+import ru.student.studentSpring.tutorial.generated.tables.pojos.Rooms;
 import ru.student.studentSpring.tutorial.generated.tables.pojos.Teachers;
 import ru.student.studentSpring.tutorial.generated.tables.records.TeachersRecord;
 
@@ -20,7 +22,7 @@ import static ru.student.studentSpring.tutorial.generated.tables.Teachers.TEACHE
 
 @Repository
 @AllArgsConstructor
-public class TeacherListDao {
+public class TeacherListDao  implements BaseListDao<Teachers, TeacherParams> {
     private final DSLContext jooq;
 
     public Page<Teachers> list(PageParams<TeacherParams> pageParams) {

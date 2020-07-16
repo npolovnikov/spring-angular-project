@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 import ru.student.studentSpring.tutorial.dto.Page;
 import ru.student.studentSpring.tutorial.dto.PageParams;
 import ru.student.studentSpring.tutorial.dto.course.CoursesParams;
+import ru.student.studentSpring.tutorial.dto.room.RoomParams;
 import ru.student.studentSpring.tutorial.generated.tables.pojos.Courses;
+import ru.student.studentSpring.tutorial.generated.tables.pojos.Rooms;
 import ru.student.studentSpring.tutorial.generated.tables.records.CoursesRecord;
 
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ import static ru.student.studentSpring.tutorial.generated.tables.Courses.COURSES
 
 @Repository
 @AllArgsConstructor
-public class CourseListDao {
+public class CourseListDao  implements BaseListDao<Courses, CoursesParams> {
     private final DSLContext jooq;
 
     public Page<Courses> list(PageParams<CoursesParams> pageParams) {

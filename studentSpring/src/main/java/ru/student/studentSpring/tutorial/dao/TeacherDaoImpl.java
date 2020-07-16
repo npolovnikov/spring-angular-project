@@ -13,7 +13,7 @@ import static ru.student.studentSpring.tutorial.generated.tables.Courses.COURSES
 import static ru.student.studentSpring.tutorial.generated.tables.Teachers.TEACHERS;
 
 @Repository
-public class TeacherDaoImpl extends TeachersDao {
+public class TeacherDaoImpl extends TeachersDao implements BaseDao<Teachers> {
 
     private final DSLContext jooq;
 
@@ -35,7 +35,7 @@ public class TeacherDaoImpl extends TeachersDao {
     }
 
     public void create(Teachers teacher) {
-        teacher.setId(jooq.nextval(Sequences.TEACHERS_ID_SEQ));
+        teacher.setId(jooq.nextval(Sequences.TEACHERS_ID_SEQ).intValue());
         if (teacher.getIdd() == null) {
             teacher.setIdd(teacher.getId());
         }
