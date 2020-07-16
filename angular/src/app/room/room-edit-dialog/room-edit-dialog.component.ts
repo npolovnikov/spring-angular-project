@@ -62,7 +62,7 @@ export class RoomEditDialogComponent implements OnInit {
         .then(res => this.dialogRef.close())
         .catch(error => console.log(error));
     } else {
-      this._roomService.createRoom(this.data)
+      this._roomService.create(this.data)
         .toPromise()
         .then(res => this.dialogRef.close())
         .catch(error => console.log(error));

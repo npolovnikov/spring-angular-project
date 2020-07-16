@@ -34,7 +34,7 @@ export class BaseService <ListEntity extends BaseListEntity, HistoryEntity exten
     return this._httpClient.patch(href, data);
   }
 
-  createRoom(data: Entity):Observable<Object> {
+  create(data: Entity):Observable<Object> {
     const href = '/api/' + this._entity.getName();
     return this._httpClient.post(href, data);
   }
