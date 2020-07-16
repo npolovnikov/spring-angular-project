@@ -1,7 +1,8 @@
-package ru.dfsystems.spring.tutorial.dao;
+package ru.dfsystems.spring.tutorial.dao.instrument;
 
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
+import ru.dfsystems.spring.tutorial.dao.BaseDao;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.InstrumentDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;

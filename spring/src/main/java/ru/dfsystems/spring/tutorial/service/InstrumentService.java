@@ -2,8 +2,8 @@ package ru.dfsystems.spring.tutorial.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.dfsystems.spring.tutorial.dao.InstrumentDaoImpl;
-import ru.dfsystems.spring.tutorial.dao.InstrumentListDao;
+import ru.dfsystems.spring.tutorial.dao.instrument.InstrumentDaoImpl;
+import ru.dfsystems.spring.tutorial.dao.instrument.InstrumentListDao;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentDto;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentListDto;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentParams;

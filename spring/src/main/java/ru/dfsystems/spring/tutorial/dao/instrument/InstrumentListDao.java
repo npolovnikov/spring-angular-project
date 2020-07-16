@@ -1,4 +1,4 @@
-package ru.dfsystems.spring.tutorial.dao;
+package ru.dfsystems.spring.tutorial.dao.instrument;
 
 import lombok.AllArgsConstructor;
 import lombok.val;
@@ -6,14 +6,12 @@ import org.jooq.DSLContext;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
+import ru.dfsystems.spring.tutorial.dao.BaseListDao;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentParams;
-import ru.dfsystems.spring.tutorial.dto.room.RoomParams;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 import ru.dfsystems.spring.tutorial.generated.tables.records.InstrumentRecord;
-import ru.dfsystems.spring.tutorial.generated.tables.records.RoomRecord;
 
 import java.util.ArrayList;
 import java.util.List;
