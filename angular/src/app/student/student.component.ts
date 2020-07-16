@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {StudentList} from "../_model/studentList";
+import {StudentList} from "../_model/student/studentList";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {StudentService} from "../_service/student.service";
+import {StudentService} from "../_service/student/student.service";
 import {merge, of as observableOf} from "rxjs";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
 import {SelectionModel} from "@angular/cdk/collections";

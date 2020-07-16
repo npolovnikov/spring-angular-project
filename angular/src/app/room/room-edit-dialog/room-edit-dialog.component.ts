@@ -1,12 +1,12 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {Room} from "../../_model/room";
-import {RoomService} from "../../_service/room.service";
+import {Room} from "../../_model/room/room";
+import {RoomService} from "../../_service/room/room.service";
 import {SelectionModel} from "@angular/cdk/collections";
 import {AddInstrumentDialogComponent} from "./add-instrument-dialog/add-instrument-dialog.component";
-import {InstrumentService} from "../../_service/instrument.service";
+import {InstrumentService} from "../../_service/instrument/instrument.service";
 import {MatTable} from "@angular/material/table";
-import {InstrumentList} from "../../_model/instrumentList";
+import {InstrumentList} from "../../_model/instrument/instrumentList";
 
 @Component({
   selector: 'app-room-edit-dialog',

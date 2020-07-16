@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
-import {InstrumentService} from "../../../_service/instrument.service";
-import {InstrumentList} from "../../../_model/instrumentList";
+import {InstrumentService} from "../../../_service/instrument/instrument.service";
+import {InstrumentList} from "../../../_model/instrument/instrumentList";
 
 @Component({
   selector: 'app-add-instrument-dialog',

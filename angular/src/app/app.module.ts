@@ -29,7 +29,7 @@ import {RoomEditDialogComponent} from "./room/room-edit-dialog/room-edit-dialog.
 import {AddInstrumentDialogComponent} from "./room/room-edit-dialog/add-instrument-dialog/add-instrument-dialog.component";
 import {ErrorDialogComponent} from "./error-dialog/error-dialog.component";
 import {LoginComponent} from "./login/login.component";
-import {AuthInterceptor} from "./_service/auth.interceptor";
+import {AuthInterceptor} from "./_service/auth/auth.interceptor";
 import { EditCourseDialogComponent } from './course/edit-course-dialog/edit-course-dialog.component';
 import { EditLessonDialogComponent } from './lesson/edit-lesson-dialog/edit-lesson-dialog.component';
 import { EditStudentDialogComponent } from './student/edit-student-dialog/edit-student-dialog.component';
