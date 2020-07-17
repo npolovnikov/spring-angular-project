@@ -4,8 +4,8 @@ After=network-online.target
 
 [Service]
 Restart=on-failure
-WorkingDirectory=/var/lib/jenkins/workspace/LearningCourses/spring/target
-ExecStart=/usr/lib/jvm/jre-11/bin/java -jar spring-1.0-SNAPSHOT.jar
+WorkingDirectory=/opt
+ExecStart=/usr/lib/jvm/jre-11/bin/java -jar lc-back.jar
 
 [Install]
 WantedBy=multi-user.target

@@ -42,12 +42,16 @@ p {
   margin: 0 16px;
 }
 
-.navigation-link {
+.navigation-link:link {
   text-decoration: none;
   color: white;
-  :hover {
-    color: #7f7f7f;
-  }
+}
+.navigation-link:visited {
+  color: white;
+}
+.navigation-link:active {
+  color: white;
+  text-decoration: underline;
 }
 
 .toolbar #twitter-logo {

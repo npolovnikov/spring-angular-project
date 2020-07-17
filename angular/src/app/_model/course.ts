@@ -1,3 +1,5 @@
+import {StudentList} from "./student-list";
+
 export class Course {
   idd:number;
   name:string;
@@ -9,4 +11,5 @@ export class Course {
   createDate:string;
   status:string;
   history:[];
+  students: StudentList[];
 }

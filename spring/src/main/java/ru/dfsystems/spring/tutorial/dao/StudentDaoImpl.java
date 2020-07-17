@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Student.STUDENT;
+import static ru.dfsystems.spring.tutorial.generated.tables.StudentToCourse.STUDENT_TO_COURSE;
 
 @Repository
 public class StudentDaoImpl extends StudentDao implements BaseDao<Student> {
@@ -41,5 +42,15 @@ public class StudentDaoImpl extends StudentDao implements BaseDao<Student> {
         student.setCreateDate(LocalDateTime.now());
         super.insert(student);
         return student;
+    }
+
+    public List<Student> getStudentsByCourseIdd(Integer courseIdd) {
+        return jooq.select(STUDENT.fields())
+                .from(STUDENT)
+                .join(STUDENT_TO_COURSE)
+                .on(STUDENT.IDD.eq(STUDENT_TO_COURSE.STUDENT_IDD))
+                .where(STUDENT_TO_COURSE.COURSE_IDD.eq(courseIdd))
+                .and(STUDENT.DELETE_DATE.isNull())
+                .fetchInto(Student.class);
     }
 }

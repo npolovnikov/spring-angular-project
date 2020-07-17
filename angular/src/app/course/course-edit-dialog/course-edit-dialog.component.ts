@@ -50,6 +50,12 @@ export class CourseEditDialogComponent implements OnInit {
   startDate: Date;
   endDate: Date;
 
+  historyDisplayedColumns: string[] = ['id', 'name', 'description', 'maxCountStudent', 'startDate', 'endDate', 'createDate'];
+  showHistoryTable:boolean = false;
+
+  studentDisplayedColumns: string[] = [ 'idd', 'lastName', 'firstName', 'middleName', 'passport', 'birthDate'];
+  showStudentTable:boolean = false;
+
   constructor(
     private _courseService:CourseService,
     private _teacherService:TeacherService,
@@ -69,8 +75,8 @@ export class CourseEditDialogComponent implements OnInit {
         .subscribe(course => {
           this.data = course;
           this.selectedTeacher = this.teachers.find(c => c.idd == this.data.teacherIdd);
-          this.startDate = new Date(this.data.startDate);
-          this.endDate = new Date(this.data.endDate);
+          this.startDate = this.data.startDate != null ? new Date(this.data.startDate) : null;
+          this.endDate = this.data.endDate != null ? new Date(this.data.endDate) : null;
         });
     }
   }
@@ -94,5 +100,13 @@ export class CourseEditDialogComponent implements OnInit {
         .then(res => this.dialogRef.close())
         .catch(error => console.log(error));
     }
+  }
+
+  setShowHistoryTable() {
+    this.showHistoryTable = !this.showHistoryTable;
+  }
+
+  setShowStudentTable() {
+    this.showStudentTable = !this.showStudentTable;
   }
 }

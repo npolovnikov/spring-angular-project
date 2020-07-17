@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.dfsystems.spring.tutorial.dto.BaseDto;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonListDto;
+import ru.dfsystems.spring.tutorial.dto.student.StudentListDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,4 +23,5 @@ public class CourseDto extends BaseDto<CourseHistoryDto> {
     private LocalDateTime endDate;
     private String status;
     private List<LessonListDto> lessons;
+    private List<StudentListDto> students;
 }

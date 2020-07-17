@@ -1,8 +1,7 @@
-import {HttpClient} from '@angular/common/http';
 import {Component, ViewChild, AfterViewInit} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {merge, Observable, of as observableOf} from 'rxjs';
+import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {CourseList} from "../_model/course-list";
 import {CourseService} from "../_service/course.service";
@@ -17,7 +16,7 @@ import {SelectionModel} from "@angular/cdk/collections";
 })
 export class CourseComponent implements AfterViewInit {
   sizeOption:number[] = [2, 5, 10];
-  displayedColumns: string[] = ['select', 'idd', 'name', 'description', 'maxCountStudent', 'startDate', 'endDate', 'createDate', 'status'];
+  displayedColumns: string[] = ['select', 'idd', 'name', 'description', 'maxCountStudent', 'startDate', 'endDate', 'createDate'];
   data: CourseList[];
   selection = new SelectionModel<CourseList>(false, []);
 
@@ -37,7 +36,7 @@ export class CourseComponent implements AfterViewInit {
 
   openCreateDialog() {
     const dialogRef = this.dialog.open(CourseEditDialogComponent, {
-      width: '750px'
+      width: '1000px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -50,7 +49,7 @@ export class CourseComponent implements AfterViewInit {
       return;
     }
     const dialogRef = this.dialog.open(CourseEditDialogComponent, {
-      width: '750px',
+      width: '1000px',
       data: this.selection.selected[0]?.idd
     });
     this.selection.clear();

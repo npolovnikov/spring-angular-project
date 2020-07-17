@@ -25,16 +25,32 @@ import {CourseComponent} from "./course/course.component";
 import {CourseEditDialogComponent} from "./course/course-edit-dialog/course-edit-dialog.component";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import {TeacherComponent} from "./teacher/teacher.component";
+import {InstrumentEditDialogComponent} from "./instrument/instrument-edit-dialog/instrument-edit-dialog.component";
+import {TeacherEditDialogComponent} from "./teacher/teacher-edit-dialog/teacher-edit-dialog.component";
+import {StudentComponent} from "./student/student.component";
+import {StudentEditDialogComponent} from "./student/student-edit-dialog/student-edit-dialog.component";
+import {LessonComponent} from "./lesson/lesson.component";
+import {LessonEditDialogComponent} from "./lesson/lesson-edit-dialog/lesson-edit-dialog.component";
+import {AddStudentToCourseDialogComponent} from "./student/student-edit-dialog/add-student-to-course-dialog/add-student-to-course-dialog.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     RoomComponent,
     InstrumentComponent,
+    InstrumentEditDialogComponent,
     RoomEditDialogComponent,
     AddInstrumentDialogComponent,
     CourseComponent,
-    CourseEditDialogComponent
+    CourseEditDialogComponent,
+    TeacherComponent,
+    TeacherEditDialogComponent,
+    StudentComponent,
+    StudentEditDialogComponent,
+    LessonComponent,
+    LessonEditDialogComponent,
+    AddStudentToCourseDialogComponent
   ],
     imports: [
         BrowserModule,

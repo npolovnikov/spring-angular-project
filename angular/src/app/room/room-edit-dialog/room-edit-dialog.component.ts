@@ -17,9 +17,9 @@ export class RoomEditDialogComponent implements OnInit {
   @ViewChild(MatTable) instrumentTable: MatTable<InstrumentList>;
 
   data:Room = new Room();
+  selection = new SelectionModel(false, []);
 
   instrumentsDisplayedColumns: string [] = ['select', 'idd', 'name', 'number', 'createDate'];
-  selection = new SelectionModel(false, []);
   showInstrumentTable:boolean = false;
 
   historyDisplayedColumns: string[] = ['id', 'number', 'block', 'deleteDate'];
@@ -82,8 +82,10 @@ export class RoomEditDialogComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.data.instruments.push(result);
-      this.instrumentTable.renderRows();
+      if (result) {
+        this.data.instruments.push(result);
+        this.instrumentTable.renderRows();
+      }
     });
   }
 }

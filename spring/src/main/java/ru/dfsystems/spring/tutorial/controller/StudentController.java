@@ -19,4 +19,9 @@ public class StudentController extends BaseController<StudentListDto, StudentDto
         super(roomService);
         this.roomService = roomService;
     }
+
+    @PutMapping("/{idd}/course")
+    public void putCourse(@PathVariable("idd") Integer idd, @RequestBody Integer courseIdd) {
+        roomService.putCourse(idd, courseIdd);
+    }
 }

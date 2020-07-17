@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class LessonParams {
     private Integer idd;
     private String name;
+    private Integer courseIdd;
     private String orderBy;
     private String orderDir;
 

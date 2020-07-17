@@ -29,10 +29,10 @@ public class InstrumentToRoomDaoImpl extends InstrumentToRoomDao {
     }
 
     public void createByRoomAndInstrumentIdd(Integer roomIdd, List<Integer> iddsToBeAdd) {
-        iddsToBeAdd.forEach(InstrumentIdd -> {
+        iddsToBeAdd.forEach(instrumentIdd -> {
             InstrumentToRoom link = new InstrumentToRoom();
             link.setRoomIdd(roomIdd);
-            link.setInstrumentIdd(InstrumentIdd);
+            link.setInstrumentIdd(instrumentIdd);
             super.insert(link);
         });
     }

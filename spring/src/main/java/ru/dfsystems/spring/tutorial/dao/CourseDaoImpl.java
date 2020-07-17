@@ -5,11 +5,14 @@ import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.CourseDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Course.COURSE;
+import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMENT;
+import static ru.dfsystems.spring.tutorial.generated.tables.StudentToCourse.STUDENT_TO_COURSE;
 
 @Repository
 public class CourseDaoImpl extends CourseDao implements BaseDao<Course> {
@@ -41,5 +44,15 @@ public class CourseDaoImpl extends CourseDao implements BaseDao<Course> {
         course.setCreateDate(LocalDateTime.now());
         super.insert(course);
         return course;
+    }
+
+    public List<Course> getCoursesByStudentIdd(Integer studentIdd) {
+        return jooq.select(COURSE.fields())
+                .from(COURSE)
+                .join(STUDENT_TO_COURSE)
+                .on(COURSE.IDD.eq(STUDENT_TO_COURSE.COURSE_IDD))
+                .where(STUDENT_TO_COURSE.STUDENT_IDD.eq(studentIdd))
+                .and(COURSE.DELETE_DATE.isNull())
+                .fetchInto(Course.class);
     }
 }

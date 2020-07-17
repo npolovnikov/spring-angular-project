@@ -37,18 +37,21 @@ public class LessonListDao implements BaseListDao<Lesson, LessonParams> {
         return new Page<>(list, count);
     }
 
-    private SelectSeekStepN<LessonRecord> getLessonSelect(LessonParams params){
+    private SelectSeekStepN<LessonRecord> getLessonSelect(LessonParams params) {
         var condition = LESSON.DELETE_DATE.isNull();
-        if (params.getName() != null){
+        if (params.getName() != null) {
             condition = condition.and(LESSON.NAME.like(params.getName()));
         }
-        if (params.getLessonDateStartFrom() != null && params.getLessonDateStartTo() != null){
+        if (params.getCourseIdd() != null) {
+            condition = condition.and(LESSON.COURSE_IDD.eq(params.getCourseIdd()));
+        }
+        if (params.getLessonDateStartFrom() != null && params.getLessonDateStartTo() != null) {
             condition = condition.and(LESSON.LESSON_DATE_START.between(params.getLessonDateStartFrom(), params.getLessonDateStartTo()));
         }
-        if (params.getLessonDateEndFrom() != null && params.getLessonDateEndTo() != null){
+        if (params.getLessonDateEndFrom() != null && params.getLessonDateEndTo() != null) {
             condition = condition.and(LESSON.LESSON_DATE_END.between(params.getLessonDateEndFrom(), params.getLessonDateEndTo()));
         }
-        if (params.getCreateDateFrom() != null && params.getCreateDateTo() != null){
+        if (params.getCreateDateFrom() != null && params.getCreateDateTo() != null) {
             condition = condition.and(LESSON.CREATE_DATE.between(params.getCreateDateFrom(), params.getCreateDateTo()));
         }
 
@@ -59,10 +62,10 @@ public class LessonListDao implements BaseListDao<Lesson, LessonParams> {
                 .orderBy(sort);
     }
 
-    private SortField[] getOrderBy(String orderBy, String orderDir){
+    private SortField[] getOrderBy(String orderBy, String orderDir) {
         val asc = orderDir == null || orderDir.equalsIgnoreCase("asc");
 
-        if (orderBy == null){
+        if (orderBy == null) {
             return asc
                     ? new SortField[]{LESSON.IDD.asc()}
                     : new SortField[]{LESSON.IDD.desc()};
@@ -71,20 +74,20 @@ public class LessonListDao implements BaseListDao<Lesson, LessonParams> {
         val orderArray = orderBy.split(",");
 
         List<SortField> listSortBy = new ArrayList<>();
-        for (val order: orderArray){
-            if (order.equalsIgnoreCase("idd")){
+        for (val order : orderArray) {
+            if (order.equalsIgnoreCase("idd")) {
                 listSortBy.add(asc ? LESSON.IDD.asc() : LESSON.IDD.desc());
             }
-            if (order.equalsIgnoreCase("name")){
+            if (order.equalsIgnoreCase("name")) {
                 listSortBy.add(asc ? LESSON.NAME.asc() : LESSON.NAME.desc());
             }
-            if (order.equalsIgnoreCase("lesson_date_start")){
+            if (order.equalsIgnoreCase("lesson_date_start")) {
                 listSortBy.add(asc ? LESSON.LESSON_DATE_START.asc() : LESSON.LESSON_DATE_START.desc());
             }
-            if (order.equalsIgnoreCase("lesson_date_end")){
+            if (order.equalsIgnoreCase("lesson_date_end")) {
                 listSortBy.add(asc ? LESSON.LESSON_DATE_END.asc() : LESSON.LESSON_DATE_END.desc());
             }
-            if (order.equalsIgnoreCase("create_date")){
+            if (order.equalsIgnoreCase("create_date")) {
                 listSortBy.add(asc ? LESSON.CREATE_DATE.asc() : LESSON.CREATE_DATE.desc());
             }
         }

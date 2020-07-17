@@ -8,6 +8,7 @@ import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMENT;
 import static ru.dfsystems.spring.tutorial.generated.tables.InstrumentToRoom.INSTRUMENT_TO_ROOM;
 
@@ -43,13 +44,13 @@ public class InstrumentDaoImpl extends InstrumentDao implements BaseDao<Instrume
         return instrument;
     }
 
-    public List<Instrument> getInstrumentsByRoomIdd(Integer idd) {
+    public List<Instrument> getInstrumentsByRoomIdd(Integer roomIdd) {
         return jooq.select(INSTRUMENT.fields())
-                    .from(INSTRUMENT)
-                        .join(INSTRUMENT_TO_ROOM)
-                            .on(INSTRUMENT.IDD.eq(INSTRUMENT_TO_ROOM.INSTRUMENT_IDD))
-                    .where(INSTRUMENT_TO_ROOM.ROOM_IDD.eq(idd))
-                    .fetchInto(Instrument.class);
-
+                .from(INSTRUMENT)
+                .join(INSTRUMENT_TO_ROOM)
+                .on(INSTRUMENT.IDD.eq(INSTRUMENT_TO_ROOM.INSTRUMENT_IDD))
+                .where(INSTRUMENT_TO_ROOM.ROOM_IDD.eq(roomIdd))
+                .and(INSTRUMENT.DELETE_DATE.isNull())
+                .fetchInto(Instrument.class);
     }
 }
