@@ -6,6 +6,7 @@ import {CourseComponent} from "./course/course.component";
 import {TeacherComponent} from "./teacher/teacher.component";
 import {StudentComponent} from "./student/student.component";
 import {LessonComponent} from "./lesson/lesson.component";
+import {LoginComponent} from "./login/login.component";
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path:'teacher', component:TeacherComponent},
   {path:'student', component:StudentComponent},
   {path:'lesson', component:LessonComponent},
+  {path:'login', component:LoginComponent},
 
   {path:'**', redirectTo:'/course'}
 ];

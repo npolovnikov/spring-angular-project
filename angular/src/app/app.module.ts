@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RoomComponent} from './room/room.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
@@ -33,6 +33,9 @@ import {StudentEditDialogComponent} from "./student/student-edit-dialog/student-
 import {LessonComponent} from "./lesson/lesson.component";
 import {LessonEditDialogComponent} from "./lesson/lesson-edit-dialog/lesson-edit-dialog.component";
 import {AddStudentToCourseDialogComponent} from "./student/student-edit-dialog/add-student-to-course-dialog/add-student-to-course-dialog.component";
+import {ErrorDialogComponent} from "./error-dialog/error-dialog.component";
+import {LoginComponent} from "./login/login.component";
+import {AuthInterceptor} from "./_service/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -50,7 +53,9 @@ import {AddStudentToCourseDialogComponent} from "./student/student-edit-dialog/a
     StudentEditDialogComponent,
     LessonComponent,
     LessonEditDialogComponent,
-    AddStudentToCourseDialogComponent
+    AddStudentToCourseDialogComponent,
+    ErrorDialogComponent,
+    LoginComponent
   ],
     imports: [
         BrowserModule,
@@ -75,7 +80,12 @@ import {AddStudentToCourseDialogComponent} from "./student/student-edit-dialog/a
     ],
   providers: [
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi:true
+    }
   ],
   bootstrap: [AppComponent]
 })

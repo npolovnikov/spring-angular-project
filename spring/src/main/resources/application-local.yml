@@ -17,3 +17,5 @@ spring:
 logging:
   file:
     max-history: 20
+auth:
+  salt: msv

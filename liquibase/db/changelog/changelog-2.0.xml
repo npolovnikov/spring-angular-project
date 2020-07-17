@@ -66,33 +66,33 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="20200623-03" author="martyshenko">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="DEF_USER" schemaName="lessons"/>
-            </not>
-        </preConditions>
-        <comment>Создание таблицы DEF_USER</comment>
-        <sql>
-            create table DEF_USER (
-                id serial primary key,
-                idd int not null,
-                first_name varchar(50),
-                middle_name varchar(50),
-                last_name varchar(50),
-                passport varchar(15) not null,
-                birth_date timestamp(0),
-                create_date timestamp(0) not null,
-                delete_date timestamp(0),
-                status varchar(10)
-            );
-        </sql>
-        <rollback>
-            <sql>
-                drop table if exists DEF_USER;
-            </sql>
-        </rollback>
-    </changeSet>
+<!--    <changeSet id="20200623-03" author="martyshenko">-->
+<!--        <preConditions onFail="MARK_RAN">-->
+<!--            <not>-->
+<!--                <tableExists tableName="DEF_USER" schemaName="lessons"/>-->
+<!--            </not>-->
+<!--        </preConditions>-->
+<!--        <comment>Создание таблицы DEF_USER</comment>-->
+<!--        <sql>-->
+<!--            create table DEF_USER (-->
+<!--                id serial primary key,-->
+<!--                idd int not null,-->
+<!--                first_name varchar(50),-->
+<!--                middle_name varchar(50),-->
+<!--                last_name varchar(50),-->
+<!--                passport varchar(15) not null,-->
+<!--                birth_date timestamp(0),-->
+<!--                create_date timestamp(0) not null,-->
+<!--                delete_date timestamp(0),-->
+<!--                status varchar(10)-->
+<!--            );-->
+<!--        </sql>-->
+<!--        <rollback>-->
+<!--            <sql>-->
+<!--                drop table if exists DEF_USER;-->
+<!--            </sql>-->
+<!--        </rollback>-->
+<!--    </changeSet>-->
 
     <changeSet id="20200623-04" author="martyshenko">
         <preConditions onFail="MARK_RAN">
@@ -194,5 +194,38 @@
             </sql>
         </rollback>
     </changeSet>
+
+    <changeSet id="20200717-01" author="martyshenko">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="APP_USER" schemaName="lessons"/>
+            </not>
+        </preConditions>
+        <comment>Создание таблицы APP_USER</comment>
+        <sql>
+            create table APP_USER (
+                id serial primary key,
+                login varchar(50),
+                password_hash varchar(50),
+                fio varchar(255),
+                is_active boolean,
+                last_login_date timestamp(0)
+            );
+        </sql>
+        <rollback>
+            <sql>
+                drop table if exists APP_USER;
+            </sql>
+        </rollback>
+    </changeSet>
+
+<!--    <changeSet id="20200717-02" author="martyshenko">-->
+<!--        <preConditions onFail="MARK_RAN">-->
+<!--            <tableExists tableName="ROOM" schemaName="public"/>-->
+<!--        </preConditions>-->
+<!--        <sql>-->
+<!--            alter table ROOM add column USER_ID integer;-->
+<!--        </sql>-->
+<!--    </changeSet>-->
 
 </databaseChangeLog>
