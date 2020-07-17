@@ -10,6 +10,6 @@ import {Course} from "../../_model/course/course";
 })
 export class CourseService extends BaseService<CourseList, CourseHistory, Course>{
   constructor(_httpClient: HttpClient) {
-    super(_httpClient, new Course);
+    super(_httpClient, new Course());
   }
 }

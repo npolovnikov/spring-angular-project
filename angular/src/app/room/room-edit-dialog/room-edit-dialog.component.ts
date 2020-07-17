@@ -82,8 +82,10 @@ export class RoomEditDialogComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.data.instruments.push(result);
-      this.instrumentTable.renderRows();
+      if (result) {
+        this.data.instruments.push(result);
+        this.instrumentTable.renderRows();
+      }
     });
   }
 }

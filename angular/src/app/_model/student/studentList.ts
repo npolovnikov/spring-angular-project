@@ -6,5 +6,5 @@ export class StudentList extends BaseListEntity{
   lastName:string;
   passport:string;
   birthDate:string;
-  status:string;
+  // status:string;
 }

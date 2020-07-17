@@ -1,6 +1,5 @@
-import {Component, Inject, LOCALE_ID, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MatTable} from "@angular/material/table";
-import {InstrumentList} from "../../_model/instrument/instrumentList";
 import {SelectionModel} from "@angular/cdk/collections";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {Student} from "../../_model/student/student";
@@ -9,27 +8,6 @@ import {CourseService} from "../../_service/course/course.service";
 import {AddCourseDialogComponent} from "../../add-course-dialog/add-course-dialog.component";
 import {CourseList} from "../../_model/course/courseList";
 import {formatDate} from "@angular/common";
-import {NativeDateAdapter} from "@angular/material/core";
-
-export const PICK_FORMATS = {
-  parse: {dateInput: {month: 'short', year: 'numeric', day: 'numeric'}},
-  display: {
-    dateInput: 'input',
-    monthYearLabel: {year: 'numeric', month: 'short'},
-    dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
-    monthYearA11yLabel: {year: 'numeric', month: 'long'}
-  }
-};
-
-class PickDateAdapter extends NativeDateAdapter {
-  format(date: Date, displayFormat: Object): string {
-    if (displayFormat === 'input') {
-      return formatDate(date, 'yyyy-MM-dd', this.locale);
-    } else {
-      return date.toDateString();
-    }
-  }
-}
 
 @Component({
   selector: 'app-edit-student-dialog',
@@ -62,7 +40,10 @@ export class EditStudentDialogComponent implements OnInit {
     if (this.idd) {
       this._studentService.getByIdd(this.idd)
         .pipe()
-        .subscribe(room => {this.data = room});
+        .subscribe(student => {
+          this.data = student;
+          this.birthDate = this.data.birthDate != null ? new Date(this.data.birthDate) : null;
+        });
     } else {
       this.data.courses = [];
     }
@@ -81,6 +62,7 @@ export class EditStudentDialogComponent implements OnInit {
   }
 
   onSaveClick() {
+    this.data.birthDate = formatDate(this.birthDate, 'yyyy-MM-dd HH:mm', 'en-US').toString().substr(0, 16);
     if (this.idd){
       this._studentService.update(this.idd, this.data)
         .toPromise()
@@ -107,8 +89,10 @@ export class EditStudentDialogComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.data.courses.push(result);
-      this.courseTable.renderRows();
+      if (result) {
+        this.data.courses.push(result);
+        this.courseTable.renderRows();
+      }
     });
   }
 }
