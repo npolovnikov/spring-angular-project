@@ -17,3 +17,4 @@ spring:
 logging:
   file:
     max-history: 20
+salt: folies

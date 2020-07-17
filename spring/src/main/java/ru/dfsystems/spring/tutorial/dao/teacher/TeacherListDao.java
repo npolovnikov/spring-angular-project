@@ -57,10 +57,6 @@ public class TeacherListDao implements BaseListDao<Teacher, TeacherParams> {
             condition = condition.and(TEACHER.PASSPORT.like(params.getPassport()));
         }
 
-        if (params.getStatus() != null){
-            condition = condition.and(TEACHER.STATUS.like(params.getStatus()));
-        }
-
         if (params.getBirthDateStart() != null && params.getBirthDateEnd() != null){
             condition = condition.and(TEACHER.BIRTH_DATE.between(params.getBirthDateStart(), params.getBirthDateEnd()));
         }
@@ -103,9 +99,6 @@ public class TeacherListDao implements BaseListDao<Teacher, TeacherParams> {
             }
             if (order.equalsIgnoreCase("passport")){
                 listSortBy.add(asc ? TEACHER.PASSPORT.asc() : TEACHER.PASSPORT.desc());
-            }
-            if (order.equalsIgnoreCase("status")){
-                listSortBy.add(asc ? TEACHER.STATUS.asc() : TEACHER.STATUS.desc());
             }
             if (order.equalsIgnoreCase("birthDate")){
                 listSortBy.add(asc ? TEACHER.BIRTH_DATE.asc() : TEACHER.BIRTH_DATE.desc());

@@ -57,10 +57,6 @@ public class StudentListDao implements BaseListDao<Student, StudentParams> {
             condition = condition.and(STUDENT.PASSPORT.like(params.getPassport()));
         }
 
-        if (params.getStatus() != null){
-            condition = condition.and(STUDENT.STATUS.like(params.getStatus()));
-        }
-
         if (params.getBirthDateStart() != null && params.getBirthDateEnd() != null){
             condition = condition.and(STUDENT.BIRTH_DATE.between(params.getBirthDateStart(), params.getBirthDateEnd()));
         }
@@ -103,9 +99,6 @@ public class StudentListDao implements BaseListDao<Student, StudentParams> {
             }
             if (order.equalsIgnoreCase("passport")){
                 listSortBy.add(asc ? STUDENT.PASSPORT.asc() : STUDENT.PASSPORT.desc());
-            }
-            if (order.equalsIgnoreCase("status")){
-                listSortBy.add(asc ? STUDENT.STATUS.asc() : STUDENT.STATUS.desc());
             }
             if (order.equalsIgnoreCase("birthDate")){
                 listSortBy.add(asc ? STUDENT.BIRTH_DATE.asc() : STUDENT.BIRTH_DATE.desc());

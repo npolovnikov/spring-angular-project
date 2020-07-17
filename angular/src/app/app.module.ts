@@ -35,6 +35,10 @@ import { EditLessonDialogComponent } from './lesson/edit-lesson-dialog/edit-less
 import { EditStudentDialogComponent } from './student/edit-student-dialog/edit-student-dialog.component';
 import { EditInstrumentDialogComponent } from './instrument/edit-instrument-dialog/edit-instrument-dialog.component';
 import { EditTeacherDialogComponent } from './teacher/edit-teacher-dialog/edit-teacher-dialog.component';
+import { AddCourseDialogComponent } from './add-course-dialog/add-course-dialog.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -55,33 +59,38 @@ import { EditTeacherDialogComponent } from './teacher/edit-teacher-dialog/edit-t
     EditCourseDialogComponent,
     EditInstrumentDialogComponent,
     EditTeacherDialogComponent,
+    AddCourseDialogComponent,
+    LogoutComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatTableModule,
-    MatProgressSpinnerModule,
-    HttpClientModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDialogModule,
-    FormsModule,
-    MatCheckboxModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatTableModule,
+        MatProgressSpinnerModule,
+        HttpClientModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDialogModule,
+        FormsModule,
+        MatCheckboxModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        MatNativeDateModule
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi:true
-    }
+    },
+    MatDatepickerModule
   ],
   bootstrap: [AppComponent]
 })

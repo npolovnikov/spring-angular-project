@@ -7,7 +7,6 @@
     <include file="changelog/changelog-1.0.xml" relativeToChangelogFile="true"/>
     <include file="changelog/changelog-studentTable.xml" relativeToChangelogFile="true"/>
     <include file="changelog/changelog-teacherTable.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/changelog-userTable.xml" relativeToChangelogFile="true"/>
     <include file="changelog/changelog-courseTable.xml" relativeToChangelogFile="true"/>
     <include file="changelog/changelog-lessonTable.xml" relativeToChangelogFile="true"/>
     <include file="changelog/changelog-studentToCourseTable.xml" relativeToChangelogFile="true"/>

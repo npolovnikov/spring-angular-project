@@ -188,24 +188,4 @@
             <dropColumn tableName="STUDENT" columnName="DELETE_DATE"/>
         </rollback>
     </changeSet>
-
-    <changeSet id="20200620-10" author="ponamarchuk">
-        <preConditions onFail="MARK_RAN">
-            <and>
-                <tableExists tableName="STUDENT" schemaName="public"/>
-                <not>
-                    <columnExists tableName="STUDENT" columnName="STATUS"/>
-                </not>
-            </and>
-        </preConditions>
-        <comment>Добавление колонки STATUS к STUDENT</comment>
-        <addColumn tableName="STUDENT">
-            <column name="STATUS" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-        </addColumn>
-        <rollback>
-            <dropColumn tableName="STUDENT" columnName="STATUS"/>
-        </rollback>
-    </changeSet>
 </databaseChangeLog>

@@ -16,7 +16,7 @@ import {EditCourseDialogComponent} from "./edit-course-dialog/edit-course-dialog
 })
 export class CourseComponent implements AfterViewInit {
   sizeOption:number[] = [2, 5, 10];
-  displayedColumns: string[] = ['select', 'idd', 'name', 'description', 'maxCountStudent', 'startDate', 'endDate', 'status', 'createDate'];
+  displayedColumns: string[] = ['select', 'idd', 'name', 'description', 'maxCountStudent', 'startDate', 'endDate', 'createDate'];
   data: CourseList[];
   selection = new SelectionModel<CourseList>(false, []);
 

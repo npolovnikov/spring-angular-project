@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static ru.dfsystems.spring.tutorial.security.CookieUtils.LOGIN_COOKIE_NAME;
@@ -12,7 +13,7 @@ import static ru.dfsystems.spring.tutorial.security.CookieUtils.LOGIN_COOKIE_NAM
 @RequestMapping(value = "/auth", produces = "application/json; charset=UTF-8")
 @AllArgsConstructor
 public class AuthController {
-    private UserService userService;
+    private final UserService userService;
 
     @PostMapping("/login")
     public void login(@RequestBody AuthDto authDto, HttpServletResponse response) {
@@ -39,5 +40,14 @@ public class AuthController {
         return false;
     }
 
-    //TODO ДЗ logout
+    @GetMapping("/logout")
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        Cookie userCookie = CookieUtils.extractLoginCookie(request);
+        if (userCookie == null) return;
+        userCookie.setMaxAge(0);
+        userCookie.setPath("/");
+        userCookie.setValue("");
+        response.addCookie(userCookie);
+        userService.logout();
+    }
 }

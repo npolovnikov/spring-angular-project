@@ -3,6 +3,7 @@ package ru.dfsystems.spring.tutorial.security;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import ru.dfsystems.spring.tutorial.config.YAMLConfig;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.AppUserDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.AppUser;
 import ru.dfsystems.spring.tutorial.mapping.MappingService;
@@ -14,9 +15,10 @@ import static ru.dfsystems.spring.tutorial.generated.tables.AppUser.APP_USER;
 @Service
 @AllArgsConstructor
 public class UserService {
-    private AppUserDao appUserDao;
-    private MappingService mappingService;
-    private UserContext userContext;
+    private final AppUserDao appUserDao;
+    private final MappingService mappingService;
+    private final UserContext userContext;
+    private final YAMLConfig yamlConfig;
 
     public AppUser getUserByLogin(String login){
         return appUserDao.fetchOptional(APP_USER.LOGIN, login)
@@ -29,8 +31,7 @@ public class UserService {
             return false;
         }
 
-        //ДЗ Добавить соль к паролю. Соль хранить в application.yml
-        String md5Hex = DigestUtils.md5DigestAsHex(password.getBytes())
+        String md5Hex = DigestUtils.md5DigestAsHex((password + yamlConfig.getSalt()).getBytes())
                 .toUpperCase();
 
         return md5Hex.equals(user.getPasswordHash());
@@ -45,6 +46,12 @@ public class UserService {
         user.setLastLoginDate(LocalDateTime.now());
         user.setIsActive(true);
 
+        appUserDao.update(user);
+    }
+
+    public void logout() {
+        AppUser user = getUserByLogin(getCurrentUser().getLogin());
+        user.setIsActive(false);
         appUserDao.update(user);
     }
 }

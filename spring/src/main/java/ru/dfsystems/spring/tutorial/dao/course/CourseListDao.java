@@ -47,9 +47,6 @@ public class CourseListDao implements BaseListDao<Course, CourseParams> {
         if (params.getMaxCountStudent() != null){
             condition = condition.and(COURSE.MAX_COUNT_STUDENT.equal(params.getMaxCountStudent()));
         }
-        if (params.getStatus() != null){
-            condition = condition.and(COURSE.STATUS.like(params.getStatus()));
-        }
 
         if (params.getStartDateStart() != null && params.getStartDateEnd() != null){
             condition = condition.and(COURSE.START_DATE.between(params.getStartDateStart(), params.getStartDateEnd()));
@@ -91,9 +88,6 @@ public class CourseListDao implements BaseListDao<Course, CourseParams> {
             }
             if (order.equalsIgnoreCase("macCountStudent")){
                 listSortBy.add(asc ? COURSE.MAX_COUNT_STUDENT.asc() : COURSE.MAX_COUNT_STUDENT.desc());
-            }
-            if (order.equalsIgnoreCase("status")){
-                listSortBy.add(asc ? COURSE.STATUS.asc() : COURSE.STATUS.desc());
             }
             if (order.equalsIgnoreCase("startDate")){
                 listSortBy.add(asc ? COURSE.START_DATE.asc() : COURSE.START_DATE.desc());
