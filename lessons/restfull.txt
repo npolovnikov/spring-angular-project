@@ -1,8 +1,7 @@
 http://localhost/api
 
-/room - @POST создание кабинета //  http://localhost/api/room
+http://localhost/api/room - @POST создание кабинета
 /list - @POST отфильтрованный список кабинетов //  http://localhost/api/room/list
-/{idd}/history - @GET История изменения кабинета
 /{idd} - @GET получение информации об одном кабинете
 /{idd} - @PUT | @PATCH Обновление информации о кабинете
 /{idd} - @DELETE Помечение объекта удаленным
@@ -12,12 +11,10 @@ http://localhost/api
 
 /student //CRUD
 /{idd}/course/list - @GET Список курсов у студента
-/{idd}/course      - @PUT Запись сутдента на новый курс
-/{idd}/history - @GET История изменения студента
+/{idd}/course      - @PUT Запись студента на новый курс
 
 /teacher //CRUD
 /{idd}/course/list - @GET Список курсов у учителя
-/{idd}/history - @GET История изменения учителя
 
 /course //CRUD
 /{idd}/lesson/list - @GET Список уроков

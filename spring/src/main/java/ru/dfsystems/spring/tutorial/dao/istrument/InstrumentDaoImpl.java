@@ -23,7 +23,7 @@ public class InstrumentDaoImpl extends InstrumentDao implements BaseDao<Instrume
     }
 
     /**
-     * Возврнащает список инструментов в конкретном кабинете
+     * Возвращает список инструментов в конкретном кабинете
      */
     public List<Instrument> getInstrumentsByRoomIdd(Integer idd) {
         return jooq.select(INSTRUMENT.fields())

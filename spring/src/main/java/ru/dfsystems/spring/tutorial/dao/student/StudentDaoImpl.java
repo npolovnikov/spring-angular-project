@@ -10,6 +10,7 @@ import ru.dfsystems.spring.tutorial.generated.tables.pojos.Student;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static ru.dfsystems.spring.tutorial.generated.Tables.STUDENT_TO_COURSE;
 import static ru.dfsystems.spring.tutorial.generated.tables.Student.STUDENT;
 
 
@@ -20,6 +21,18 @@ public class StudentDaoImpl extends StudentDao implements BaseDao<Student> {
     public StudentDaoImpl(DSLContext jooq) {
         super(jooq.configuration());
         this.jooq = jooq;
+    }
+
+    /**
+     * Возвращает список курсов студента
+     */
+    public List<Student> getStudentsByCourseIdd(Integer idd) {
+        return jooq.select(STUDENT.fields())
+                .from(STUDENT)
+                .join(STUDENT_TO_COURSE)
+                .on(STUDENT.IDD.eq(STUDENT_TO_COURSE.STUDENT_IDD))
+                .where(STUDENT_TO_COURSE.COURSE_IDD.eq(idd))
+                .fetchInto(Student.class);
     }
 
     /**

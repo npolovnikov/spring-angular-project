@@ -152,12 +152,15 @@
         <sql>
             create table LESSON (
             id serial primary key,
+            idd int NOT NULL,
             name varchar(100),
             description varchar(1000),
             course_idd int,
             room_idd int,
             lesson_date_start timestamp(0),
             lesson_date_end timestamp(0),
+            create_date timestamp(0) not null,
+            delete_date timestamp(0),
             extra_instruments varchar(1000)
             );
         </sql>

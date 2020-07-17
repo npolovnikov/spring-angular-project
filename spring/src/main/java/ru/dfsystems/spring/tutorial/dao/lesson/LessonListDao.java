@@ -8,6 +8,7 @@ import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
 import org.jooq.impl.DSL;
 import org.springframework.stereotype.Repository;
+import ru.dfsystems.spring.tutorial.dao.BaseListDao;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonParams;
@@ -21,7 +22,7 @@ import static ru.dfsystems.spring.tutorial.generated.Tables.LESSON;
 
 @Repository
 @AllArgsConstructor
-public class LessonListDao {
+public class LessonListDao implements BaseListDao<Lesson, LessonParams> {
     private final DSLContext jooq;
 
     /**
@@ -66,6 +67,9 @@ public class LessonListDao {
         }
         if (params.getLessonDateEndStart() != null && params.getLessonDateStartEnd() != null) {
             condition = condition.and(LESSON.LESSON_DATE_END.between(params.getLessonDateEndStart(), params.getLessonDateStartEnd()));
+        }
+        if (params.getCreateDateStart() != null && params.getCreateDateEnd() != null) {
+            condition = condition.and(LESSON.CREATE_DATE.between(params.getCreateDateStart(), params.getCreateDateEnd()));
         }
 
         /* получаем сортировку */
