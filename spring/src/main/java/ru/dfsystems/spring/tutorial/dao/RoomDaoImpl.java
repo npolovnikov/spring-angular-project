@@ -48,7 +48,7 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
         super.insert(room);
         return room;
     }
-
+    /*
     public List<Room> getRoomsByInstrumentIdd(Integer idd) {
         return jooq.select(ROOM.fields())
                 .from(ROOM)
@@ -57,6 +57,8 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
                 .where(INSTRUMENT_TO_ROOM.INSTRUMENT_IDD.eq(idd))
                 .fetchInto(Room.class);
     }
+
+     */
 
     public List<Room> getRoomsByInstrumentIdd(Integer idd) {
         return jooq.select(ROOM.fields())

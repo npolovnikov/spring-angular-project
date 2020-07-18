@@ -43,13 +43,14 @@ public class LessonDaoImpl extends LessonDao implements BaseDao<Lesson>{
 
 
     @Override
-    public void create(Lesson lesson) {
+    public Lesson create(Lesson lesson) {
         lesson.setId(jooq.nextval(Sequences.LESSON_ID_SEQ));
         if (lesson.getIdd() == null) {
             lesson.setIdd(lesson.getId());
         }
         lesson.setCreateDate(LocalDateTime.now());
         super.insert(lesson);
+        return lesson;
     }
 
     @Override
