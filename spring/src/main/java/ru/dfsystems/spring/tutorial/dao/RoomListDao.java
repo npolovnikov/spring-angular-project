@@ -25,9 +25,9 @@ public class RoomListDao implements BaseListDao<Room, RoomParams> {
     @Override
     public Page<Room> list(PageParams<RoomParams> pageParams) {
         final RoomParams params = pageParams.getParams() == null ? new RoomParams() : pageParams.getParams();
-        val listQuery = getRoomSelect(params);
+        SelectSeekStepN<RoomRecord> listQuery = getRoomSelect(params);
 
-        val count = jooq.selectCount()
+        Long count = jooq.selectCount()
                 .from(listQuery)
                 .fetchOne(0, Long.class);
 
@@ -50,7 +50,7 @@ public class RoomListDao implements BaseListDao<Room, RoomParams> {
             condition = condition.and(ROOM.CREATE_DATE.between(params.getCreateDateStart(), params.getCreateDateEnd()));
         }
 
-        val sort = getOrderBy(params.getOrderBy(), params.getOrderDir());
+        SortField[] sort = getOrderBy(params.getOrderBy(), params.getOrderDir());
 
         return jooq.selectFrom(ROOM)
                 .where(condition)
