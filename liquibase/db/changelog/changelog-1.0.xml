@@ -144,4 +144,38 @@
             <sqlFile path="sql/instrument_to_room_rollback.sql" relativeToChangelogFile="true"/>
         </rollback>
     </changeSet>
+
+    <changeSet id="20200713-01" author="polovnikov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="APP_USER" schemaName="public"/>
+            </not>
+        </preConditions>
+        <comment>Lesson 9. Liquibase. Создание таблицы APP_USER</comment>
+        <sql>
+            create table APP_USER (
+            id serial primary key,
+            login varchar(50),
+            password_hash varchar(50),
+            fio varchar(255),
+            is_active boolean,
+            last_login_date timestamp(0)
+            );
+        </sql>
+        <rollback>
+            <sql>
+                drop table APP_USER;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200713-02" author="polovnikov">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="ROOM" schemaName="public"/>
+        </preConditions>
+        <sql>
+            alter table ROOM add column USER_ID integer;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

@@ -4,23 +4,24 @@ import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.RoomDao;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
+import ru.dfsystems.spring.tutorial.security.UserContext;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMENT;
 import static ru.dfsystems.spring.tutorial.generated.tables.InstrumentToRoom.INSTRUMENT_TO_ROOM;
 import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 
 @Repository
 public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
     private final DSLContext jooq;
+    private UserContext userContext;
 
-    public RoomDaoImpl(DSLContext jooq) {
+    public RoomDaoImpl(DSLContext jooq, UserContext userContext) {
         super(jooq.configuration());
         this.jooq = jooq;
+        this.userContext = userContext;
     }
 
     @Override
@@ -44,6 +45,7 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
             room.setIdd(room.getId());
         }
         room.setCreateDate(LocalDateTime.now());
+        room.setUserId(userContext.getUser().getId());
         super.insert(room);
         return room;
     }

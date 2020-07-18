@@ -10,6 +10,11 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
 import { InstrumentComponent } from './instrument/instrument.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -19,11 +24,20 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import {FormsModule} from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatDialogModule} from "@angular/material/dialog";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 import { AddInstrumentDialogComponent } from './room/room-edit-dialog/add-instrument-dialog/add-instrument-dialog.component';
 import {MatSelectModule} from '@angular/material/select';
 import { StudentComponent } from './student/student.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatSelectModule} from "@angular/material/select";
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
+import { LoginComponent } from './login/login.component';
+import {AuthInterceptor} from "./_service/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -34,6 +48,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AddInstrumentDialogComponent,
     InstrumentComponent,
     StudentComponent
+    AddInstrumentDialogComponent,
+    ErrorDialogComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -54,8 +71,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatSelectModule,
     MatTabsModule,
     NgbModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi:true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
