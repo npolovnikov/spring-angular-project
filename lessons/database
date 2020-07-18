@@ -32,7 +32,7 @@ Student_to_course(
     success boolean
 )
 
-Room(
+RoomList(
     id serial,
     idd int,
     number varchar(5),

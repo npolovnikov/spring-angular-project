@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.dfsystems.spring.tutorial.dto.BaseDto;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentListDto;
-import ru.dfsystems.spring.tutorial.dto.student.StudentHistoryDto;
 
 import java.util.List;
 

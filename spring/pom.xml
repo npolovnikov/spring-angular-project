@@ -79,6 +79,7 @@
         <dependency>
             <groupId>ru.dfsystems</groupId>
             <artifactId>spring-base</artifactId>
+            <!--version>${project.version}</version-->
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

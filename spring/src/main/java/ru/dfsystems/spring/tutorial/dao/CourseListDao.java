@@ -70,11 +70,8 @@ public class CourseListDao implements BaseListDao<Course, CourseParams> {
             if (order.equalsIgnoreCase("idd")){
                 listSortBy.add(asc ? COURSE.IDD.asc() : COURSE.IDD.desc());
             }
-            if (order.equalsIgnoreCase("last_name")){
-                listSortBy.add(asc ? COURSE.LAST_NAME.asc() : COURSE.LAST_NAME.desc());
-            }
-            if (order.equalsIgnoreCase("first_name")){
-                listSortBy.add(asc ? COURSE.FIRST_NAME.asc() : COURSE.FIRST_NAME.desc());
+            if (order.equalsIgnoreCase("name")){
+                listSortBy.add(asc ? COURSE.NAME.asc() : COURSE.NAME.desc());
             }
             if (order.equalsIgnoreCase("createDate")){
                 listSortBy.add(asc ? COURSE.CREATE_DATE.asc() : COURSE.CREATE_DATE.desc());

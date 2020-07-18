@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.dfsystems.spring.tutorial.dto.BaseHistoryDto;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 public class StudentHistoryDto extends BaseHistoryDto {
@@ -11,5 +13,6 @@ public class StudentHistoryDto extends BaseHistoryDto {
     private String middleName;
     private String lastName;
     private String passport;
-    private String birthNate;
+    private LocalDateTime birthDate;
+    private String status;
 }

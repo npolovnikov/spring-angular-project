@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.dfsystems.spring.tutorial.dto.BaseListDto;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,5 +18,6 @@ public class StudentListDto extends BaseListDto {
     private String middleName;
     private String lastName;
     private String passport;
-    private String birthDate;
+    private LocalDateTime birthDate;
+    private String status;
 }
