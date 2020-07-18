@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoomComponent } from './room/room.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
@@ -17,10 +17,13 @@ import { RoomEditDialogComponent } from './room/room-edit-dialog/room-edit-dialo
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatDialogModule} from "@angular/material/dialog";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { AddInstrumentDialogComponent } from './room/room-edit-dialog/add-instrument-dialog/add-instrument-dialog.component';
 import {MatSelectModule} from "@angular/material/select";
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
+import { LoginComponent } from './login/login.component';
+import {AuthInterceptor} from "./_service/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -28,7 +31,9 @@ import {MatSelectModule} from "@angular/material/select";
     RoomComponent,
     InstrumentComponent,
     RoomEditDialogComponent,
-    AddInstrumentDialogComponent
+    AddInstrumentDialogComponent,
+    ErrorDialogComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -47,8 +52,15 @@ import {MatSelectModule} from "@angular/material/select";
     FormsModule,
     MatCheckboxModule,
     MatSelectModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi:true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
