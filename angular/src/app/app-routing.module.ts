@@ -4,12 +4,14 @@ import {RoomComponent} from "./room/room.component";
 import {InstrumentComponent} from "./instrument/instrument.component";
 import {LoginComponent} from "./login/login.component";
 import {LessonComponent} from "./lesson/lesson.component";
+import {CourseComponent} from "./course/course.component";
 
 const routes: Routes = [
   {path:'room', component:RoomComponent},
   {path:'instrument', component:InstrumentComponent},
   {path:'login', component:LoginComponent},
   {path:'lesson', component:LessonComponent},
+  {path:'course', component:CourseComponent},
 
   {path:'**', redirectTo:'/login'}
 ];

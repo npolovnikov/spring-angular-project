@@ -1,11 +1,8 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {RoomList} from "../_model/room-list";
 import {SelectionModel} from "@angular/cdk/collections";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {RoomService} from "../_service/room.service";
 import {MatDialog} from "@angular/material/dialog";
-import {RoomEditDialogComponent} from "../room/room-edit-dialog/room-edit-dialog.component";
 import {merge, of as observableOf} from "rxjs";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
 import {InstrumentList} from "../_model/instrument-list";

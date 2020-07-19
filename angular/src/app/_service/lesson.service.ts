@@ -3,17 +3,17 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Page} from "../_model/page";
 import {PageParams} from "../_model/page-params";
-import {InstrumentList} from "../_model/instrument-list";
+import {LessonList} from "../_model/lesson-list";
 
 @Injectable({
   providedIn: 'root'
 })
-export class InstrumentService {
+export class LessonService {
 
   constructor(private _httpClient: HttpClient) {}
 
-  getInstrumentList(sort: string, order: string, page: number, pageSize: number): Observable<Page> {
-    const href = '/api/instrument/list';
+  getLessonList(sort: string, order: string, page: number, pageSize: number): Observable<Page> {
+    const href = '/api/lesson/list';
 
     return this._httpClient.post<Page>(href, new PageParams(page*pageSize, pageSize, {
       orderBy:sort,
@@ -21,9 +21,9 @@ export class InstrumentService {
     }));
   }
 
-  getInstrumentByIdd(idd: number): Observable<InstrumentList> {
-    const href = '/api/instrument/' + idd;
+  getLessonByIdd(idd: number): Observable<LessonList> {
+    const href = '/api/lesson/' + idd;
 
-    return this._httpClient.get<InstrumentList>(href);
+    return this._httpClient.get<LessonList>(href);
   }
 }
