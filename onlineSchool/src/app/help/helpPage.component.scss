@@ -1,0 +1,16 @@
+.help{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.container{
+  margin: 0 auto;
+}
+.help-inner{
+  justify-content: center;
+}
+.help-title{
+  font-size: 30px;
+  position: center;
+  line-height: 50px;
+}

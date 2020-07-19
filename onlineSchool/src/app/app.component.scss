@@ -43,7 +43,7 @@ p {
 .content {
   margin: 82px auto 32px;
   padding: 0 16px;
-  max-width: 960px;
+  max-width: 800px;
   flex-direction: column;
   align-items: stretch;
   display: flex;
@@ -93,6 +93,7 @@ footer a {
   font-style: unset;
   font-weight: 700;
   color: #ffffff;
+  text-decoration: none;
 }
 
 
@@ -104,14 +105,14 @@ footer a {
 
 /*HEADER*/
 .header{
-  padding-top: 10px;
+  padding-top: 1px;
   position: absolute;
   background-color: rgb(238, 151, 97);
-  top: 0;
+  top: 0px;
   left: 0;
   right: 0;
   width: 100%;
-  z-index: 1000;
+/*  z-index: 2000;*/
 }
 
 /*nav*/

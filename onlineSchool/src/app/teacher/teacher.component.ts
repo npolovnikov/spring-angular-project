@@ -3,27 +3,27 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-import {Room} from "../_model/room";
-import {RoomService} from "../_sevice/room.service";
+import {Teacher} from "../_model/teacher";
+import {TeacherService} from "../_sevice/teacher.service";
 
 @Component({
-  selector: 'app-room',
-  templateUrl: './room.component.html',
-  styleUrls: ['./room.component.scss']
+  selector: 'app-teacher',
+  templateUrl: './teacher.component.html',
+  styleUrls: ['./teacher.component.scss']
 })
-export class RoomComponent implements AfterViewInit {
-  displayedColumns: string[] = ['idd', 'number', 'block', 'createDate'];
+export class TeacherComponent implements AfterViewInit {
+  displayedColumns: string[] = ['idd', 'firstName', 'middleName', 'lastName', 'passport', 'status'];
   sizeOption:number[] = [1, 5, 10];
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
-  data: Room[];
+  data: Teacher[];
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _roomService: RoomService) {}
+  constructor(private _teacherService: TeacherService) {}
 
   ngAfterViewInit() {
     // If the user changes the sort order, reset back to the first page.
@@ -34,7 +34,7 @@ export class RoomComponent implements AfterViewInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this._roomService.getRoomList(
+          return this._teacherService.getTeacherList(
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {

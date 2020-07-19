@@ -7,12 +7,12 @@ import {PageParams} from "../_model/page-params";
 @Injectable({
   providedIn: 'root'
 })
-export class RoomService {
+export class TeacherService {
 
   constructor(private _httpClient: HttpClient) {}
 
-  getRoomList(sort: string, order: string, page: number, pageSize: number): Observable<Page> {
-    const href = '/api/room/list';
+  getTeacherList(sort: string, order: string, page: number, pageSize: number): Observable<Page> {
+    const href = '/api/teacher/list';
     const params = {
       start:page*pageSize,
       page: pageSize,
@@ -24,4 +24,3 @@ export class RoomService {
     return this._httpClient.post<Page>(href, params);
   }
 }
-
