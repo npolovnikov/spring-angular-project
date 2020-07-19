@@ -10,6 +10,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
+// @ts-ignore
 import {TeacherComponent} from "./teacher/teacher.component";
 
 @NgModule({
