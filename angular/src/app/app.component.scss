@@ -71,6 +71,8 @@ a:hover {
 }
 
 footer {
+  position: absolute;
+  bottom: 20px;
   margin-top: 8px;
   display: flex;
   align-items: center;
@@ -86,4 +88,10 @@ footer a {
 /* Здесь будут стили для маленьких экранов */
 @media screen and (max-width: 767px) {
 
+}
+
+
+.button-panel {
+  display: flex;
+  justify-content: flex-end;
 }

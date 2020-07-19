@@ -1,0 +1,100 @@
+<h1 mat-dialog-title>{{data.idd? 'Редактирование студента ' + data.idd : 'Добавление нового студента'}}</h1>
+<div mat-dialog-content>
+  <div class="subheader">
+    <h2>Основное</h2>
+  </div>
+
+  <div class="line">
+    <mat-form-field>
+      <mat-label>Фамилия</mat-label>
+      <input matInput [(ngModel)]="data.lastName">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Имя</mat-label>
+      <input matInput [(ngModel)]="data.firstName">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Отчество</mat-label>
+      <input matInput [(ngModel)]="data.middleName">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Паспорт</mat-label>
+      <input matInput [(ngModel)]="data.passport">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Дата рождения</mat-label>
+      <input matInput [(ngModel)]="data.birthDate" [matDatepicker]="pickerEnd">
+      <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+      <mat-datepicker #pickerEnd></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="subheader">
+    <h2>Курсы</h2>
+    <div class="button-panel">
+      <button mat-icon-button aria-label="Скрыть" (click)="setShowInstrumentTable()">
+        <mat-icon>reorder</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="table-container" *ngIf="showCourseTable">
+    <button mat-icon-button aria-label="Добавить" (click)="onAddCourse()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Удалить" [disabled]="selection.selected[0] == null" (click)="onDeleteCourse()">
+      <mat-icon>remove</mat-icon>
+    </button>
+    <table mat-table [dataSource]="data.courses" class="instruments-table">
+
+      <ng-container *ngFor="let column of courseColumns" [matColumnDef]="column.id">
+
+        <template *ngIf="column.id === 'select'">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? selection.toggle(row) : null"
+                          [checked]="selection.isSelected(row)">
+            </mat-checkbox>
+          </td>
+        </template>
+        <template *ngIf="column.id !== 'select'">
+          <th mat-header-cell *matHeaderCellDef>{{column.name}}</th>
+          <td mat-cell *matCellDef="let row">{{row[column.id]}}</td>
+        </template>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="courseColumnsIds"></tr>
+      <tr mat-row *matRowDef="let row; columns: courseColumnsIds;"></tr>
+    </table>
+  </div>
+
+  <div class="subheader">
+    <h2>История</h2>
+    <div class="button-panel">
+      <button mat-icon-button aria-label="Скрыть" (click)="setShowHistoryTable()">
+        <mat-icon>reorder</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="table-container" *ngIf="showHistoryTable">
+    <table mat-table [dataSource]="data.history" class="history-table"
+           matSort matSortActive="createDate" matSortDisableClear matSortDirection="desc">
+
+      <ng-container *ngFor="let column of historyColumns" [matColumnDef]="column.id">
+          <th mat-header-cell *matHeaderCellDef>{{column.name}}</th>
+          <td mat-cell *matCellDef="let row">{{row[column.id]}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="historyColumnsIds"></tr>
+      <tr mat-row *matRowDef="let row; columns: historyColumnsIds;"></tr>
+    </table>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Отменить</button>
+  <button mat-button (click)="onSaveClick()" >Сохранить</button>
+</div>

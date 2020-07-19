@@ -21,6 +21,15 @@ public class AuthController {
         }
     }
 
+    @GetMapping("/logout")
+    public void logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie(LOGIN_COOKIE_NAME, "");
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        userService.logout();
+    }
+
     @GetMapping("/current")
     public UserDto getCurrentUser() {
         return userService.getCurrentUser();
@@ -39,5 +48,4 @@ public class AuthController {
         return false;
     }
 
-    //TODO ДЗ logout
 }

@@ -4,7 +4,7 @@ import {Observable, of, throwError} from "rxjs";
 import {Router} from "@angular/router";
 import {catchError} from "rxjs/operators";
 import {MatDialog} from "@angular/material/dialog";
-import {ErrorDialogComponent} from "../error-dialog/error-dialog.component";
+import {ErrorDialogComponent} from "../dialogs/error-dialog/error-dialog.component";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor{

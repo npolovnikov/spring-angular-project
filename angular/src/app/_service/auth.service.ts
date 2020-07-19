@@ -17,5 +17,8 @@ export class AuthService {
     return this._httpClient.post('/api/auth/login', {login:login, password:password})
   }
 
-  //todo ДЗ logout
+  public logout() {
+    return this._httpClient.get('/api/auth/logout');
+  }
+
 }

@@ -4,16 +4,18 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import ru.dfsystems.spring.tutorial.dao.CourseDaoImpl;
 import ru.dfsystems.spring.tutorial.dao.InstrumentDaoImpl;
 import ru.dfsystems.spring.tutorial.dao.RoomDaoImpl;
-import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentDto;
-import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentHistoryDto;
+import ru.dfsystems.spring.tutorial.dao.StudentDaoImpl;
+import ru.dfsystems.spring.tutorial.dto.course.CourseList;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentListDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomHistoryDto;
-import ru.dfsystems.spring.tutorial.dto.room.RoomListDto;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
+import ru.dfsystems.spring.tutorial.dto.student.StudentDto;
+import ru.dfsystems.spring.tutorial.dto.student.StudentHistory;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Student;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -25,6 +27,8 @@ public class MappingService implements BaseMapping {
     private ModelMapper modelMapper;
     private RoomDaoImpl roomDao;
     private InstrumentDaoImpl instrumentDao;
+    private CourseDaoImpl courseDao;
+    private StudentDaoImpl studentDao;
 
     @PostConstruct
     public void init() {
@@ -37,6 +41,15 @@ public class MappingService implements BaseMapping {
         modelMapper.typeMap(Room.class, RoomDto.class)
                 .addMappings(mapper -> mapper.using(roomHistory).map(Room::getIdd, RoomDto::setHistory))
                 .addMappings(mapper -> mapper.using(instrumentList).map(Room::getIdd, RoomDto::setInstruments));
+
+        Converter<Integer, List<StudentHistory>> studentHistory =
+                context -> mapList(studentDao.getHistory(context.getSource()), StudentHistory.class);
+        Converter<Integer, List<CourseList>> courseList =
+                context -> mapList(courseDao.getCoursesByStudentIdd(context.getSource()), CourseList.class);
+
+        modelMapper.typeMap(Student.class, StudentDto.class)
+                .addMappings(mapper -> mapper.using(studentHistory).map(Student::getIdd, StudentDto::setHistory))
+                .addMappings(mapper -> mapper.using(courseList).map(Student::getIdd, StudentDto::setCourses));
 
 //        Converter<Integer, List<InstrumentHistoryDto>> instrumentHistory =
 //                context -> mapList(instrumentDao.getHistory(context.getSource()), InstrumentHistoryDto.class);

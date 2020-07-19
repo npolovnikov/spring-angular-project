@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {first} from "rxjs/operators";
 import {AuthService} from "../_service/auth.service";
+import {AppComponent} from '../app.component';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private _authService:AuthService
+    private _authService:AuthService,
+    private app: AppComponent,
   ) {
     _authService.getCurrentUser()
       .pipe()
@@ -49,7 +51,10 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this._authService.login(this.f.login.value, this.f.password.value)
       .pipe(first())
-      .subscribe(() => this.router.navigateByUrl('/room'), () => this.loading = false);
+      .subscribe(() => {
+        this.router.navigateByUrl('/room');
+        this.app.isLoginPage = false;
+      }, () => this.loading = false);
   }
 
 }

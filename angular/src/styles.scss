@@ -5,3 +5,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+.example-container .button-panel {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.subheader {
+  display: flex;
+}
+
+.subheader h2 {
+  padding-top: 3px;
+}
+
+table {
+  width: 100%;
+}

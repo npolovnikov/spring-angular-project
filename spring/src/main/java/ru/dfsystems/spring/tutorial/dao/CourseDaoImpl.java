@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Course.COURSE;
+import static ru.dfsystems.spring.tutorial.generated.tables.StudentToCourse.STUDENT_TO_COURSE;
 
 @Repository
 public class CourseDaoImpl extends CourseDao  implements BaseDao<Course>, BaseListDao<Course, CourseParams> {
@@ -82,8 +83,18 @@ public class CourseDaoImpl extends CourseDao  implements BaseDao<Course>, BaseLi
             course.setIdd(course.getId());
         }
         course.setCreateDate(LocalDateTime.now());
+        course.setTeacherIdd(1); // TODO: 18.07.2020 заглушка для учителя
         super.insert(course);
         return course;
+    }
+
+    public List<Course> getCoursesByStudentIdd(Integer idd) {
+        return jooq.select(COURSE.fields())
+                .from(COURSE)
+                .join(STUDENT_TO_COURSE)
+                .on(COURSE.IDD.eq(STUDENT_TO_COURSE.COURSE_IDD))
+                .where(STUDENT_TO_COURSE.STUDENT_IDD.eq(idd))
+                .fetchInto(Course.class);
     }
 
 }
