@@ -11,12 +11,12 @@ import ru.dfsystems.spring.tutorial.service.LessonService;
 
 @RestController
 @RequestMapping(value = "/lesson", produces = "application/json; charset=UTF-8")
-public class LessonController extends BaseController<LessonListDto, LessonDto, LessonParams, Lesson> {
+public class LessonController/* extends BaseController<LessonListDto, LessonDto, LessonParams, Lesson>*/ {
     private LessonService lessonService;
 
     @Autowired
     public LessonController(LessonService service) {
-        super(service);
+        /*super(service);*/
         lessonService = service;
     }
 }

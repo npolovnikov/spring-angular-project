@@ -15,7 +15,7 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 import static ru.dfsystems.spring.tutorial.generated.tables.Student.STUDENT;
 
 @Repository
-public class LessonDaoImpl extends LessonDao implements BaseDao<Lesson> {
+public class LessonDaoImpl extends LessonDao /*implements BaseDao<Lesson>*/ {
     private final DSLContext jooq;
 
     public LessonDaoImpl(DSLContext jooq) {
@@ -37,12 +37,12 @@ public class LessonDaoImpl extends LessonDao implements BaseDao<Lesson> {
     }
 
     public void create(Lesson lesson) {
-        lesson.setId(jooq.nextval(Sequences.LESSON_ID_SEQ));
-/*        if (lesson.getIdd() == null){
+/*        lesson.setId(jooq.nextval(Sequences.LESSON_ID_SEQ));
+*//*        if (lesson.getIdd() == null){
             lesson.setIdd(lesson.getId());
-        }*/
+        }*//*
         lesson.setCreateDate(LocalDateTime.now());
-        super.insert(lesson);
+        super.insert(lesson);*/
     }
 
 /*    public Room getRoomFromLesson(Integer idd) {

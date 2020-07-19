@@ -20,10 +20,10 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Lesson.LESSON;
 
 @Repository
 @AllArgsConstructor
-public class LessonListDao implements BaseListDao<Lesson, LessonParams> {
+public class LessonListDao /*implements BaseListDao<Lesson, LessonParams> */{
     private final DSLContext jooq;
 
-    @Override
+/*    @Override*/
     public Page<Lesson> list(PageParams<LessonParams> pageParams) {
         final LessonParams params = pageParams.getParams() == null ? new LessonParams() : pageParams.getParams();
         val listQuery = getLessonSelect(params);

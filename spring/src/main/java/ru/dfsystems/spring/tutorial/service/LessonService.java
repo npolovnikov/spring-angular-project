@@ -12,16 +12,16 @@ import ru.dfsystems.spring.tutorial.listDao.LessonListDao;
 import ru.dfsystems.spring.tutorial.mapping.MappingService;
 
 @Service
-public class LessonService extends BaseService<LessonListDto, LessonDto, LessonParams, Lesson> {
+public class LessonService /*extends BaseService<LessonListDto, LessonDto, LessonParams, Lesson>*/ {
     private MappingService mappingService;
     private LessonListDao lessonListDao;
     private LessonDaoImpl lessonDao;
 
-    @Autowired
+/*    @Autowired
     public LessonService(LessonDaoImpl lessonDao, LessonListDao lessonListDao, MappingService mappingService){
         super(mappingService, lessonListDao, lessonDao, LessonListDto.class, LessonDto.class, Lesson.class);
         this.mappingService = mappingService;
         this.lessonDao = lessonDao;
         this.lessonListDao = lessonListDao;
-    }
+    }*/
 }
