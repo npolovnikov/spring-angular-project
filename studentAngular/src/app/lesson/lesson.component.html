@@ -1,0 +1,65 @@
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade"
+       *ngIf="isLoadingResults || isRateLimitReached">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+      Ожидание
+    </div>
+  </div>
+
+  <div class="example-table-container">
+
+    <table mat-table [dataSource]="data" class="example-table"
+           matSort matSortActive="createDate" matSortDisableClear matSortDirection="desc">
+      <!-- Idd Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+          #
+        </th>
+        <td mat-cell *matCellDef="let row">{{row.id}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+          Название урока
+        </th>
+        <td mat-cell *matCellDef="let row">{{row.name}}</td>
+      </ng-container>
+
+      <!-- State Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+          Описание
+        </th>
+        <td mat-cell *matCellDef="let row">{{row.description}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="extraInstruments">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+          Инструменты
+        </th>
+        <td mat-cell *matCellDef="let row">{{row.extraInstruments}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="lessonDateStart">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+          Начало урока
+        </th>
+        <td mat-cell *matCellDef="let row">{{row.lessonDateStart}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="lessonDateEnd">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+          Конец урока
+        </th>
+        <td mat-cell *matCellDef="let row">{{row.lessonDateEnd}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <mat-paginator [length]="resultsLength" [pageSizeOptions]="sizeOption" [pageSize]="5"></mat-paginator>
+</div>
