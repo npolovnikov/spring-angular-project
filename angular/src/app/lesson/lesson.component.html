@@ -37,6 +37,16 @@
         <td mat-cell *matCellDef="let row">{{row.description}}</td>
       </ng-container>
 
+      <ng-container matColumnDef="lessonDateStart">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Дата начала занятия</th>
+        <td mat-cell *matCellDef="let row">{{row.lessonDateStart}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="lessonDateEnd">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Дата окончания занятия</th>
+        <td mat-cell *matCellDef="let row">{{row.lessonDateEnd}}</td>
+      </ng-container>
+
 
       <!-- Created Column -->
       <ng-container matColumnDef="createDate">

@@ -7,6 +7,12 @@
     </div>
   </div>
 
+  <div class="button-panel">
+    <button mat-icon-button aria-label="Редактировать" (click)="openEditDialog()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+
   <div class="table-container">
 
     <table mat-table [dataSource]="data" class="example-table"

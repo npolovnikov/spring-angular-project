@@ -7,6 +7,8 @@ import {merge, of as observableOf} from "rxjs";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
 import {InstrumentList} from "../_model/instrument-list";
 import {InstrumentService} from "../_service/instrument.service";
+import {RoomEditDialogComponent} from "../room/room-edit-dialog/room-edit-dialog.component";
+import {InstrumentEditDialogComponent} from "./instrument-edit-dialog/instrument-edit-dialog.component";
 
 @Component({
   selector: 'app-instrument',
@@ -32,6 +34,19 @@ export class InstrumentComponent implements AfterViewInit {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     this.refresh();
   }
+
+  openEditDialog() {
+    const dialogRef = this.dialog.open(InstrumentEditDialogComponent, {
+      width: '750px',
+      data: this.selection.selected[0]?.idd
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
+    });
+  }
+
+
 
   refresh() {
     merge(this.sort.sortChange, this.paginator.page)

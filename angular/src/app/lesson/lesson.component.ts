@@ -17,7 +17,7 @@ import {InstrumentService} from "../_service/instrument.service";
 })
 export class LessonComponent implements AfterViewInit {
   sizeOption:number[] = [2, 5, 10];
-  displayedColumns: string[] = ['select', 'idd', 'name', 'description', 'createDate'];
+  displayedColumns: string[] = ['select', 'idd', 'name', 'description', 'lessonDateStart', 'lessonDateEnd','createDate'];
   data: LessonList[];
   selection = new SelectionModel<LessonList>(false, []);
 
