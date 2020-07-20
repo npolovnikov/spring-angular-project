@@ -13,7 +13,7 @@ const routes: Routes = [
   {path:'help', component:HelpPageComponent},
   {path:'teacher', component:TeacherComponent},
 
-{path: '**', redirectTo:'/main'}
+{path: '**', redirectTo:'/room'}
 ];
 
 @NgModule({
