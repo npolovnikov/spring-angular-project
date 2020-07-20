@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Data
 public class PageParams<T> implements Serializable {
     /**
-     * С какого элемента выводить
+     * Начиная с какого элемента выводится на текущцю страницу
      */
     private int start;
     /**
