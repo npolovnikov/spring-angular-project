@@ -31,16 +31,15 @@ public class RoomListDao implements BaseListDao<Room, RoomParams> {
         /* получаем записи, соответствующие параметрам */
         val listQuery = getRoomSelect(params);
 
-        /* кабинеты, соответствующие параметрам, выводимые в количестве page начиная с элемента под номером start */
-        List<Room> list = listQuery.offset(pageParams.getStart())
-                .limit(pageParams.getPage())
-                .fetchInto(Room.class);
-
         /* количество полученных кабинетов, соответствующих параметрам */
         val count = jooq.selectCount()
                 .from(listQuery)
                 .fetchOne(0, Long.class);
 
+        /* кабинеты, соответствующие параметрам, выводимые в количестве page начиная с элемента под номером start */
+        List<Room> list = listQuery.offset(pageParams.getStart())
+                .limit(pageParams.getPage())
+                .fetchInto(Room.class);
 
         return new Page<>(list, count);
     }

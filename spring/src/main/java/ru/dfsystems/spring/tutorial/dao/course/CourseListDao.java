@@ -30,16 +30,14 @@ public class CourseListDao implements BaseListDao<Course, CourseParams> {
         final CourseParams params = pageParams.getParams() == null ? new CourseParams() : pageParams.getParams();
         /* получаем записи, соответствующие параметрам */
         val listQuery = getCourseSelect(params);
+        val count = jooq.selectCount()
+                .from(listQuery)
+                .fetchOne(0, Long.class);
 
         /* курсы, соответствующие параметрам, выводимые в количестве "page" начиная со "start" */
         List<Course> list = listQuery.offset(pageParams.getStart())
                 .limit(pageParams.getPage())
                 .fetchInto(Course.class);
-
-        val count = jooq.selectCount()
-                .from(listQuery)
-                .fetchOne(0, Long.class);
-
 
         return new Page<>(list, count);
     }

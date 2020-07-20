@@ -30,15 +30,13 @@ public class UserListDao implements BaseListDao<User, UserParams> {
         final UserParams params = pageParams.getParams() == null ? new UserParams() : pageParams.getParams();
         /* получаем записи, соответствующие параметрам */
         val listQuery = getUserSelect(params);
-
-        List<User> list = listQuery.offset(pageParams.getStart())
-                .limit(pageParams.getPage())
-                .fetchInto(User.class);
-
         val count = jooq.selectCount()
                 .from(listQuery)
                 .fetchOne(0, Long.class);
 
+        List<User> list = listQuery.offset(pageParams.getStart())
+                .limit(pageParams.getPage())
+                .fetchInto(User.class);
 
         return new Page<>(list, count);
     }

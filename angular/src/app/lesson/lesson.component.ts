@@ -1,20 +1,23 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Instrument} from "../_model/instrument";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import {InstrumentService} from "../_service/instrument.service";
 import {merge, of as observableOf} from "rxjs";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
-import {Instrument} from "../_model/instrument";
-import {InstrumentService} from "../_service/instrument.service";
+import {Lesson} from "../_model/lesson";
+import {LessonService} from "../_service/lesson.service";
 
 @Component({
-  selector: 'app-instrument',
-  templateUrl: './instrument.component.html',
-  styleUrls: ['./instrument.component.scss']
+  selector: 'app-lesson',
+  templateUrl: './lesson.component.html',
+  styleUrls: ['./lesson.component.scss']
 })
-export class InstrumentComponent implements AfterViewInit {
+export class LessonComponent implements AfterViewInit {
   sizeOption:number[] = [2, 5, 10];
-  displayedColumns: string[] = ['idd', 'name', 'number', 'createDate'];
-  data: Instrument[];
+  displayedColumns: string[] =
+    ['idd', 'name', 'description', 'courseIdd', 'roomIdd', 'extraInstruments', 'lessonDateStart', 'lessonDateEnd', 'createDate'];
+  data: Lesson[];
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -23,7 +26,7 @@ export class InstrumentComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _instrumentService: InstrumentService) {}
+  constructor(private _lessonService: LessonService) {}
 
   ngAfterViewInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -33,7 +36,7 @@ export class InstrumentComponent implements AfterViewInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this._instrumentService.getInstrumentList(
+          return this._lessonService.getLessonList(
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {

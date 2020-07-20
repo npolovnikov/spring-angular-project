@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Page} from "../_model/page";
@@ -7,15 +7,12 @@ import {PageParams} from "../_model/page-params";
 @Injectable({
   providedIn: 'root'
 })
-
-export class RoomService {
+export class InstrumentService {
   constructor(private _httpClient: HttpClient) {
   }
-/* возвращает  Page данных из пост запроса 'api/room/list'*/
-  getRoomList(sort: string, order: string, page: number, pageSize: number): Observable<Page> {
-    /* путь к запросу api/room/list */
-    /* данные берутся из данного маппинга контроллера бэк-енда */
-    const href = 'api/room/list';
+
+  getInstrumentList(sort: string, order: string, page: number, pageSize: number): Observable<Page> {
+    const href = 'api/instrument/list';
     const params : PageParams = new PageParams(page*pageSize, pageSize, {
       /* получаем параметры сортировки */
       orderBy:sort,

@@ -3,18 +3,18 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {merge, of as observableOf} from "rxjs";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
-import {Instrument} from "../_model/instrument";
-import {InstrumentService} from "../_service/instrument.service";
+import {Student} from "../_model/student";
+import {StudentService} from "../_service/student.service";
 
 @Component({
-  selector: 'app-instrument',
-  templateUrl: './instrument.component.html',
-  styleUrls: ['./instrument.component.scss']
+  selector: 'app-student',
+  templateUrl: './student.component.html',
+  styleUrls: ['./student.component.scss']
 })
-export class InstrumentComponent implements AfterViewInit {
+export class StudentComponent implements AfterViewInit {
   sizeOption:number[] = [2, 5, 10];
-  displayedColumns: string[] = ['idd', 'name', 'number', 'createDate'];
-  data: Instrument[];
+  displayedColumns: string[] = ['idd', 'firstName', 'middleName','lastName','passport','birthDate','status', 'createDate'];
+  data: Student[];
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -23,7 +23,7 @@ export class InstrumentComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _instrumentService: InstrumentService) {}
+  constructor(private _studentService: StudentService) {}
 
   ngAfterViewInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -33,7 +33,7 @@ export class InstrumentComponent implements AfterViewInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this._instrumentService.getInstrumentList(
+          return this._studentService.getStudentList(
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {

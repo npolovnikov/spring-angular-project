@@ -1,24 +1,26 @@
-import {Component, ViewChild, AfterViewInit} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {merge, Observable, of as observableOf} from 'rxjs';
-import {catchError, map, startWith, switchMap} from 'rxjs/operators';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Room} from "../_model/room";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
 import {RoomService} from "../_service/room.service";
-
+import {merge, of as observableOf} from "rxjs";
+import {catchError, map, startWith, switchMap} from "rxjs/operators";
+import {Course} from "../_model/course";
+import {CourseService} from "../_service/course.service";
 
 @Component({
-  selector: 'app-room',
-  templateUrl: './room.component.html',
-  styleUrls: ['./room.component.scss']
+  selector: 'app-course',
+  templateUrl: './course.component.html',
+  styleUrls: ['./course.component.scss']
 })
-export class RoomComponent implements AfterViewInit {
+export class CourseComponent implements AfterViewInit {
   /* добавили переменную sizeOption выбора кол-ва элементов на стр-це */
   sizeOption: number[] = [2, 5, 10];
   /* изменили колонки на наши */
-  displayedColumns: string[] = ['idd', 'number', 'block', 'createDate'];
+  displayedColumns: string[] =
+    ['idd', 'name', 'description', 'teacherIdd', 'maxCountStudent', 'startDate', 'endDate', 'status', 'createDate'];
   /* модель RoomListDto (room.ts) */
-  data: Room[];
+  data: Course[];
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -27,8 +29,7 @@ export class RoomComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  /* добавили в конструктор roomService*/
-  constructor(private _roomService: RoomService) {
+  constructor(private _courseService: CourseService) {
   }
 
   ngAfterViewInit() {
@@ -40,7 +41,7 @@ export class RoomComponent implements AfterViewInit {
         switchMap(() => {
           this.isLoadingResults = true;
           /* получаем данные с бэка */
-          return this._roomService!.getRoomList(
+          return this._courseService.getCourseList(
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {
@@ -61,4 +62,3 @@ export class RoomComponent implements AfterViewInit {
       ).subscribe(data => this.data = data);
   }
 }
-

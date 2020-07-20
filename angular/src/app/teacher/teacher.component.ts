@@ -3,18 +3,18 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {merge, of as observableOf} from "rxjs";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
-import {Instrument} from "../_model/instrument";
-import {InstrumentService} from "../_service/instrument.service";
+import {Teacher} from "../_model/teacher";
+import {TeacherService} from "../_service/teacher.service";
 
 @Component({
-  selector: 'app-instrument',
-  templateUrl: './instrument.component.html',
-  styleUrls: ['./instrument.component.scss']
+  selector: 'app-teacher',
+  templateUrl: './teacher.component.html',
+  styleUrls: ['./teacher.component.scss']
 })
-export class InstrumentComponent implements AfterViewInit {
-  sizeOption:number[] = [2, 5, 10];
-  displayedColumns: string[] = ['idd', 'name', 'number', 'createDate'];
-  data: Instrument[];
+export class TeacherComponent implements AfterViewInit {
+  sizeOption: number[] = [2, 5, 10];
+  displayedColumns: string[] = ['idd', 'firstName', 'middleName', 'lastName', 'passport', 'birthDate', 'status', 'createDate'];
+  data: Teacher[];
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -23,7 +23,9 @@ export class InstrumentComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _instrumentService: InstrumentService) {}
+  /* добавили в консутруктор сервис*/
+  constructor(private _teacherService: TeacherService) {
+  }
 
   ngAfterViewInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -33,7 +35,7 @@ export class InstrumentComponent implements AfterViewInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this._instrumentService.getInstrumentList(
+          return this._teacherService.getTeacherList(
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {

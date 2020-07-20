@@ -32,15 +32,13 @@ public class LessonListDao implements BaseListDao<Lesson, LessonParams> {
         final LessonParams params = pageParams.getParams() == null ? new LessonParams() : pageParams.getParams();
         /* получаем записи, соответствующие параметрам */
         val listQuery = getLessonSelect(params);
-
-        List<Lesson> list = listQuery.offset(pageParams.getStart())
-                .limit(pageParams.getPage())
-                .fetchInto(Lesson.class);
-
         val count = jooq.selectCount()
                 .from(listQuery)
                 .fetchOne(0, Long.class);
 
+        List<Lesson> list = listQuery.offset(pageParams.getStart())
+                .limit(pageParams.getPage())
+                .fetchInto(Lesson.class);
 
         return new Page<>(list, count);
     }

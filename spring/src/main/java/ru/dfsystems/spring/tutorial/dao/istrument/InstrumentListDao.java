@@ -30,15 +30,13 @@ public class InstrumentListDao implements BaseListDao< Instrument,  InstrumentPa
         final InstrumentParams params = pageParams.getParams() == null ? new InstrumentParams() : pageParams.getParams();
         /* получаем записи, соответствующие параметрам */
         val listQuery = getInstrumentSelect(params);
-
-        List<Instrument> list = listQuery.offset(pageParams.getStart())
-                .limit(pageParams.getPage())
-                .fetchInto(Instrument.class);
-
         val count = jooq.selectCount()
                 .from(listQuery)
                 .fetchOne(0, Long.class);
 
+        List<Instrument> list = listQuery.offset(pageParams.getStart())
+                .limit(pageParams.getPage())
+                .fetchInto(Instrument.class);
 
         return new Page<>(list, count);
     }

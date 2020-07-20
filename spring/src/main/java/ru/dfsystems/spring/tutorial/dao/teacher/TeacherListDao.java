@@ -30,15 +30,13 @@ public class TeacherListDao implements BaseListDao<Teacher, TeacherParams> {
         final TeacherParams params = pageParams.getParams() == null ? new TeacherParams() : pageParams.getParams();
         /* получаем записи, соответствующие параметрам */
         val listQuery = getTeacherSelect(params);
-
-        List<Teacher> list = listQuery.offset(pageParams.getStart())
-                .limit(pageParams.getPage())
-                .fetchInto(Teacher.class);
-
         val count = jooq.selectCount()
                 .from(listQuery)
                 .fetchOne(0, Long.class);
 
+        List<Teacher> list = listQuery.offset(pageParams.getStart())
+                .limit(pageParams.getPage())
+                .fetchInto(Teacher.class);
 
         return new Page<>(list, count);
     }

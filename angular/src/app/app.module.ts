@@ -11,12 +11,22 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSortModule} from "@angular/material/sort";
 import { InstrumentComponent } from './instrument/instrument.component';
+import { StudentComponent } from './student/student.component';
+import { TeacherComponent } from './teacher/teacher.component';
+import { UserComponent } from './user/user.component';
+import { CourseComponent } from './course/course.component';
+import { LessonComponent } from './lesson/lesson.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RoomComponent,
-    InstrumentComponent
+    InstrumentComponent,
+    StudentComponent,
+    TeacherComponent,
+    UserComponent,
+    CourseComponent,
+    LessonComponent
   ],
   imports: [
     BrowserModule,
