@@ -74,6 +74,11 @@ public class TeacherDaoImpl extends TeacherDao  implements BaseDao<Teacher>, Bas
     }
 
     @Override
+    public Teacher create(Teacher teacher, Integer userId) {
+        return null;
+    }
+
+    @Override
     public Teacher getActiveByIdd(Integer idd) {
         return jooq.select(TEACHER.fields())
                 .from(TEACHER)
@@ -81,7 +86,6 @@ public class TeacherDaoImpl extends TeacherDao  implements BaseDao<Teacher>, Bas
                 .fetchOneInto(Teacher.class);
     }
 
-    @Override
     public Teacher create(Teacher teacher) {
         teacher.setId(jooq.nextval(Sequences.TEACHER_ID_SEQ));
         if (teacher.getIdd() == null) {

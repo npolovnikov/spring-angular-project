@@ -21,7 +21,9 @@ public abstract class BaseController<List extends BaseListDto, Dto extends BaseD
     }
 
     @PostMapping
-    public abstract void create(@RequestBody Dto dto) throws Exception;
+    public void create(@RequestBody Dto dto) throws Exception {
+        service.create(dto, null);
+    }
 
     @GetMapping("/{idd}")
     public Dto get(@PathVariable("idd") Integer idd) {
@@ -29,8 +31,12 @@ public abstract class BaseController<List extends BaseListDto, Dto extends BaseD
     }
 
     @PatchMapping("/{idd}")
-    public abstract void update(@PathVariable("idd") Integer idd, @RequestBody Dto dto) throws Exception;
+    public void update(@PathVariable("idd") Integer idd, @RequestBody Dto dto) throws Exception {
+        service.update(idd, dto, null);
+    }
 
     @DeleteMapping("/{idd}")
-    public abstract void delete(@PathVariable("idd") Integer idd) throws Exception;
+    public void delete(@PathVariable("idd") Integer idd) throws Exception {
+        service.delete(idd, null);
+    }
 }

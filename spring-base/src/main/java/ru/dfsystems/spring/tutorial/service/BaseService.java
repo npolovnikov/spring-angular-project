@@ -78,9 +78,9 @@ public abstract class BaseService<List extends BaseListDto, Dto extends BaseDto,
         }
     }
 
-    protected abstract void doDelete(String objectData, Integer userId) throws Exception;
-
-    protected abstract void doUpdate(String objectData, Integer userId) throws Exception;
-
-    protected abstract void doCreate(String objectData, Integer userId) throws Exception;
+    protected void doDelete(String objectData, Integer userId) throws Exception{};
+    {}
+    protected void doUpdate(String objectData, Integer userId) throws Exception{};
+    {}
+    protected void doCreate(String objectData, Integer userId) throws Exception{};
 }

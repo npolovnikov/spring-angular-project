@@ -74,6 +74,11 @@ public class StudentDaoImpl extends StudentDao  implements  BaseDao<Student>,Bas
     }
 
     @Override
+    public Student create(Student student, Integer userId) {
+        return null;
+    }
+
+    @Override
     public Student getActiveByIdd(Integer idd) {
         return jooq.select(STUDENT.fields())
                 .from(STUDENT)
@@ -81,7 +86,6 @@ public class StudentDaoImpl extends StudentDao  implements  BaseDao<Student>,Bas
                 .fetchOneInto(Student.class);
     }
 
-    @Override
     public Student create(Student student) {
         student.setId(jooq.nextval(Sequences.STUDENT_ID_SEQ));
         if (student.getIdd() == null) {

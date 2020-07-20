@@ -1,15 +1,12 @@
 package ru.dfsystems.spring.tutorial.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import ru.dfsystems.spring.tutorial.dto.BaseListDto;
-import ru.dfsystems.spring.tutorial.dto.Page;
-import ru.dfsystems.spring.tutorial.dto.PageParams;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentDto;
+import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentListDto;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentParams;
 import ru.dfsystems.spring.tutorial.enums.ActionTypeEnum;
 import ru.dfsystems.spring.tutorial.enums.ObjectType;

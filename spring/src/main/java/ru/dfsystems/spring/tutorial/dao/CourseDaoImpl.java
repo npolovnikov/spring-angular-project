@@ -69,6 +69,11 @@ public class CourseDaoImpl extends CourseDao  implements BaseDao<Course>, BaseLi
     }
 
     @Override
+    public Course create(Course course, Integer userId) {
+        return null;
+    }
+
+    @Override
     public Course getActiveByIdd(Integer idd) {
         return jooq.select(COURSE.fields())
                 .from(COURSE)
@@ -76,7 +81,6 @@ public class CourseDaoImpl extends CourseDao  implements BaseDao<Course>, BaseLi
                 .fetchOneInto(Course.class);
     }
 
-    @Override
     public Course create(Course course) {
         course.setId(jooq.nextval(Sequences.COURSE_ID_SEQ));
         if (course.getIdd() == null) {

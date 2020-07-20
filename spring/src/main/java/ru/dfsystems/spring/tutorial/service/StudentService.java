@@ -26,16 +26,14 @@ public class StudentService extends BaseService<StudentDto, StudentDto, StudentP
         this.courseToStudentDao = courseToStudentDao;
     }
 
-    @Override
     public StudentDto create(StudentDto dto) {
-        StudentDto result = super.create(dto);
+        StudentDto result = super.create(dto, null);
         mergeInstruments(dto.getIdd(), dto.getCourses(), result.getCourses());
         return get(result.getIdd());
     }
 
-    @Override
     public StudentDto update(Integer idd, StudentDto dto) {
-        StudentDto result = super.update(idd, dto);
+        StudentDto result = super.update(idd, dto, null);
         mergeInstruments(dto.getIdd(), dto.getCourses(), result.getCourses());
         return get(result.getIdd());
     }

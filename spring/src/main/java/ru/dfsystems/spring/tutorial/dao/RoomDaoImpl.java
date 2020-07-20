@@ -38,8 +38,7 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
                     .fetchInto(Room.class);
     }
 
-    @Override
-    public Room create(Room room) {
+    public Room create(Room room, Integer userId) {
         room.setId(jooq.nextval(Sequences.ROOM_ID_SEQ));
         if (room.getIdd() == null) {
             room.setIdd(room.getId());

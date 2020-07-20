@@ -28,7 +28,7 @@ public class CourseController {
 
     @PostMapping
     public void create(@RequestBody CourseDto dto) {
-        courseService.create(dto);
+        courseService.create(dto, null);
     }
 
     @GetMapping("/{idd}")
@@ -38,11 +38,11 @@ public class CourseController {
 
     @PatchMapping("/{idd}")
     public CourseDto update(@PathVariable("idd") Integer idd, @RequestBody CourseDto dto) {
-        return courseService.update(idd, dto);
+        return courseService.update(idd, dto, null);
     }
 
     @DeleteMapping("/{idd}")
     public void delete(@PathVariable("idd") Integer idd) {
-        courseService.delete(idd);
+        courseService.delete(idd, null);
     }
 }
