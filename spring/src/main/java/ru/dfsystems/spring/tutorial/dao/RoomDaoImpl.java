@@ -45,7 +45,7 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
             room.setIdd(room.getId());
         }
         room.setCreateDate(LocalDateTime.now());
-        room.setUserId(userContext.getUser().getId());
+        room.setUserId(userId);
         super.insert(room);
         return room;
     }
