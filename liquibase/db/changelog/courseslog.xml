@@ -8,7 +8,7 @@
     http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd ">
 
     <changeSet id="20200622-10" author="kapitanov">
-        <preConditions>
+        <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="courses" schemaName="public"/>
             </not>

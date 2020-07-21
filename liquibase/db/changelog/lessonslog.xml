@@ -6,7 +6,7 @@
     http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd ">
 
     <changeSet id="20200622-12" author="kapitanov">
-        <preConditions>
+        <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="lessons" schemaName="public"/>
             </not>

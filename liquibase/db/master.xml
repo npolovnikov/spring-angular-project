@@ -7,16 +7,14 @@
     http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd ">
     <include file="changelog/instrumentslog.xml" relativeToChangelogFile="true"/>
     <include file="changelog/roomslog.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/instruments_to_roomslog.xml" relativeToChangelogFile="true"/>
     <include file="changelog/studentslog.xml" relativeToChangelogFile="true"/>
     <include file="changelog/teacherslog.xml" relativeToChangelogFile="true"/>
     <include file="changelog/userslog.xml" relativeToChangelogFile="true"/>
     <include file="changelog/courseslog.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/courseslog.xml" relativeToChangelogFile="true"/>
     <include file="changelog/student_to_courseslog.xml" relativeToChangelogFile="true"/>
     <include file="changelog/lessonslog.xml" relativeToChangelogFile="true"/>
     <include file="changelog/lesson_to_instrumentslog.xml" relativeToChangelogFile="true"/>
-
+    <include file="changelog/instruments_to_roomslog.xml" relativeToChangelogFile="true"/>
 
 
 
