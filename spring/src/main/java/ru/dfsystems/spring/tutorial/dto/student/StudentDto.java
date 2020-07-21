@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import ru.dfsystems.spring.tutorial.dto.BaseDto;
-import ru.dfsystems.spring.tutorial.dto.BaseHistoryDto;
-import ru.dfsystems.spring.tutorial.dto.BaseListDto;
 import ru.dfsystems.spring.tutorial.dto.course.CourseList;
 
 import java.time.LocalDate;

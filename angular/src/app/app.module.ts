@@ -31,7 +31,7 @@ import { StudentEditDialogComponent } from './report/student/student-edit-dialog
 import { CourseComponent } from './report/course/course.component';
 import { CourseEditDialogComponent } from './report/course/course-edit-dialog/course-edit-dialog.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
 import { AddEntityDialogComponent } from './dialogs/add-entity-dialog/add-entity-dialog.component';
 import { UsersComponent } from './report/users/users.component';
 import { UserAddDialogComponent } from './report/users/user-add-dialog/user-add-dialog.component';
@@ -82,7 +82,8 @@ import { UserAddDialogComponent } from './report/users/user-add-dialog/user-add-
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi:true
-    }
+    },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
   bootstrap: [AppComponent]
 })

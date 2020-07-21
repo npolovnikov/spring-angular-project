@@ -70,7 +70,7 @@ public class CourseDaoImpl extends CourseDao  implements BaseDao<Course>, BaseLi
 
     @Override
     public Course create(Course course, Integer userId) {
-        return null;
+        return this.create(course);
     }
 
     @Override

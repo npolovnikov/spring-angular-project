@@ -34,6 +34,7 @@ export class StudentService {
 
   createStudent(data: Student): Observable<object> {
     const href = '/api/student';
+    data.birthDate = new Date(Date.parse(data.birthDate)).toISOString().substring(0, 10);
     return this.httpClient.post(href, data);
   }
 }

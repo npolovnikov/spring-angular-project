@@ -1,5 +1,7 @@
 package ru.dfsystems.spring.tutorial.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.dfsystems.spring.tutorial.dao.CourseToStudentDaoImpl;
@@ -30,6 +32,14 @@ public class StudentService extends BaseService<StudentDto, StudentDto, StudentP
         StudentDto result = super.create(dto, null);
         mergeInstruments(dto.getIdd(), dto.getCourses(), result.getCourses());
         return get(result.getIdd());
+    }
+
+    @Override
+    protected void doCreate(String objectData, Integer userId) throws Exception {
+        ObjectMapper om = new ObjectMapper();
+        om.registerModule(new JavaTimeModule());
+        StudentDto dto = om.readValue(objectData, StudentDto.class);
+        create(dto, userId);
     }
 
     public StudentDto update(Integer idd, StudentDto dto) {

@@ -75,7 +75,7 @@ public class StudentDaoImpl extends StudentDao  implements  BaseDao<Student>,Bas
 
     @Override
     public Student create(Student student, Integer userId) {
-        return null;
+        return this.create(student);
     }
 
     @Override

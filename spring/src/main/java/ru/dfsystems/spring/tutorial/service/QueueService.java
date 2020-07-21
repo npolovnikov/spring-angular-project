@@ -22,6 +22,7 @@ public class QueueService {
     private QueueItemDao queueItemDao;
     private RoomService roomService;
     private InstrumentService instrumentService;
+    private StudentService studentService;
     private UserContext userContext;
 
     public void process(QueueItem queueItem) {
@@ -32,6 +33,9 @@ public class QueueService {
                     break;
                 case INSTRUMENT:
                     instrumentService.process(ActionTypeEnum.valueOf(queueItem.getActionType()), queueItem.getObjectData(), queueItem.getUserId());
+                    break;
+                case STUDENT:
+                    studentService.process(ActionTypeEnum.valueOf(queueItem.getActionType()), queueItem.getObjectData(), queueItem.getUserId());
                     break;
                 default:
                     throw new RuntimeException("Тип объекта не найден");
