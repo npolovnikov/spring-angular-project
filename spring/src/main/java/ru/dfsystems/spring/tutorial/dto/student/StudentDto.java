@@ -1,5 +1,6 @@
 package ru.dfsystems.spring.tutorial.dto.student;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import ru.dfsystems.spring.tutorial.dto.BaseDto;
@@ -15,6 +16,8 @@ public class StudentDto extends BaseDto<StudentHistoryDto> {
     private String middleName;
     private String lastName;
     private String contacts;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime birthDate;
     private String status;
 
