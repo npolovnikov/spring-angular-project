@@ -17,13 +17,20 @@
   <div class="container">
     <div class="row">
       <div class="col-md-auto">
-        <nav class="nav flex-column" *ngIf="!isLoginPage">
-          <a class="nav-link" href="/student">Студенты</a>
-          <a class="nav-link" href="/course">Курсы</a>
-          <a class="nav-link active" href="/room">Аудитории</a>
-          <a class="nav-link" href="/instrument">Оборудование</a>
-          <a class="nav-link" href="/users">Пользователи</a>
-        </nav>
+<!--        <nav class="nav flex-column" *ngIf="!isLoginPage">-->
+<!--          <a class="nav-link" href="/student">Студенты</a>-->
+<!--          <a class="nav-link" href="/course">Курсы</a>-->
+<!--          <a class="nav-link active" href="/room">Аудитории</a>-->
+<!--          <a class="nav-link" href="/instrument">Оборудование</a>-->
+<!--          <a class="nav-link" href="/users">Пользователи</a>-->
+<!--        </nav>-->
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <a class="nav-link" [ngClass]="{active:activeTab===1}" id="v-pills-1" data-toggle="pill" href="/student" role="tab" aria-controls="v-pills-1" aria-selected="true">Студенты</a>
+          <a class="nav-link" [ngClass]="{active:activeTab===2}" id="v-pills-2" data-toggle="pill" href="/course" role="tab" aria-controls="v-pills-2" aria-selected="false">Курсы</a>
+          <a class="nav-link" [ngClass]="{active:activeTab===3}" id="v-pills-3" data-toggle="pill" href="/room" role="tab" aria-controls="v-pills-3" aria-selected="false">Аудитории</a>
+          <a class="nav-link" [ngClass]="{active:activeTab===4}" id="v-pills-4" data-toggle="pill" href="/instrument" role="tab" aria-controls="v-pills-4" aria-selected="false">Оборудование</a>
+          <a class="nav-link" [ngClass]="{active:activeTab===5}" id="v-pills-5" data-toggle="pill" href="/users" role="tab" aria-controls="v-pills-5" aria-selected="false">Пользователи</a>
+        </div>
       </div>
       <div class="col">
         <router-outlet></router-outlet>

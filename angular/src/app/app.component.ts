@@ -11,11 +11,19 @@ import {Router} from '@angular/router';
 export class AppComponent {
   isLoginPage: boolean;
   title = 'angular';
+  activeTab = 0;
 
   constructor(
     private authService: AuthService,
     private router: Router) {
     this.isLoginPage = !document.cookie;
+    switch (location.pathname) {
+      case '/student': this.activeTab = 1; break;
+      case '/course': this.activeTab = 2; break;
+      case '/room': this.activeTab = 3; break;
+      case '/instrument': this.activeTab = 4; break;
+      case '/users': this.activeTab = 5; break;
+    }
   }
 
   logout() {
