@@ -12,10 +12,13 @@ import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentListDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomHistoryDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomListDto;
+import ru.dfsystems.spring.tutorial.dto.user.UserDto;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.AppUser;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,5 +63,12 @@ public class MappingService implements BaseMapping {
         return sources.stream()
                 .map(s -> map(s, clazz))
                 .collect(Collectors.toList());
+    }
+//TODO FIO to F I O
+    public AppUser UserToAppUser(UserDto userDto){
+        AppUser user = new AppUser();
+        user.setLastLoginDate(LocalDateTime.now());
+
+        return user;
     }
 }

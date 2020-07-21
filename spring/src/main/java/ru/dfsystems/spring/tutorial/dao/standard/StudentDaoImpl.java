@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.dao.BaseDao;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.StudentDao;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Student;
 
 import java.time.LocalDateTime;
@@ -22,13 +21,14 @@ public class StudentDaoImpl extends StudentDao implements BaseDao<Student> {
     }
 
     @Override
-    public void create(Student student) {
+    public Student create(Student student) {
         student.setId(jooq.nextval(Sequences.STUDENT_ID_SEQ));
         if (student.getIdd() == null) {
             student.setIdd(student.getId());
         }
         student.setCreateDate(LocalDateTime.now());
         super.insert(student);
+        return student;
     }
 
     public Student getActiveByIdd(Integer idd) {

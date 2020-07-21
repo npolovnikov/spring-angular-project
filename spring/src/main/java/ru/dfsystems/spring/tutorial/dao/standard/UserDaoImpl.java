@@ -5,8 +5,6 @@ import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.dao.BaseDao;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.UserDao;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Teacher;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.User;
 
 import java.time.LocalDateTime;
@@ -23,13 +21,14 @@ public class UserDaoImpl extends UserDao implements BaseDao<User> {
     }
 
     @Override
-    public void create(User user) {
+    public User create(User user) {
         user.setId(jooq.nextval(Sequences.USER_ID_SEQ));
         if (user.getIdd() == null) {
             user.setIdd(user.getId());
         }
         user.setCreateDate(LocalDateTime.now());
         super.insert(user);
+        return user;
     }
 
     public User getActiveByIdd(Integer idd) {

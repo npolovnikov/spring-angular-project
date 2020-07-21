@@ -1,4 +1,4 @@
-package ru.dfsystems.spring.tutorial.security;
+package ru.dfsystems.spring.tutorial.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto implements Serializable {
+public class AuthUserDto implements Serializable {
     private String login;
-    private String fio;
+    private String password;
 }

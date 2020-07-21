@@ -183,4 +183,20 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20200718-01" author="grigoriev">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="APP_USER" schemaName="public"/>
+                <columnExists tableName="APP_USER" columnName="fio"/>
+            </and>
+        </preConditions>
+        <comment>Formatting APP_USER for structure</comment>
+        <sql>
+            alter table APP_USER drop column fio;
+            alter table APP_USER add column
+                first_name varchar(50),
+                middle_name varchar(50),
+                last_name varchar(50);
+        </sql>
+    </changeSet>
 </databaseChangeLog>

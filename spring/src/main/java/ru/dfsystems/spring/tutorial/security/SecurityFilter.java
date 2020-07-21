@@ -16,12 +16,12 @@ import static ru.dfsystems.spring.tutorial.security.CookieUtils.extractLoginCook
 public class SecurityFilter implements Filter {
     private String[] publicUriPatterns;
 
-    private UserService userService;
-    private UserContext userContext;
+    private AuthUserService authUserService;
+    private AuthUserContext authUserContext;
 
-    public SecurityFilter(UserService userService, UserContext userContext) {
-        this.userService = userService;
-        this.userContext = userContext;
+    public SecurityFilter(AuthUserService authUserService, AuthUserContext authUserContext) {
+        this.authUserService = authUserService;
+        this.authUserContext = authUserContext;
     }
 
     @Override
@@ -64,10 +64,10 @@ public class SecurityFilter implements Filter {
 
     private boolean isAuthRequest(Cookie userCookie) {
         if (userCookie != null && userCookie.getValue() != null && !userCookie.getValue().isEmpty()) {
-            var user = userService.getUserByLogin(userCookie.getValue());
+            var user = authUserService.getUserByLogin(userCookie.getValue());
             if (user != null && user.getIsActive() &&
                     user.getLastLoginDate().isAfter(LocalDateTime.now().minus(6, HOURS))) {
-                userContext.setUser(user);
+                authUserContext.setUser(user);
                 return true;
             }
         }

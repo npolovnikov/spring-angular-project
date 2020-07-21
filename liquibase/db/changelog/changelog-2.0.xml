@@ -258,5 +258,25 @@
             alter table LESSON add column idd int;
         </sql>
     </changeSet>
-
+<!--    create_date timestamp,-->
+<!--    delete_date timestamp,-->
+    <changeSet id="20200718-01" author="grigoriev">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="LESSON" schemaName="public"/>
+                <not>
+                    <columnExists tableName="LESSON" columnName="create_date"/>
+                </not>
+                <not>
+                    <columnExists tableName="LESSON" columnName="delete_date"/>
+                </not>
+            </and>
+        </preConditions>
+        <comment>Append two column </comment>
+        <sql>
+            alter table LESSON add column
+                create_date timestamp(0),
+                delete_date timestamp(0);
+        </sql>
+    </changeSet>
 </databaseChangeLog>

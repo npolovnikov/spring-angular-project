@@ -21,9 +21,10 @@ public class LessonDaoImpl extends LessonDao implements BaseDao<Lesson> {
     }
 
     @Override
-    public void create(Lesson lesson) {
+    public Lesson create(Lesson lesson) {
         lesson.setId(jooq.nextval(Sequences.LESSON_ID_SEQ));
         super.insert(lesson);
+        return lesson;
     }
 
     public Lesson getActiveByIdd(Integer idd) {

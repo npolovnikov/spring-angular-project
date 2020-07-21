@@ -6,7 +6,7 @@ import ru.dfsystems.spring.tutorial.dao.BaseDao;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.RoomDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
-import ru.dfsystems.spring.tutorial.security.UserContext;
+import ru.dfsystems.spring.tutorial.security.AuthUserContext;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,12 +18,12 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 @Repository
 public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
     private final DSLContext jooq;
-    private UserContext userContext;
+    private AuthUserContext authUserContext;
 
-    public RoomDaoImpl(DSLContext jooq, UserContext userContext) {
+    public RoomDaoImpl(DSLContext jooq, AuthUserContext authUserContext) {
         super(jooq.configuration());
         this.jooq = jooq;
-        this.userContext = userContext;
+        this.authUserContext = authUserContext;
     }
 
     public Room getActiveByIdd(Integer idd) {
@@ -45,7 +45,7 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
             room.setIdd(room.getId());
         }
         room.setCreateDate(LocalDateTime.now());
-        room.setUserId(userContext.getUser().getId());
+        room.setUserId(authUserContext.getUser().getId());
         super.insert(room);
         return room;
     }
