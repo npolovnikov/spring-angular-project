@@ -2,18 +2,23 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {RoomComponent} from "./room/room.component";
 import {HelpPageComponent} from "./help/helpPage.component";
-// @ts-ignore
 import {MainPageComponent} from './mainPage/mainPage.component';
-import {TeacherComponent} from './teacher/teacher.component';
+import {UserComponent} from "./user/user.component";
+import {TeacherComponent} from "./teacher/teacher.component";
+import {StudentComponent} from "./student/student.component";
+import {CourseComponent} from "./course/course.component";
 
 
 const routes: Routes = [
   {path:'main', component:MainPageComponent},
   {path:'room', component:RoomComponent},
   {path:'help', component:HelpPageComponent},
+  {path:'users', component:UserComponent},
   {path:'teacher', component:TeacherComponent},
+  {path:'student', component:StudentComponent},
+  {path:'course', component:CourseComponent},
 
-{path: '**', redirectTo:'/room'}
+{path: '**', redirectTo:'/main'}
 ];
 
 @NgModule({

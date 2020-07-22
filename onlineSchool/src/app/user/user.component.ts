@@ -3,27 +3,27 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-import {Teacher} from "../_model/teacher";
-import {TeacherService} from "../_sevice/teacher.service";
+import {User} from "../_model/user";
+import {UserService} from "../_sevice/user.service";
 
 @Component({
-  selector: 'app-teacher',
-  templateUrl: './teacher.component.html',
-  styleUrls: ['./teacher.component.scss']
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss']
 })
-export class TeacherComponent implements AfterViewInit {
+export class UserComponent implements AfterViewInit {
   displayedColumns: string[] = ['idd', 'firstName', 'middleName', 'lastName', 'passport', 'status', 'birthDate', 'createDate'];
   sizeOption:number[] = [1, 5, 10];
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
-  data: Teacher[];
+  data: User[];
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _teacherService: TeacherService) {}
+  constructor(private _userService: UserService) {}
 
   ngAfterViewInit() {
     // If the user changes the sort order, reset back to the first page.
@@ -34,7 +34,7 @@ export class TeacherComponent implements AfterViewInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this._teacherService.getTeacherList(
+          return this._userService.getUserList(
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {
