@@ -47,7 +47,7 @@ export class StudentComponent implements AfterViewInit {
 
   openEditDialog() {
     const dialogRef = this.dialog.open(StudentEditDialogComponent, {
-      width: '750px',
+      width: '575px',
       data: this.selection.selected[0]?.idd
     });
 

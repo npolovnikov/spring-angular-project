@@ -39,7 +39,7 @@ export class CourseComponent implements AfterViewInit {
 
   openEditDialog() {
     const dialogRef = this.dialog.open(CourseEditDialogComponent, {
-      width: '750px',
+      width: '575px',
       data: this.selection.selected[0]?.idd
     });
 

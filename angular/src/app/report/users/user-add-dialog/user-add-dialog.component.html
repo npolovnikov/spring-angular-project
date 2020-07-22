@@ -1,20 +1,23 @@
 <h1 mat-dialog-title>{{'Добавление пользователя'}}</h1>
 <div mat-dialog-content>
-  <div class="subheader">
-    <h2>Основное</h2>
-  </div>
 
-  <div class="line">
+  <div class="row">
     <mat-form-field>
       <mat-label>Логин</mat-label>
       <input matInput [(ngModel)]="data.login">
     </mat-form-field>
+  </div>
+
+  <div class="row">
     <mat-form-field>
       <mat-label>Пароль</mat-label>
       <input type="password" matInput [(ngModel)]="data.password">
     </mat-form-field>
+  </div>
+
+  <div class="row">
     <mat-form-field>
-      <mat-label>ФИО</mat-label>
+      <mat-label>Имя</mat-label>
       <input matInput [(ngModel)]="data.fio">
     </mat-form-field>
   </div>
@@ -23,5 +26,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancelClick()">Отменить</button>
-  <button mat-button (click)="onSaveClick()" >Сохранить</button>
+  <button mat-button (click)="onSaveClick()">Сохранить</button>
 </div>

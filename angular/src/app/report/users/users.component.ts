@@ -47,7 +47,7 @@ export class UsersComponent implements AfterViewInit {
 
   openEditDialog() {
     const dialogRef = this.dialog.open(UserAddDialogComponent, {
-      width: '750px'
+      width: '370px'
     });
 
     dialogRef.afterClosed().subscribe(result => {

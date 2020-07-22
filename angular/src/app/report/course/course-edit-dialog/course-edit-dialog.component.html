@@ -19,6 +19,16 @@
           <input matInput [(ngModel)]="data.description">
         </mat-form-field>
       </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col">
+        <mat-form-field>
+          <mat-label>Статус</mat-label>
+          <input matInput [(ngModel)]="data.status">
+        </mat-form-field>
+      </div>
 
       <div class="col">
         <mat-form-field>
@@ -30,7 +40,7 @@
 
     <div class="row">
       <div class="col">
-        <mat-form-field appearance="fill">
+        <mat-form-field>
           <mat-label>Дата начала</mat-label>
           <input matInput [(ngModel)]="data.startDate" [matDatepicker]="pickerStart">
           <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
@@ -39,7 +49,7 @@
       </div>
 
       <div class="col">
-        <mat-form-field appearance="fill">
+        <mat-form-field>
           <mat-label>Дата конца</mat-label>
           <input matInput [(ngModel)]="data.endDate" [matDatepicker]="pickerEnd">
           <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
@@ -48,14 +58,6 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col">
-        <mat-form-field>
-          <mat-label>Статус</mat-label>
-          <input matInput [(ngModel)]="data.status">
-        </mat-form-field>
-      </div>
-    </div>
 
   </div>
 

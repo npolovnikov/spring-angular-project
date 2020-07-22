@@ -20,25 +20,14 @@
           <input matInput [(ngModel)]="data.firstName">
         </mat-form-field>
       </div>
+    </div>
 
+    <div class="row">
       <div class="col">
         <mat-form-field>
           <mat-label>Отчество</mat-label>
           <input matInput [(ngModel)]="data.middleName">
         </mat-form-field>
-      </div>
-    </div>
-
-
-    <div class="row">
-      <div class="col">
-        <mat-form-field appearance="fill">
-          <mat-label>Дата рождения</mat-label>
-          <input matInput [(ngModel)]="data.birthDate" [matDatepicker]="pickerEnd">
-          <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-          <mat-datepicker #pickerEnd></mat-datepicker>
-        </mat-form-field>
-
       </div>
 
       <div class="col">
@@ -49,7 +38,17 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col">
+        <mat-form-field>
+          <mat-label>Дата рождения</mat-label>
+          <input matInput [(ngModel)]="data.birthDate" [matDatepicker]="pickerEnd">
+          <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+          <mat-datepicker #pickerEnd></mat-datepicker>
+        </mat-form-field>
 
+      </div>
+    </div>
   </div>
 
   <div class="subheader">
