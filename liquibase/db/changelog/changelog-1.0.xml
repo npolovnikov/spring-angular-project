@@ -173,7 +173,7 @@
         <preConditions onFail="MARK_RAN">
             <not>
                 <columnExists tableName="ROOM" schemaName="public" columnName="USER_ID"/>
-            <not>
+            </not>
         </preConditions>
         <sql>
             alter table ROOM add column USER_ID integer;
