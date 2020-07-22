@@ -27,6 +27,7 @@ import {AuthInterceptor} from "./_service/auth.interceptor";
 import { LessonComponent } from './lesson/lesson.component';
 import { CourseComponent } from './course/course.component';
 import { InstrumentEditDialogComponent } from './instrument/instrument-edit-dialog/instrument-edit-dialog.component';
+import { LessonEditDialogComponent } from './lesson/lesson-edit-dialog/lesson-edit-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { InstrumentEditDialogComponent } from './instrument/instrument-edit-dial
     LoginComponent,
     LessonComponent,
     CourseComponent,
-    InstrumentEditDialogComponent
+    InstrumentEditDialogComponent,
+    LessonEditDialogComponent
   ],
   imports: [
     BrowserModule,

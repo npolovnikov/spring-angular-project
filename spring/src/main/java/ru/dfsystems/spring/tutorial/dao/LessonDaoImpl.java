@@ -41,6 +41,11 @@ public class LessonDaoImpl extends LessonDao implements BaseDao<Lesson>{
 
     }
 
+    public List<Lesson> getHistory(Integer idd) {
+        return jooq.selectFrom(LESSON)
+                .where(LESSON.IDD.eq(idd))
+                .fetchInto(Lesson.class);
+    }
 
     @Override
     public Lesson create(Lesson lesson) {

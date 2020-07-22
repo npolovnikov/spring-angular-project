@@ -9,6 +9,8 @@ import {LessonService} from "../_service/lesson.service";
 import {LessonList} from "../_model/lesson-list";
 import { InstrumentList } from '../_model/instrument-list';
 import {InstrumentService} from "../_service/instrument.service";
+import {InstrumentEditDialogComponent} from "../instrument/instrument-edit-dialog/instrument-edit-dialog.component";
+import {LessonEditDialogComponent} from "./lesson-edit-dialog/lesson-edit-dialog.component";
 
 @Component({
   selector: 'app-lesson',
@@ -33,6 +35,17 @@ export class LessonComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     this.refresh();
+  }
+
+  openEditDialog() {
+    const dialogRef = this.dialog.open(LessonEditDialogComponent, {
+      width: '750px',
+      data: this.selection.selected[0]?.idd
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
+    });
   }
 
   refresh() {

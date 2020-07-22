@@ -4,6 +4,8 @@ import {Observable} from "rxjs";
 import {Page} from "../_model/page";
 import {PageParams} from "../_model/page-params";
 import {LessonList} from "../_model/lesson-list";
+import {Instrument} from "../_model/instrument";
+import {Lesson} from "../_model/lesson";
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +23,22 @@ export class LessonService {
     }));
   }
 
-  getLessonByIdd(idd: number): Observable<LessonList> {
+  getLessonByIdd(idd: number): Observable<Lesson> {
     const href = '/api/lesson/' + idd;
 
-    return this._httpClient.get<LessonList>(href);
+    return this._httpClient.get<Lesson>(href);
   }
+
+  updateLesson(idd: number, data: Lesson):Observable<Object> {
+    const href = '/api/lesson/' + idd;
+    return this._httpClient.patch(href, data);
+  }
+
+  createLesson(data: Lesson):Observable<Object> {
+    const href = '/api/lesson';
+    return this._httpClient.post(href, data);
+  }
+
+
+
 }

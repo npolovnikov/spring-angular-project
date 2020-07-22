@@ -11,6 +11,7 @@ import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentDto;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentHistoryDto;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentListDto;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonDto;
+import ru.dfsystems.spring.tutorial.dto.lesson.LessonHistoryDto;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonListDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomHistoryDto;
@@ -66,9 +67,15 @@ public class MappingService implements BaseMapping {
          * Lesson
          */
         //TODO Добавить маппинг курса
+        Converter<Integer, List<LessonHistoryDto>> lessonHistory =
+                context -> mapList(lessonDao.getHistory(context.getSource()), LessonHistoryDto.class);
+
+
         Converter<Integer, RoomListDto> roomListDto =
                 context -> map(roomDao.getRoomByLessonIdd(context.getSource()), RoomListDto.class);
+
         modelMapper.typeMap(Lesson.class, LessonDto.class)
+                .addMappings(mapper -> mapper.using(lessonHistory).map(Lesson::getIdd, LessonDto::setHistory))
                 .addMappings(mapper -> mapper.using(roomListDto).map(Lesson::getIdd, LessonDto::setRoom));
 
 

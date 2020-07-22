@@ -74,7 +74,7 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
                 .from(ROOM)
                 .join(LESSON)
                 .on(ROOM.IDD.eq(LESSON.ROOM_IDD))
-                .where(LESSON.IDD.eq(idd).and(ROOM.DELETE_DATE.isNull()))
+                .where(LESSON.IDD.eq(idd).and(LESSON.DELETE_DATE.isNull()).and(ROOM.DELETE_DATE.isNull()))
                 .fetchOneInto(Room.class);
     }
 
