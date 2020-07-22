@@ -1,36 +1,55 @@
-<h1 mat-dialog-title>{{data.idd? 'Редактирование студента ' + data.idd : 'Добавление нового студента'}}</h1>
+<h1 mat-dialog-title>{{data.idd ? 'Редактирование студента ' + data.idd : 'Добавление нового студента'}}</h1>
 <div mat-dialog-content>
   <div class="subheader">
     <h2>Основное</h2>
   </div>
 
-  <div class="line">
-    <mat-form-field>
-      <mat-label>Фамилия</mat-label>
-      <input matInput [(ngModel)]="data.lastName">
-    </mat-form-field>
+  <div class="container">
+    <div class="row">
 
-    <mat-form-field>
-      <mat-label>Имя</mat-label>
-      <input matInput [(ngModel)]="data.firstName">
-    </mat-form-field>
+      <div class="col">
+        <mat-form-field>
+          <mat-label>Фамилия</mat-label>
+          <input matInput [(ngModel)]="data.lastName">
+        </mat-form-field>
+      </div>
 
-    <mat-form-field>
-      <mat-label>Отчество</mat-label>
-      <input matInput [(ngModel)]="data.middleName">
-    </mat-form-field>
+      <div class="col">
+        <mat-form-field>
+          <mat-label>Имя</mat-label>
+          <input matInput [(ngModel)]="data.firstName">
+        </mat-form-field>
+      </div>
 
-    <mat-form-field>
-      <mat-label>Паспорт</mat-label>
-      <input matInput [(ngModel)]="data.passport">
-    </mat-form-field>
+      <div class="col">
+        <mat-form-field>
+          <mat-label>Отчество</mat-label>
+          <input matInput [(ngModel)]="data.middleName">
+        </mat-form-field>
+      </div>
+    </div>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Дата рождения</mat-label>
-      <input matInput [(ngModel)]="data.birthDate" [matDatepicker]="pickerEnd">
-      <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-      <mat-datepicker #pickerEnd></mat-datepicker>
-    </mat-form-field>
+
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="fill">
+          <mat-label>Дата рождения</mat-label>
+          <input matInput [(ngModel)]="data.birthDate" [matDatepicker]="pickerEnd">
+          <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+          <mat-datepicker #pickerEnd></mat-datepicker>
+        </mat-form-field>
+
+      </div>
+
+      <div class="col">
+        <mat-form-field>
+          <mat-label>Паспорт</mat-label>
+          <input matInput [(ngModel)]="data.passport">
+        </mat-form-field>
+      </div>
+    </div>
+
+
   </div>
 
   <div class="subheader">
@@ -85,8 +104,8 @@
            matSort matSortActive="createDate" matSortDisableClear matSortDirection="desc">
 
       <ng-container *ngFor="let column of historyColumns" [matColumnDef]="column.id">
-          <th mat-header-cell *matHeaderCellDef>{{column.name}}</th>
-          <td mat-cell *matCellDef="let row">{{row[column.id]}}</td>
+        <th mat-header-cell *matHeaderCellDef>{{column.name}}</th>
+        <td mat-cell *matCellDef="let row">{{row[column.id]}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="historyColumnsIds"></tr>
@@ -96,5 +115,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancelClick()">Отменить</button>
-  <button mat-button (click)="onSaveClick()" >Сохранить</button>
+  <button mat-button (click)="onSaveClick()">Сохранить</button>
 </div>
