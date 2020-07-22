@@ -82,6 +82,7 @@
             name varchar(100),
             description varchar(500),
             teacher_idd int,
+            instrument_idd int,
             max_count_student int,
             start_date timestamp(0),
             end_date timestamp(0),
@@ -98,27 +99,27 @@
     </changeSet>
 
     <!--    Создание таблицы STUDENT_TO_COURSE-->
-    <changeSet id="30200620-05" author="KusakinFS">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="STUDENT_TO_COURSE" schemaName="public"/>
-            </not>
-        </preConditions>
-        <comment>Lesson 2. Liquibase. Создание таблицы STUDENT_TO_COURSE</comment>
-        <sql>
-            create table STUDENT_TO_COURSE (
-            id serial primary key,
-            student_idd int,
-            course_idd int,
-            success boolean
-            );
-        </sql>
-        <rollback>
-            <sql>
-                drop table STUDENT_TO_COURSE;
-            </sql>
-        </rollback>
-    </changeSet>
+    <!--    <changeSet id="30200620-05" author="KusakinFS">-->
+    <!--        <preConditions onFail="MARK_RAN">-->
+    <!--            <not>-->
+    <!--                <tableExists tableName="STUDENT_TO_COURSE" schemaName="public"/>-->
+    <!--            </not>-->
+    <!--        </preConditions>-->
+    <!--        <comment>Lesson 2. Liquibase. Создание таблицы STUDENT_TO_COURSE</comment>-->
+    <!--        <sql>-->
+    <!--            create table STUDENT_TO_COURSE (-->
+    <!--            id serial primary key,-->
+    <!--            student_idd int,-->
+    <!--            course_idd int,-->
+    <!--            success boolean-->
+    <!--            );-->
+    <!--        </sql>-->
+    <!--        <rollback>-->
+    <!--            <sql>-->
+    <!--                drop table STUDENT_TO_COURSE;-->
+    <!--            </sql>-->
+    <!--        </rollback>-->
+    <!--    </changeSet>-->
 
     <!--    Создание таблицы ROOM-->
     <changeSet id="30200620-06" author="KusakinFS">
@@ -146,66 +147,66 @@
     </changeSet>
 
     <!--    Создание таблицы LESSON-->
-    <changeSet id="30200620-07" author="KusakinFS">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="LESSON" schemaName="public"/>
-            </not>
-        </preConditions>
-        <comment>Lesson 1. Liquibase. Создание таблицы LESSON</comment>
-        <sql>
-            create table LESSON (
-            id serial primary key,
-            name varchar(100),
-            description varchar(1000),
-            course_idd int,
-            room_idd int,
-            lesson_date_start timestamp(0) not null,
-            lesson_date_end timestamp(0),
-            extra_instruments varchar(1000)
-            );
-        </sql>
-        <rollback>
-            <sql>
-                drop table LESSON;
-            </sql>
-        </rollback>
-    </changeSet>
+    <!--    <changeSet id="30200620-07" author="KusakinFS">-->
+    <!--        <preConditions onFail="MARK_RAN">-->
+    <!--            <not>-->
+    <!--                <tableExists tableName="LESSON" schemaName="public"/>-->
+    <!--            </not>-->
+    <!--        </preConditions>-->
+    <!--        <comment>Lesson 1. Liquibase. Создание таблицы LESSON</comment>-->
+    <!--        <sql>-->
+    <!--            create table LESSON (-->
+    <!--            id serial primary key,-->
+    <!--            name varchar(100),-->
+    <!--            description varchar(1000),-->
+    <!--            course_idd int,-->
+    <!--            room_idd int,-->
+    <!--            lesson_date_start timestamp(0) not null,-->
+    <!--            lesson_date_end timestamp(0),-->
+    <!--            extra_instruments varchar(1000)-->
+    <!--            );-->
+    <!--        </sql>-->
+    <!--        <rollback>-->
+    <!--            <sql>-->
+    <!--                drop table LESSON;-->
+    <!--            </sql>-->
+    <!--        </rollback>-->
+    <!--    </changeSet>-->
 
     <!--    Создание таблицы INSTRUMENT_TO_LESSON-->
-    <changeSet id="30200620-08" author="KusakinFS">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="INSTRUMENT_TO_LESSON" schemaName="public"/>
-            </not>
-        </preConditions>
-        <comment>Lesson 2. Liquibase. Создание таблицы INSTRUMENT_TO_LESSON</comment>
-        <sql>
-            create table INSTRUMENT_TO_LESSON (
-            id serial primary key,
-            lesson_id int,
-            instrument_idd int
-            );
-        </sql>
-        <rollback>
-            <sql>
-                drop table INSTRUMENT_TO_LESSON;
-            </sql>
-        </rollback>
-    </changeSet>
+    <!--    <changeSet id="30200620-08" author="KusakinFS">-->
+    <!--        <preConditions onFail="MARK_RAN">-->
+    <!--            <not>-->
+    <!--                <tableExists tableName="INSTRUMENT_TO_LESSON" schemaName="public"/>-->
+    <!--            </not>-->
+    <!--        </preConditions>-->
+    <!--        <comment>Lesson 2. Liquibase. Создание таблицы INSTRUMENT_TO_LESSON</comment>-->
+    <!--        <sql>-->
+    <!--            create table INSTRUMENT_TO_LESSON (-->
+    <!--            id serial primary key,-->
+    <!--            lesson_id int,-->
+    <!--            instrument_idd int-->
+    <!--            );-->
+    <!--        </sql>-->
+    <!--        <rollback>-->
+    <!--            <sql>-->
+    <!--                drop table INSTRUMENT_TO_LESSON;-->
+    <!--            </sql>-->
+    <!--        </rollback>-->
+    <!--    </changeSet>-->
 
     <!--    Создание таблицы INSTRUMENT_TO_ROOM-->
-    <changeSet id="30200620-09" author="KusakinFS">
-        <preConditions>
-            <not>
-                <tableExists tableName="INSTRUMENT_TO_ROOM" schemaName="public"/>
-            </not>
-        </preConditions>
-        <sqlFile path="sql/instrument_to_room.sql" relativeToChangelogFile="true"/>
-        <rollback>
-            <sqlFile path="sql/instrument_to_room_rollback.sql" relativeToChangelogFile="true"/>
-        </rollback>
-    </changeSet>
+    <!--    <changeSet id="30200620-09" author="KusakinFS">-->
+    <!--        <preConditions>-->
+    <!--            <not>-->
+    <!--                <tableExists tableName="INSTRUMENT_TO_ROOM" schemaName="public"/>-->
+    <!--            </not>-->
+    <!--        </preConditions>-->
+    <!--        <sqlFile path="sql/instrument_to_room.sql" relativeToChangelogFile="true"/>-->
+    <!--        <rollback>-->
+    <!--            <sqlFile path="sql/instrument_to_room_rollback.sql" relativeToChangelogFile="true"/>-->
+    <!--        </rollback>-->
+    <!--    </changeSet>-->
 
     <!--    Добавление таблицы INSTRUMENT-->
     <changeSet id="30200620-10" author="KusakinFS">

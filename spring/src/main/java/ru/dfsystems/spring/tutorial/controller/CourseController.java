@@ -29,6 +29,6 @@ public class CourseController extends BaseController<CourseListDto, CourseDto, C
 
     @PutMapping("/{idd}/instrument")
     public void putInstrument(@PathVariable("idd") Integer idd, @RequestBody Integer instrumentIdd) {
-        courseService.putInstrument(idd, instrumentIdd);
+//        courseService.putInstrument(idd, instrumentIdd);
     }
 }

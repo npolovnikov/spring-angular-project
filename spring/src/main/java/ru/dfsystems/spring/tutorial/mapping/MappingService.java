@@ -29,23 +29,23 @@ public class MappingService implements BaseMapping {
     @PostConstruct
     public void init() {
         //Дополнительные настройки.
-        Converter<Integer, List<RoomHistoryDto>> roomHistory =
-                context -> mapList(roomDao.getHistory(context.getSource()), RoomHistoryDto.class);
-        Converter<Integer, List<InstrumentListDto>> instrumentList =
-                context -> mapList(instrumentDao.getInstrumentsByRoomIdd(context.getSource()), InstrumentListDto.class);
-
-        modelMapper.typeMap(Room.class, RoomDto.class)
-                .addMappings(mapper -> mapper.using(roomHistory).map(Room::getIdd, RoomDto::setHistory))
-                .addMappings(mapper -> mapper.using(instrumentList).map(Room::getIdd, RoomDto::setInstruments));
-
-        Converter<Integer, List<InstrumentHistoryDto>> instrumentHistory =
-                context -> mapList(instrumentDao.getHistory(context.getSource()), InstrumentHistoryDto.class);
-        Converter<Integer, List<RoomListDto>> roomList =
-                context -> mapList(roomDao.getRoomsByInstrumentIdd(context.getSource()), RoomListDto.class);
-
-        modelMapper.typeMap(Instrument.class, InstrumentDto.class)
-                .addMappings(mapper -> mapper.using(instrumentHistory).map(Instrument::getIdd, InstrumentDto::setHistory))
-                .addMappings(mapper -> mapper.using(roomList).map(Instrument::getIdd, InstrumentDto::setRooms));
+//        Converter<Integer, List<RoomHistoryDto>> roomHistory =
+//                context -> mapList(roomDao.getHistory(context.getSource()), RoomHistoryDto.class);
+//        Converter<Integer, List<InstrumentListDto>> instrumentList =
+//                context -> mapList(instrumentDao.getInstrumentsByRoomIdd(context.getSource()), InstrumentListDto.class);
+//
+//        modelMapper.typeMap(Room.class, RoomDto.class)
+//                .addMappings(mapper -> mapper.using(roomHistory).map(Room::getIdd, RoomDto::setHistory))
+//                .addMappings(mapper -> mapper.using(instrumentList).map(Room::getIdd, RoomDto::setInstruments));
+//
+//        Converter<Integer, List<InstrumentHistoryDto>> instrumentHistory =
+//                context -> mapList(instrumentDao.getHistory(context.getSource()), InstrumentHistoryDto.class);
+//        Converter<Integer, List<RoomListDto>> roomList =
+//                context -> mapList(roomDao.getRoomsByInstrumentIdd(context.getSource()), RoomListDto.class);
+//
+//        modelMapper.typeMap(Instrument.class, InstrumentDto.class)
+//                .addMappings(mapper -> mapper.using(instrumentHistory).map(Instrument::getIdd, InstrumentDto::setHistory))
+//                .addMappings(mapper -> mapper.using(roomList).map(Instrument::getIdd, InstrumentDto::setRooms));
     }
 
     public <S, D> D map(S source, Class<D> clazz) {
