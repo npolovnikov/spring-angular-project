@@ -171,7 +171,9 @@
 
     <changeSet id="20200713-02" author="polovnikov">
         <preConditions onFail="MARK_RAN">
-            <columnExists tableName="ROOM" schemaName="public" columnName="USER_ID"/>
+            <not>
+                <columnExists tableName="ROOM" schemaName="public" columnName="USER_ID"/>
+            <not>
         </preConditions>
         <sql>
             alter table ROOM add column USER_ID integer;
