@@ -1,4 +1,4 @@
-export interface Instrument {
+export interface InstrumentList {
   idd: number;
   name: string;
   number: string;

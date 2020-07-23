@@ -47,7 +47,7 @@ public class LessonDaoImpl extends LessonDao implements BaseDao<Lesson> {
                 .fetchInto(Lesson.class);
     }
 
-    public void create(Lesson lesson) {
+    public Lesson create(Lesson lesson) {
         lesson.setId(jooq.nextval(Sequences.LESSON_ID_SEQ));
         if (lesson.getIdd() == null) {
             lesson.setIdd(lesson.getId());
@@ -55,5 +55,6 @@ public class LessonDaoImpl extends LessonDao implements BaseDao<Lesson> {
         lesson.setCreateDate(LocalDateTime.now());
         /* вызываем из LessonDao */
         super.insert(lesson);
+        return lesson;
     }
 }

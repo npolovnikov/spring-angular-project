@@ -42,8 +42,8 @@ public abstract class BaseService<List extends BaseListDto, Dto extends BaseDto,
     }
 
     @Transactional
-    public void create(Dto dto) {
-        baseDao.create(mappingService.map(dto, entityClass));
+    public Dto create(Dto dto) {
+        return mappingService.map(baseDao.create(mappingService.map(dto, entityClass)), dtoClass);
     }
 
     @Transactional

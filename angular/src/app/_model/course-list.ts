@@ -1,4 +1,4 @@
-export interface Course {
+export interface CourseList {
   idd: number;
   name: string;
   description: string;

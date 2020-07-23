@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Room} from "../_model/room";
+import {RoomList} from "../_model/room-list";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {RoomService} from "../_service/room.service";
 import {merge, of as observableOf} from "rxjs";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
-import {Course} from "../_model/course";
+import {CourseList} from "../_model/course-list";
 import {CourseService} from "../_service/course.service";
 
 @Component({
@@ -19,8 +19,8 @@ export class CourseComponent implements AfterViewInit {
   /* изменили колонки на наши */
   displayedColumns: string[] =
     ['idd', 'name', 'description', 'teacherIdd', 'maxCountStudent', 'startDate', 'endDate', 'status', 'createDate'];
-  /* модель RoomListDto (room.ts) */
-  data: Course[];
+  /* модель RoomListDto (room-list.ts) */
+  data: CourseList[];
 
   resultsLength = 0;
   isLoadingResults = true;

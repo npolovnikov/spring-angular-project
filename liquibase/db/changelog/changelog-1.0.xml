@@ -48,7 +48,7 @@
                 </not>
             </and>
         </preConditions>
-        <comment>Lesson 2. Liquibase. Добавление колонки к INSTRUMENT</comment>
+        <comment>LessonList 2. Liquibase. Добавление колонки к INSTRUMENT</comment>
         <addColumn tableName="INSTRUMENT">
             <column name="IDD" type="int">
                 <constraints nullable="false"/>
@@ -77,7 +77,7 @@
                 </not>
             </and>
         </preConditions>
-        <comment>Lesson 2. Liquibase. Добавление колонок</comment>
+        <comment>LessonList 2. Liquibase. Добавление колонок</comment>
         <addColumn tableName="INSTRUMENT">
             <column name="NUMBER" type="varchar(50)"/>
             <column name="CREATE_DATE" type="timestamp(0)">
@@ -115,7 +115,7 @@
                 <tableExists tableName="ROOM" schemaName="public"/>
             </not>
         </preConditions>
-        <comment>Lesson 1. Liquibase. Создание таблицы ROOM</comment>
+        <comment>LessonList 1. Liquibase. Создание таблицы ROOM</comment>
         <sql>
             create table ROOM (
                 id serial primary key,

@@ -14,37 +14,38 @@ import static ru.dfsystems.spring.tutorial.generated.tables.User.USER;
 
 @Repository
 public class UserDaoImpl extends UserDao implements BaseDao<User> {
-private final DSLContext jooq;
+    private final DSLContext jooq;
 
-public UserDaoImpl(DSLContext jooq) {
+    public UserDaoImpl(DSLContext jooq) {
         super(jooq.configuration());
         this.jooq = jooq;
-        }
+    }
 
-/**
- * Возвращает кабинет с заданным Idd, который не помечен удаленным.
- */
-public User getActiveByIdd(Integer idd) {
+    /**
+     * Возвращает кабинет с заданным Idd, который не помечен удаленным.
+     */
+    public User getActiveByIdd(Integer idd) {
         return jooq.select(USER.fields())
-        .from(USER)
-        .where(USER.IDD.eq(idd).and(USER.DELETE_DATE.isNull()))
-        .fetchOneInto(User.class);
-        }
+                .from(USER)
+                .where(USER.IDD.eq(idd).and(USER.DELETE_DATE.isNull()))
+                .fetchOneInto(User.class);
+    }
 
-public List<User> getHistory(Integer idd) {
+    public List<User> getHistory(Integer idd) {
         return jooq.selectFrom(USER)
-        .where(USER.IDD.eq(idd))
-        .fetchInto(User.class);
-        }
+                .where(USER.IDD.eq(idd))
+                .fetchInto(User.class);
+    }
 
-public void create(User student) {
-        student.setId(jooq.nextval(Sequences.USER_ID_SEQ));
-        if (student.getIdd() == null) {
-        student.setIdd(student.getId());
+    public User create(User user) {
+        user.setId(jooq.nextval(Sequences.USER_ID_SEQ));
+        if (user.getIdd() == null) {
+            user.setIdd(user.getId());
         }
-        student.setCreateDate(LocalDateTime.now());
+        user.setCreateDate(LocalDateTime.now());
         /* вызываем из UserDao */
-        super.insert(student);
-        }
+        super.insert(user);
+        return user;
+    }
 }
 

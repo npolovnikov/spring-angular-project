@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Student} from "../_model/student";
+import {StudentList} from "../_model/student-list";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {StudentService} from "../_service/student.service";
 import {merge, of as observableOf} from "rxjs";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
-import {User} from "../_model/user";
+import {UserList} from "../_model/user-list";
 import {UserService} from "../_service/user.service";
 
 @Component({
@@ -16,7 +16,7 @@ import {UserService} from "../_service/user.service";
 export class UserComponent implements AfterViewInit {
   sizeOption:number[] = [2, 5, 10];
   displayedColumns: string[] = ['idd', 'firstName', 'middleName','lastName','passport','birthDate','status', 'createDate'];
-  data: User[];
+  data: UserList[];
 
   resultsLength = 0;
   isLoadingResults = true;

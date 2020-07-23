@@ -57,10 +57,11 @@ public class CourseDaoImpl extends CourseDao implements BaseDao<Course> {
                 .fetchInto(Course.class);
     }
 
-    public void create(Course course) {
+    public Course create(Course course) {
         course.setId(jooq.nextval(Sequences.COURSE_ID_SEQ));
         course.setIdd(course.getId());
         course.setCreateDate(LocalDateTime.now());
         super.insert(course);
+        return course;
     }
 }

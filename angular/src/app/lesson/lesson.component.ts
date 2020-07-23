@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Instrument} from "../_model/instrument";
+import {InstrumentList} from "../_model/instrument-list";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {InstrumentService} from "../_service/instrument.service";
 import {merge, of as observableOf} from "rxjs";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
-import {Lesson} from "../_model/lesson";
+import {LessonList} from "../_model/lesson-list";
 import {LessonService} from "../_service/lesson.service";
 
 @Component({
@@ -17,7 +17,7 @@ export class LessonComponent implements AfterViewInit {
   sizeOption:number[] = [2, 5, 10];
   displayedColumns: string[] =
     ['idd', 'name', 'description', 'courseIdd', 'roomIdd', 'extraInstruments', 'lessonDateStart', 'lessonDateEnd', 'createDate'];
-  data: Lesson[];
+  data: LessonList[];
 
   resultsLength = 0;
   isLoadingResults = true;

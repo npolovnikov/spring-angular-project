@@ -37,7 +37,7 @@ public class TeacherDaoImpl extends TeacherDao implements BaseDao<Teacher> {
                 .fetchInto(Teacher.class);
     }
 
-    public void create(Teacher teacher) {
+    public Teacher create(Teacher teacher) {
         teacher.setId(jooq.nextval(Sequences.TEACHER_ID_SEQ));
         if (teacher.getIdd() == null) {
             teacher.setIdd(teacher.getId());
@@ -45,5 +45,6 @@ public class TeacherDaoImpl extends TeacherDao implements BaseDao<Teacher> {
         teacher.setCreateDate(LocalDateTime.now());
         /* вызываем из TeacherDao */
         super.insert(teacher);
+        return teacher;
     }
 }

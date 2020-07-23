@@ -3,7 +3,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {merge, of as observableOf} from "rxjs";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
-import {Teacher} from "../_model/teacher";
+import {TeacherList} from "../_model/teacher-list";
 import {TeacherService} from "../_service/teacher.service";
 
 @Component({
@@ -14,7 +14,7 @@ import {TeacherService} from "../_service/teacher.service";
 export class TeacherComponent implements AfterViewInit {
   sizeOption: number[] = [2, 5, 10];
   displayedColumns: string[] = ['idd', 'firstName', 'middleName', 'lastName', 'passport', 'birthDate', 'status', 'createDate'];
-  data: Teacher[];
+  data: TeacherList[];
 
   resultsLength = 0;
   isLoadingResults = true;

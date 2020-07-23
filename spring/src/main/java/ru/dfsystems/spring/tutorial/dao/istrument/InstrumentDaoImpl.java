@@ -50,7 +50,7 @@ public class InstrumentDaoImpl extends InstrumentDao implements BaseDao<Instrume
                 .fetchInto(Instrument.class);
     }
 
-    public void create(Instrument instrument) {
+    public Instrument create(Instrument instrument) {
         instrument.setId(jooq.nextval(Sequences.INSTRUMENT_ID_SEQ));
         if (instrument.getIdd() == null) {
             instrument.setIdd(instrument.getId());
@@ -58,5 +58,6 @@ public class InstrumentDaoImpl extends InstrumentDao implements BaseDao<Instrume
         instrument.setCreateDate(LocalDateTime.now());
         /* вызываем из InstrumentDao */
         super.insert(instrument);
+        return instrument;
     }
 }

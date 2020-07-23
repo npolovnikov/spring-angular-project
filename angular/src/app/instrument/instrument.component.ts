@@ -3,7 +3,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {merge, of as observableOf} from "rxjs";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
-import {Instrument} from "../_model/instrument";
+import {InstrumentList} from "../_model/instrument-list";
 import {InstrumentService} from "../_service/instrument.service";
 
 @Component({
@@ -14,7 +14,7 @@ import {InstrumentService} from "../_service/instrument.service";
 export class InstrumentComponent implements AfterViewInit {
   sizeOption:number[] = [2, 5, 10];
   displayedColumns: string[] = ['idd', 'name', 'number', 'createDate'];
-  data: Instrument[];
+  data: InstrumentList[];
 
   resultsLength = 0;
   isLoadingResults = true;
