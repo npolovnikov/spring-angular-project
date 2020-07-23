@@ -46,6 +46,15 @@ export class RoomComponent implements AfterViewInit {
     });
   }
 
+  onDeleteRoom() {
+    if (this.selection.selected[0] == null) {
+      return;
+    }
+    this._roomService.deleteRoom(this.selection.selected[0].idd);
+    this.selection.clear();
+    this.refresh();
+  }
+
   refresh() {
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(

@@ -10,17 +10,20 @@ import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonParams;
+import ru.dfsystems.spring.tutorial.dto.room.RoomParams;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Lesson;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 import ru.dfsystems.spring.tutorial.generated.tables.records.LessonRecord;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMENT;
 import static ru.dfsystems.spring.tutorial.generated.tables.Lesson.LESSON;
 
 @Repository
 @AllArgsConstructor
-public class LessonListDao  {
+public class LessonListDao implements BaseListDao<Lesson, LessonParams> {
     private final DSLContext jooq;
 
     public Page<Lesson> list(PageParams<LessonParams> pageParams) {
@@ -39,7 +42,10 @@ public class LessonListDao  {
     }
 
     private SelectSeekStepN<LessonRecord> getLessonSelect(LessonParams params){
-        Condition condition = null;
+        var condition = LESSON.DELETE_DATE.isNull();
+        if (params.getIdd() != null){
+            condition = condition.and(LESSON.IDD.like(params.getIdd()));
+        }
         if (params.getName() != null){
             condition = condition.and(LESSON.NAME.like(params.getName()));
         }
@@ -64,8 +70,8 @@ public class LessonListDao  {
 
         if (orderBy == null){
             return asc
-                    ? new SortField[]{LESSON.NAME.asc()}
-                    : new SortField[]{LESSON.NAME.desc()};
+                    ? new SortField[]{LESSON.IDD.asc()}
+                    : new SortField[]{LESSON.IDD.desc()};
         }
 
         val orderArray = orderBy.split(",");

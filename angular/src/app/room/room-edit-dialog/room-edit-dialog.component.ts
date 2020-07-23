@@ -32,7 +32,6 @@ export class RoomEditDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public idd: number,
     public dialog: MatDialog) {}
 
-
   ngOnInit(): void {
     if (this.idd) {
       this._roomService.getRoomByIdd(this.idd)

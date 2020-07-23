@@ -2,11 +2,19 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {RoomComponent} from "./room/room.component";
 import {InstrumentComponent} from "./instrument/instrument.component";
+import {StudentComponent} from "./student/student.component";
+import {CourseComponent} from "./course/course.component";
+import {TeacherComponent} from "./teacher/teacher.component";
+import {LessonComponent} from "./lesson/lesson.component";
 
 
 const routes: Routes = [
   {path:'room', component:RoomComponent},
   {path:'instrument', component:InstrumentComponent},
+  {path:'student', component:StudentComponent},
+  {path:'course', component:CourseComponent},
+  {path:'teacher', component:TeacherComponent},
+  {path:'lesson', component:LessonComponent},
 
   {path:'**', redirectTo:'/room'}
 ];
@@ -16,3 +24,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+export const routingComponents = [RoomComponent,InstrumentComponent, StudentComponent, CourseComponent, TeacherComponent, LessonComponent];

@@ -36,4 +36,11 @@ export class RoomService {
     const href = '/api/room';
     return this._httpClient.post(href, data);
   }
+
+  deleteRoom(idd: number) {
+    const href = '/api/room/' + idd;
+    return this._httpClient.delete(href).subscribe(data => {
+      console.log(data);
+    });
+  }
 }

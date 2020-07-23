@@ -35,3 +35,5 @@ build/
 ### Angular ###
 /angular/node_modules/
 /angular/node/
+/angular/dist/
+/angular/package-lock.json

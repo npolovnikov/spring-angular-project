@@ -204,4 +204,71 @@
         </rollback>
     </changeSet>
 
+    <changeSet id="20200717-10" author="ovcharov">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="LESSON" schemaName="public"/>
+                <not>
+                    <columnExists tableName="LESSON" columnName="IDD"/>
+                </not>
+                <not>
+                    <columnExists tableName="LESSON" columnName="CREATE_DATE"/>
+                </not>
+                <not>
+                    <columnExists tableName="LESSON" columnName="DELETE_DATE"/>
+                </not>
+            </and>
+        </preConditions>
+        <comment>Добавление колонок к LESSON</comment>
+        <addColumn tableName="LESSON">
+            <column name="IDD" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATE_DATE" type="timestamp(0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DELETE_DATE" type="timestamp(0)"/>
+        </addColumn>
+        <rollback>
+            <dropColumn tableName="LESSON" columnName="IDD"/>
+            <dropColumn tableName="LESSON" columnName="CREATE_DATE"/>
+            <dropColumn tableName="LESSON" columnName="DELETE_DATE"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200717-11" author="ovcharov">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="LESSON_TO_INSTRUMENT" schemaName="public"/>
+                <columnExists tableName="LESSON_TO_INSTRUMENT" columnName="LESSON_ID"/>
+            </and>
+        </preConditions>
+        <comment>Удаление колоноки в LESSON_TO_INSTRUMENT</comment>
+        <dropColumn tableName="LESSON_TO_INSTRUMENT" columnName="LESSON_ID"/>
+        <rollback>
+            <addColumn tableName="LESSON_TO_INSTRUMENT">
+                <column name="LESSON_ID" type="int"/>
+            </addColumn>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200717-12" author="ovcharov">
+    <preConditions onFail="MARK_RAN">
+        <and>
+            <tableExists tableName="LESSON_TO_INSTRUMENT" schemaName="public"/>
+        </and>
+        <not>
+            <columnExists tableName="LESSON_TO_INSTRUMENT" columnName="LESSON_IDD"/>
+        </not>
+    </preConditions>
+        <addColumn tableName="LESSON_TO_INSTRUMENT">
+            <column name="LESSON_IDD" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <rollback>
+            <dropColumn tableName="LESSON_TO_INSTRUMENT" columnName="LESSON_IDD"/>
+        </rollback>
+    </changeSet>
+
 </databaseChangeLog>

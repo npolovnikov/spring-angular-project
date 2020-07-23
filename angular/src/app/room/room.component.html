@@ -11,12 +11,16 @@
     <button mat-icon-button aria-label="Редактировать" (click)="openEditDialog()">
       <mat-icon>edit</mat-icon>
     </button>
+    <button mat-icon-button aria-label="Удалить" (click)="onDeleteRoom()">
+      <mat-icon>delete</mat-icon>
+    </button>
   </div>
 
   <div class="table-container">
 
     <table mat-table [dataSource]="data" class="example-table"
            matSort matSortActive="createDate" matSortDisableClear matSortDirection="desc">
+
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row">

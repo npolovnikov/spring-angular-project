@@ -26,6 +26,7 @@ public class CourseDto extends BaseDto<CourseHistoryDto> {
     private LocalDateTime endDate;
     private String        status;
 
-    private TeacherListDto teacher;
+    private Integer       teacherIdd;
+    // private TeacherListDto teacher;
     List<StudentListDto> students;
 }

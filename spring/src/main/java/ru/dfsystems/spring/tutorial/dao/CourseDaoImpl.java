@@ -55,6 +55,7 @@ public class CourseDaoImpl extends CourseDao implements BaseDao<Course> {
                 .join(STUDENT_TO_COURSE)
                 .on(COURSE.IDD.eq(STUDENT_TO_COURSE.COURSE_IDD))
                 .where(STUDENT_TO_COURSE.STUDENT_IDD.eq(idd))
+                .and(COURSE.DELETE_DATE.isNull())
                 .fetchInto(Course.class);
     }
 

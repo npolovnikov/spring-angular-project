@@ -64,10 +64,16 @@ a:visited,
 a:hover {
   color: #1976d2;
   text-decoration: none;
+  padding: 10px 20px;
+  border: 1px solid #333;
+  display: inline-block;
+  font-size:18px;
+  font-weight:bold;
 }
 
 a:hover {
   color: #125699;
+  background: linear-gradient(to bottom, #fcfff4, #e9e9ce); /* Градиент */
 }
 
 footer {
@@ -83,7 +89,12 @@ footer a {
   align-items: center;
 }
 
+nav a.active {
+  color: #aaffaa;
+
+}
 /* Здесь будут стили для маленьких экранов */
 @media screen and (max-width: 767px) {
 
 }
+

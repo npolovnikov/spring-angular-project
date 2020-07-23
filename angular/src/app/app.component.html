@@ -9,7 +9,18 @@
 </div>
 
 <div class="content" role="main">
-  <router-outlet></router-outlet>
+
+<nav class ="routing">
+  <a routerLink="/room" routerLinkActive ="active"> Аудитории </a>
+  <a routerLink="/instrument" routerLinkActive ="active"> Инструменты </a>
+  <a routerLink="/student" routerLinkActive="active"> Студенты </a>
+  <a routerLink="/course" routerLinkActive ="active"> Курсы </a>
+  <a routerLink="/teacher" routerLinkActive="active"> Преподаватели </a>
+  <a routerLink="/lesson" routerLinkActive="active"> Уроки </a>
+</nav>
+
+  <router-outlet>
+  </router-outlet>
   <footer>
     2020&nbsp;
     <a href="https://github.com/npolovnikov/spring-angular-project" target="_blank">GitHub</a>

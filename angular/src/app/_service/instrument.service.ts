@@ -27,4 +27,11 @@ export class InstrumentService {
 
     return this._httpClient.get<InstrumentList>(href);
   }
+
+  deleteInstrument(idd: number) {
+    const href = '/api/instrument/' + idd;
+    return this._httpClient.delete(href).subscribe(data => {
+      console.log(data);
+    });
+  }
 }
