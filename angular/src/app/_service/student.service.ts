@@ -29,6 +29,7 @@ export class StudentService {
 
   updateStudent(idd: number, data: Student): Observable<object> {
     const href = '/api/student/' + idd;
+    data.birthDate = new Date(Date.parse(data.birthDate)).toISOString().substring(0, 10);
     return this.httpClient.patch(href, data);
   }
 

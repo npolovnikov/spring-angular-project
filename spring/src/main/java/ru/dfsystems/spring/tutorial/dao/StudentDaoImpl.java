@@ -98,7 +98,7 @@ public class StudentDaoImpl extends StudentDao  implements  BaseDao<Student>,Bas
 
     public List<Student> getHistory(Integer idd) {
         return jooq.selectFrom(STUDENT)
-                .where(STUDENT.IDD.eq(idd))
+                .where(STUDENT.IDD.eq(idd)).orderBy(STUDENT.ID.desc())
                 .fetchInto(Student.class);
     }
 
