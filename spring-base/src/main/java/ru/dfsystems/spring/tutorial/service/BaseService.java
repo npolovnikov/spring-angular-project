@@ -10,6 +10,7 @@ import ru.dfsystems.spring.tutorial.generate.BaseJooq;
 import ru.dfsystems.spring.tutorial.mapping.BaseMapping;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public abstract class BaseService<List extends BaseListDto, Dto extends BaseDto, Params, Entity extends BaseJooq> {
 
@@ -67,4 +68,5 @@ public abstract class BaseService<List extends BaseListDto, Dto extends BaseDto,
         entity.setDeleteDate(LocalDateTime.now());
         baseDao.update(entity);
     }
+
 }

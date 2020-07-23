@@ -26,9 +26,9 @@ public class TeacherListDao implements BaseListDao<Teacher, TeacherParams> {
     @Override
     public Page<Teacher> list(PageParams<ru.dfsystems.spring.tutorial.dto.teacher.TeacherParams> pageParams) {
         final TeacherParams params = pageParams.getParams() == null ? new TeacherParams() : pageParams.getParams();
-        val listQuery = getTeacherSelect(params);
+        var listQuery = getTeacherSelect(params);
 
-        val count = jooq.selectCount()
+        var count = jooq.selectCount()
 
                 .from(listQuery)
                 .fetchOne(0, Long.class);
@@ -55,7 +55,7 @@ public class TeacherListDao implements BaseListDao<Teacher, TeacherParams> {
             condition = condition.and(TEACHER.CONTACTS.like(params.getStatus()));
         }
 
-        val sort = getOrderBy(params.getOrderBy(), params.getOrderDir());
+        var sort = getOrderBy(params.getOrderBy(), params.getOrderDir());
 
         return jooq.selectFrom(TEACHER)
                 .where(condition)
@@ -63,7 +63,7 @@ public class TeacherListDao implements BaseListDao<Teacher, TeacherParams> {
     }
 
     private SortField[] getOrderBy(String orderBy, String orderDir) {
-        val asc = orderDir == null || orderDir.equalsIgnoreCase("asc");
+        var asc = orderDir == null || orderDir.equalsIgnoreCase("asc");
 
         if (orderBy == null) {
             return asc
@@ -71,10 +71,10 @@ public class TeacherListDao implements BaseListDao<Teacher, TeacherParams> {
                     : new SortField[]{TEACHER.IDD.desc()};
         }
 
-        val orderArray = orderBy.split(",");
+        var orderArray = orderBy.split(",");
 
         List<SortField> listSortBy = new ArrayList<>();
-        for (val order : orderArray) {
+        for (var order : orderArray) {
             if (order.equalsIgnoreCase("idd")) {
                 listSortBy.add(asc ? TEACHER.IDD.asc() : TEACHER.IDD.desc());
             }

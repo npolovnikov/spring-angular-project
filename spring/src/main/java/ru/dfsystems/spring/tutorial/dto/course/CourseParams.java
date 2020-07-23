@@ -9,11 +9,15 @@ import java.time.LocalDateTime;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CourseParams {
-    private Integer idd;
+    private String idd;
     private String name;
     private String description;
     private Integer maxCountStudent;
     private String status;
+    private Integer teacherIdd;
+
+    private String orderBy;
+    private String orderDir;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startDate;

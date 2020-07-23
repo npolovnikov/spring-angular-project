@@ -5,10 +5,10 @@ import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.dao.BaseDao;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.TeacherDao;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Teacher;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Teacher.TEACHER;
 
@@ -37,5 +37,11 @@ public class TeacherDaoImpl extends TeacherDao implements BaseDao<Teacher> {
                 .from(TEACHER)
                 .where(TEACHER.IDD.eq(idd).and(TEACHER.DELETE_DATE.isNull()))
                 .fetchOneInto(Teacher.class);
+    }
+
+    public List<Teacher> getHistory(Integer idd) {
+        return jooq.selectFrom(TEACHER)
+                .where(TEACHER.IDD.eq(idd))
+                .fetchInto(Teacher.class);
     }
 }

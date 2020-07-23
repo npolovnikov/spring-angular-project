@@ -27,7 +27,8 @@
             birth_date timestamp(0),
             create_date timestamp(0) not null,
             delete_date timestamp(0),
-            status varchar(10)
+            status varchar(10),
+            course_idd int
             );
         </sql>
         <rollback>
@@ -82,7 +83,6 @@
             name varchar(100),
             description varchar(500),
             teacher_idd int,
-            instrument_idd int,
             max_count_student int,
             start_date timestamp(0),
             end_date timestamp(0),
@@ -135,6 +135,7 @@
             idd int not null,
             number varchar(5),
             block varchar(5),
+            instrument_idd int,
             create_date timestamp(0) not null,
             delete_date timestamp(0)
             );

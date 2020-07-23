@@ -13,9 +13,11 @@ public class StudentHistoryDto extends BaseHistoryDto {
     private String firstName;
     private String middleName;
     private String lastName;
+    private String passport;
     private String contacts;
+    private String courseIdd;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDateTime birthDate;
     private String status;
 }

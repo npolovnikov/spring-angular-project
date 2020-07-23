@@ -14,6 +14,7 @@ public class CourseHistoryDto extends BaseHistoryDto {
     private String description;
     private Integer maxCountStudent;
     private String status;
+    private Integer teacherIdd;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startDate;

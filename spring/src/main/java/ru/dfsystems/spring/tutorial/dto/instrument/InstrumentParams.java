@@ -13,6 +13,7 @@ public class InstrumentParams implements Serializable {
     private String idd;
     private String name;
     private String number;
+
     private String orderBy;
     private String orderDir;
 

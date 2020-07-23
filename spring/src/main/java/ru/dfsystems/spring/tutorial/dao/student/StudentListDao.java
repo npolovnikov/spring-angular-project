@@ -26,9 +26,9 @@ public class StudentListDao implements BaseListDao<Student, StudentParams> {
     @Override
     public Page<Student> list(PageParams<StudentParams> pageParams) {
         final StudentParams params = pageParams.getParams() == null ? new StudentParams() : pageParams.getParams();
-        val listQuery = getStudentSelect(params);
+        var listQuery = getStudentSelect(params);
 
-        val count = jooq.selectCount()
+        var count = jooq.selectCount()
                 .from(listQuery)
                 .fetchOne(0, Long.class);
 
@@ -56,7 +56,7 @@ public class StudentListDao implements BaseListDao<Student, StudentParams> {
         if (params.getPassport() != null) {
             condition = condition.and(STUDENT.PASSPORT.like(params.getPassport()));
         }
-        val sort = getOrderBy(params.getOrderBy(), params.getOrderDir());
+        var sort = getOrderBy(params.getOrderBy(), params.getOrderDir());
 
         return jooq.selectFrom(STUDENT)
                 .where(condition)
@@ -64,7 +64,7 @@ public class StudentListDao implements BaseListDao<Student, StudentParams> {
     }
 
     private SortField[] getOrderBy(String orderBy, String orderDir) {
-        val asc = orderDir == null || orderDir.equalsIgnoreCase("asc");
+        var asc = orderDir == null || orderDir.equalsIgnoreCase("asc");
 
         if (orderBy == null) {
             return asc
@@ -72,7 +72,7 @@ public class StudentListDao implements BaseListDao<Student, StudentParams> {
                     : new SortField[]{STUDENT.IDD.desc()};
         }
 
-        val orderArray = orderBy.split(",");
+        var orderArray = orderBy.split(",");
 
         List<SortField> listSortBy = new ArrayList<>();
         for (val order : orderArray) {

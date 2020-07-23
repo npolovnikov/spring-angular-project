@@ -9,7 +9,7 @@ import ru.dfsystems.spring.tutorial.generated.tables.pojos.Student;
 import ru.dfsystems.spring.tutorial.service.StudentService;
 
 @RestController
-@RequestMapping(value = "/student ", produces = "application/json; charset=UTF-8")
+@RequestMapping(value = "/student", produces = "application/json; charset=UTF-8")
 public class StudentController extends BaseController<StudentListDto, StudentDto, StudentParams, Student> {
 
     private StudentService studentService;
@@ -18,5 +18,10 @@ public class StudentController extends BaseController<StudentListDto, StudentDto
     public StudentController(StudentService studentService) {
         super(studentService);
         this.studentService = studentService;
+    }
+
+    @PutMapping("/{idd}/course")
+    public void putInstrument(@PathVariable("idd") Integer studentIdd, @RequestBody Integer courseIdd) {
+        studentService.putCourse(studentIdd, courseIdd);
     }
 }

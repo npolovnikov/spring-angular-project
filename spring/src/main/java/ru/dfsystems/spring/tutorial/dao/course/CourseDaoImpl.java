@@ -6,9 +6,9 @@ import ru.dfsystems.spring.tutorial.dao.BaseDao;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.CourseDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Teacher;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Course.COURSE;
 
@@ -30,11 +30,18 @@ public class CourseDaoImpl extends CourseDao implements BaseDao<Course> {
         course.setCreateDate(LocalDateTime.now());
         super.insert(course);
     }
+
     @Override
     public Course getActiveByIdd(Integer idd) {
         return jooq.select(COURSE.fields())
                 .from(COURSE)
                 .where(COURSE.IDD.eq(idd).and(COURSE.DELETE_DATE.isNull()))
                 .fetchOneInto(Course.class);
+    }
+
+    public List<Course> getHistory(Integer idd) {
+        return jooq.selectFrom(COURSE)
+                .where(COURSE.IDD.eq(idd))
+                .fetchInto(Course.class);
     }
 }
