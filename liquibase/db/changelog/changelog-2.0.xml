@@ -91,9 +91,9 @@
             );
         </sql>
         <rollback>
-            <sql>
-                drop table STUDENT_TO_COURSE;
-            </sql>
+<!--            <sql>-->
+<!--                drop table STUDENT_TO_COURSE;-->
+<!--            </sql>-->
         </rollback>
     </changeSet>
 
@@ -203,26 +203,9 @@
             );
         </sql>
         <rollback>
-            drop table LESSON_TO_INSTRUMENT;
-        </rollback>
-    </changeSet>
-
-    <changeSet id="20200701-08" author="grigoriev">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="LESSON_TO_INSTRUMENT"/>
-            </not>
-        </preConditions>
-        <comment>Liquibase Создание таблицы ROOM_TO_INSTRUMENT</comment>
-        <sql>
-            create table LESSON_TO_INSTRUMENT (
-            id serial primary key,
-            room_idd int,
-            instrument_idd int
-            );
-        </sql>
-        <rollback>
-            drop table ROOM_TO_INSTRUMENT;
+<!--            <sql>-->
+<!--                drop table LESSON_TO_INSTRUMENT;-->
+<!--            </sql>-->
         </rollback>
     </changeSet>
 
@@ -241,7 +224,9 @@
             );
         </sql>
         <rollback>
-            drop table STUDENT_TO_COURSE;
+            <sql>
+                drop table STUDENT_TO_COURSE;
+            </sql>
         </rollback>
     </changeSet>
 
@@ -257,9 +242,13 @@
         <sql>
             alter table LESSON add column idd int;
         </sql>
+        <rollback>
+<!--            <sql>-->
+<!--                alter table LESSON drop column idd;-->
+<!--            </sql>-->
+        </rollback>
     </changeSet>
-<!--    create_date timestamp,-->
-<!--    delete_date timestamp,-->
+
     <changeSet id="20200718-01" author="grigoriev">
         <preConditions onFail="MARK_RAN">
             <and>
@@ -273,10 +262,18 @@
             </and>
         </preConditions>
         <comment>Append two column </comment>
-        <sql>
-            alter table LESSON add column
-                create_date timestamp(0),
-                delete_date timestamp(0);
-        </sql>
+
+        <addColumn tableName="LESSON">
+            <column name="create_date" type="timestamp(0)"/>
+            <column name="delete_date" type="timestamp(0)"/>
+        </addColumn>
+
+        <rollback>
+            <dropColumn tableName="LESSON">
+                <column name="create_date" type="timestamp(0)"/>
+                <column name="delete_date" type="timestamp(0)"/>
+            </dropColumn>
+        </rollback>
     </changeSet>
+
 </databaseChangeLog>

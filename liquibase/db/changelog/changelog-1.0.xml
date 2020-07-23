@@ -6,6 +6,11 @@
         xmlns:pro="http://www.liquibase.org/xml/ns/pro"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
     http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd ">
+
+    <changeSet id="20200722-00" author="grigoriev">
+        <tagDatabase tag="changelog-1.0"/>
+    </changeSet>
+
     <changeSet id="20200620-00" author="polovnikov">
         <preConditions onFail="MARK_RAN">
             <not>
@@ -35,10 +40,6 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="20200620-02-0" author="polovnikov">
-        <tagDatabase tag="changelog-2.0"/>
-    </changeSet>
-
     <changeSet id="20200622-02" author="polovnikov">
         <preConditions onFail="MARK_RAN">
             <and>
@@ -49,14 +50,20 @@
             </and>
         </preConditions>
         <comment>Lesson 2. Liquibase. Добавление колонки к INSTRUMENT</comment>
-        <addColumn tableName="INSTRUMENT">
-            <column name="IDD" type="int">
-                <constraints nullable="false"/>
-            </column>
-        </addColumn>
-        <rollback>
-            <dropColumn tableName="INSTRUMENT" columnName="IDD"/>
-        </rollback>
+        <sql>
+            ALTER TABLE INSTRUMENT
+            ADD COLUMN idd INTEGER;
+        </sql>
+<!--        <addColumn tableName="INSTRUMENT">-->
+<!--            <column name="idd" type="int">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--        </addColumn>-->
+<!--        <addNotNullConstraint catalogName="public"-->
+<!--                              columnDataType="int"-->
+<!--                              columnName="idd"-->
+<!--                              tableName="INSTRUMENT"-->
+<!--                              validate="true"/>-->
     </changeSet>
 
     <changeSet id="20200620-03" author="polovnkov">
@@ -81,7 +88,7 @@
         <addColumn tableName="INSTRUMENT">
             <column name="NUMBER" type="varchar(50)"/>
             <column name="CREATE_DATE" type="timestamp(0)">
-                <constraints nullable="false"/>
+<!--                <constraints nullable="false"/>-->
             </column>
             <column name="DELETE_DATE" type="timestamp(0)"/>
             <column name="TO_BE_DELETED" type="boolean"/>
@@ -181,6 +188,11 @@
         <sql>
             alter table "ROOM" add column user_id int;
         </sql>
+        <rollback>
+            <sql>
+                alter table "ROOM" drop column user_id;
+            </sql>
+        </rollback>
     </changeSet>
 
     <changeSet id="20200718-01" author="grigoriev">
@@ -191,12 +203,20 @@
             </and>
         </preConditions>
         <comment>Formatting APP_USER for structure</comment>
-        <sql>
-            alter table APP_USER drop column fio;
-            alter table APP_USER add column
-                first_name varchar(50),
-                middle_name varchar(50),
-                last_name varchar(50);
-        </sql>
+
+        <dropColumn tableName="APP_USER" columnName="fio"/>
+        <addColumn tableName="APP_USER">
+            <column name="first_name" type="varchar(50)"/>
+            <column name="middle_name" type="varchar(50)"/>
+            <column name="last_name" type="varchar(50)"/>
+        </addColumn>
+<!--        -->
+<!--        <sql>-->
+<!--            alter table APP_USER drop column fio;-->
+<!--            alter table APP_USER add column-->
+<!--                first_name varchar(50),-->
+<!--                middle_name varchar(50),-->
+<!--                last_name varchar(50);-->
+<!--        </sql>-->
     </changeSet>
 </databaseChangeLog>
