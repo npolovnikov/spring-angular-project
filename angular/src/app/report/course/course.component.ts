@@ -18,7 +18,7 @@ import {CourseEditDialogComponent} from './course-edit-dialog/course-edit-dialog
 export class CourseComponent implements AfterViewInit {
 
   sizeOption: number[] = [2, 5, 10];
-  displayedColumns: string[] = ['select', 'idd', 'name', 'description'];
+  displayedColumns: string[] = ['select', 'idd', 'name', 'description', 'delete'];
   data: Student[];
 
   selection = new SelectionModel<RoomList>(false, []);
@@ -75,4 +75,9 @@ export class CourseComponent implements AfterViewInit {
       ).subscribe(data => this.data = data);
   }
 
+  delete(id: number): void {
+    this.courseService.delete(id).pipe().subscribe(
+      () => this.refresh()
+    );
+  }
 }

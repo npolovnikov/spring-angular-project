@@ -40,4 +40,9 @@ export class CourseService {
     const href = '/api/course';
     return this.httpClient.post(href, data);
   }
+
+  delete(id: number): Observable<object>  {
+    const href = '/api/course/' + id;
+    return this.httpClient.delete(href);
+  }
 }

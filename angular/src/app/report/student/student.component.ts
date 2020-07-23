@@ -27,6 +27,7 @@ export class StudentComponent implements AfterViewInit {
     {id: 'middleName', name: 'Отчество'},
     {id: 'passport', name: 'Паспорт'},
     {id: 'birthDate', name: 'Дата рождения'},
+    {id: 'delete', name: null},
   ];
   displayedColumns: string[] = this.columns.map(obj => obj.id);
 
@@ -81,5 +82,11 @@ export class StudentComponent implements AfterViewInit {
           return observableOf([]);
         })
       ).subscribe(data => this.data = data);
+  }
+
+  delete(id: number): void {
+    this.studentService.delete(id).pipe().subscribe(
+      () => this.refresh()
+    );
   }
 }

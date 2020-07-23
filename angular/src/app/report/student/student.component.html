@@ -30,7 +30,15 @@
             </mat-checkbox>
           </td>
         </template>
-        <template *ngIf="column.id !== 'select'">
+        <template *ngIf="column.id === 'delete'">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button aria-label="Удалить" (click)="delete(row.idd)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </template>
+        <template *ngIf="column.id !== 'select' && column.id !== 'delete' ">
           <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>{{column.name}}</th>
           <td mat-cell *matCellDef="let row">{{row[column.id]}}</td>
         </template>

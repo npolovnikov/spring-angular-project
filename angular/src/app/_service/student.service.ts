@@ -37,4 +37,9 @@ export class StudentService {
     data.birthDate = new Date(Date.parse(data.birthDate)).toISOString().substring(0, 10);
     return this.httpClient.post(href, data);
   }
+
+  delete(id: number): Observable<object>  {
+    const href = '/api/student/' + id;
+    return this.httpClient.delete(href);
+  }
 }
