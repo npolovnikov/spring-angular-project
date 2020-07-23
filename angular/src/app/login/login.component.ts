@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
     this._authService.login(this.f.login.value, this.f.password.value)
       .pipe(first())
       .subscribe(() => {
-        this.router.navigateByUrl('/room');
+        this.router.navigateByUrl('/student');
         this.app.isLoginPage = false;
       }, () => this.loading = false);
   }

@@ -21,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor{
       return of(err.message);
     } else if (err.status === 500) {
         this.dialog.open(ErrorDialogComponent, {
-          width: '750px',
+          width: '400px',
           data: {title:'Ошибка', message:err.error}
         });
     }

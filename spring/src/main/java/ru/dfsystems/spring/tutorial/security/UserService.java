@@ -24,6 +24,7 @@ public class UserService {
     private UserDaoImpl userDao;
     private MappingService mappingService;
     private UserContext userContext;
+    private SecurityDbConfig securityDbConfig;
 
     public AppUser getUserByLogin(String login){
         return appUserDao.fetchOptional(APP_USER.LOGIN, login)
@@ -36,8 +37,7 @@ public class UserService {
             return false;
         }
 
-        //ДЗ Добавить соль к паролю. Соль хранить в application.yml
-        String md5Hex = DigestUtils.md5DigestAsHex(password.getBytes());
+        String md5Hex = DigestUtils.md5DigestAsHex((password + securityDbConfig.getSalt()).getBytes());
 
         return md5Hex.equals(user.getPasswordHash());
     }
@@ -68,7 +68,7 @@ public class UserService {
 
     public void create(UserCreateDto dto) {
         AppUser appUser = mappingService.map(dto, AppUser.class);
-        appUser.setPasswordHash(DigestUtils.md5DigestAsHex(dto.getPassword().getBytes()));
+        appUser.setPasswordHash(DigestUtils.md5DigestAsHex((dto.getPassword() + securityDbConfig.getSalt()).getBytes()));
         appUser.setIsActive(false);
         userDao.create(appUser);
     }
