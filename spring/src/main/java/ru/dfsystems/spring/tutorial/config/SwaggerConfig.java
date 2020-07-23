@@ -12,6 +12,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
 @Configuration
 @EnableSwagger2
 @ComponentScan(basePackages = {"ru.dfsystems.spring.tutorial"})
@@ -27,7 +28,7 @@ public class SwaggerConfig {
 	}
 
 	private ApiInfo apiInfo() {
-		Contact contact = new Contact("spring", "www.someurl.ru", "email.ru");
+		Contact contact = new Contact("spring", "www.dfsystems.ru", "email.ru");
 		return new ApiInfoBuilder()
 				.title("Rest API students on course")
 				.description("Study project")

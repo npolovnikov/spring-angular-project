@@ -1,11 +1,11 @@
 package ru.dfsystems.spring.tutorial.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.dfsystems.spring.tutorial.dto.room.RoomDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomListDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomParams;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
+import ru.dfsystems.spring.tutorial.service.BaseService;
 import ru.dfsystems.spring.tutorial.service.RoomService;
 
 @RestController
@@ -13,9 +13,9 @@ import ru.dfsystems.spring.tutorial.service.RoomService;
 public class RoomController extends BaseController<RoomListDto, RoomDto, RoomParams, Room> {
     private RoomService roomService;
 
-    @Autowired
-    public RoomController(RoomService roomService) {
-        super(roomService);
+
+    public RoomController(BaseService<RoomListDto, RoomDto, RoomParams, Room> service, RoomService roomService) {
+        super(service);
         this.roomService = roomService;
     }
 

@@ -8,11 +8,12 @@ import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
 import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMENT;
+import static ru.dfsystems.spring.tutorial.generated.tables.InstrumentToLesson.INSTRUMENT_TO_LESSON;
 import static ru.dfsystems.spring.tutorial.generated.tables.InstrumentToRoom.INSTRUMENT_TO_ROOM;
 
 @Repository
 public class InstrumentDaoImpl extends InstrumentDao {
-    final DSLContext jooq;
+    private final DSLContext jooq;
 
     public InstrumentDaoImpl(DSLContext jooq) {
         super(jooq.configuration());
@@ -21,11 +22,21 @@ public class InstrumentDaoImpl extends InstrumentDao {
 
     public List<Instrument> getInstrumentsByRoomIdd(Integer idd) {
         return jooq.select(INSTRUMENT.fields())
-                    .from(INSTRUMENT)
-                        .join(INSTRUMENT_TO_ROOM)
-                            .on(INSTRUMENT.IDD.eq(INSTRUMENT_TO_ROOM.INSTRUMENT_IDD))
-                    .where(INSTRUMENT_TO_ROOM.ROOM_IDD.eq(idd))
-                    .fetchInto(Instrument.class);
+                .from(INSTRUMENT)
+                .join(INSTRUMENT_TO_ROOM)
+                .on(INSTRUMENT.IDD.eq(INSTRUMENT_TO_ROOM.INSTRUMENT_IDD))
+                .where(INSTRUMENT_TO_ROOM.ROOM_IDD.eq(idd))
+                .fetchInto(Instrument.class);
+
+    }
+
+    public List<Instrument> getInstrumentsByLessonIdd(Integer idd) {
+        return jooq.select(INSTRUMENT.fields())
+                .from(INSTRUMENT)
+                .join(INSTRUMENT_TO_ROOM)
+                .on(INSTRUMENT.IDD.eq(INSTRUMENT_TO_LESSON.INSTRUMENT_IDD))
+                .where(INSTRUMENT_TO_LESSON.LESSON_IDD.eq(idd))
+                .fetchInto(Instrument.class);
 
     }
 

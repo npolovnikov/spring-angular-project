@@ -16,7 +16,7 @@ public class RoomParams {
     private String orderDir;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime createDateStart;
+    private LocalDateTime dateFrom;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime createDateEnd;
+    private LocalDateTime dateTo;
 }

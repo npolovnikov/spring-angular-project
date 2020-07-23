@@ -7,6 +7,8 @@ spring:
   jackson:
     mapper:
       accept-case-insensitive-properties: true
+    serialization:
+      write_dates_as_timestamps: false
   datasource:
     url: ${db.url:jdbc:postgresql://127.0.0.1:5432/study_db}
     username: ${db.username:postgres}
@@ -19,3 +21,4 @@ spring:
 logging:
   file:
     max-history: 20
+

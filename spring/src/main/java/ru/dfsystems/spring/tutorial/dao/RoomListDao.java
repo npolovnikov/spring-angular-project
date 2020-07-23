@@ -45,8 +45,8 @@ public class RoomListDao implements BaseListDao<Room, RoomParams> {
         if (params.getNumber() != null){
             condition = condition.and(ROOM.NUMBER.like(params.getNumber()));
         }
-        if (params.getCreateDateStart() != null && params.getCreateDateEnd() != null){
-            condition = condition.and(ROOM.CREATED_AT.between(params.getCreateDateStart(), params.getCreateDateEnd()));
+        if (params.getDateFrom() != null && params.getDateTo() != null){
+            condition = condition.and(ROOM.CREATED_AT.between(params.getDateFrom(), params.getDateTo()));
         }
 
         val sort = getOrderBy(params.getOrderBy(), params.getOrderDir());

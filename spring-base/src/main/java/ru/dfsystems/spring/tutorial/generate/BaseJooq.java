@@ -10,9 +10,9 @@ public interface BaseJooq extends Serializable {
     Integer getIdd();
     void setIdd(Integer idd);
 
-    LocalDateTime getCreateDate();
-    void setCreateDate(LocalDateTime createDate);
+    LocalDateTime getCreatedAt();
+    void setCreatedAt(LocalDateTime createdAt);
 
-    LocalDateTime getDeleteDate();
-    void setDeleteDate(LocalDateTime deleteDate);
+    LocalDateTime getDeletedAt();
+    void setDeletedAt(LocalDateTime deletedAt);
 }

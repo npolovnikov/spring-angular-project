@@ -21,8 +21,8 @@ public abstract class BaseController<List extends BaseListDto, Dto extends BaseD
     }
 
     @PostMapping
-    public void create(@RequestBody Dto dto) {
-        service.create(dto);
+    public Dto create(@RequestBody Dto dto) {
+        return service.create(dto);
     }
 
     @GetMapping("/{idd}")

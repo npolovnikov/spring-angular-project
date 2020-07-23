@@ -63,6 +63,9 @@
             <column name="id" type="serial" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="idd" type="int">
+                <constraints nullable="false"/>
+            </column>
             <column name="name" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
@@ -78,6 +81,12 @@
             </column>
             <column name="lesson_date_end" type="timestamp">
                 <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="timestamp">
+                <constraints nullable="true"/>
             </column>
             <column name="instruments" type="varchar(1000)"/>
         </createTable>
@@ -100,10 +109,10 @@
             <column name="idd" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="number" type="varchar(5)">
+            <column name="number" type="varchar(45)">
                 <constraints nullable="false"/>
             </column>
-            <column name="block" type="varchar(5)"/>
+            <column name="block" type="varchar(45)"/>
             <column name="capacity" type="int">
                 <constraints nullable="false"/>
             </column>
@@ -146,28 +155,23 @@
     <changeSet id="20200622-06" author="cherepanov">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="USR" schemaName="public"/>
+                <tableExists tableName="APP_USER" schemaName="public"/>
             </not>
         </preConditions>
         <comment>Add table users</comment>
         <sql>
-            create table USR (
+            create table APP_USER (
             id serial primary key,
-            first_name varchar(50) not null,
-            middle_name varchar(50) not null,
-            last_name varchar(50) not null,
-            passport varchar(15) not null,
-            birth_date timestamp(0) not null,
-            create_date timestamp(0) not null,
-            delete_date timestamp(0),
-            status varchar(10),
             login varchar(50),
-            password_encrypted varchar(50)
+            password_hash varchar(50),
+            fio varchar(255),
+            is_active boolean,
+            last_login_date timestamp(0)
             );
         </sql>
         <rollback>
             <sql>
-                drop table USR;
+                drop table APP_USER;
             </sql>
         </rollback>
     </changeSet>
@@ -175,24 +179,27 @@
     <changeSet id="20200622-07" author="cherepanov">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="PROFILE" schemaName="public"/>
+                <tableExists tableName="STUDENT" schemaName="public"/>
             </not>
         </preConditions>
-        <comment>Add table profile</comment>
+        <comment>Add table STUDENT</comment>
         <sql>
-            create table PROFILE (
+            create table STUDENT (
             id serial primary key,
             idd int not null,
-            user_id int not null,
-            type varchar(50) not null,
-            create_date timestamp(0) not null,
-            delete_date timestamp(0),
-            status varchar(10) not null
+            first_name varchar(50) not null,
+            middle_name varchar(50) not null,
+            last_name varchar(50) not null,
+            passport varchar(15) not null,
+            birth_date timestamp(0) not null,
+            created_at timestamp(0) not null,
+            deleted_at timestamp(0),
+            status varchar(10)
             );
         </sql>
         <rollback>
             <sql>
-                drop table PROFILE;
+                drop table STUDENT;
             </sql>
         </rollback>
     </changeSet>
@@ -212,11 +219,11 @@
             description varchar(500),
             teacher_idd int not null,
             max_count_student int,
-            start_date timestamp not null,
-            end_date timestamp not null,
-            created_at timestamp not null,
-            deleted_at timestamp,
-            status varchar(10) not null
+            start_date timestamp(0) not null,
+            end_date timestamp(0) not null,
+            created_at timestamp(0) not null,
+            deleted_at timestamp(0),
+            status varchar(10)
             );
         </sql>
         <rollback>
@@ -249,5 +256,72 @@
             <sqlFile path="sql/instrument_to_lesson_rollback.sql" relativeToChangelogFile="true"/>
         </rollback>
     </changeSet>
+
+    <changeSet id="20200624-11" author="cherepanov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="INSTRUMENT_ID_SEQ" schemaName="public"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="INSTRUMENT_ID_SEQ" dataType="int" schemaName="public"/>
+        <rollback>
+            <dropSequence sequenceName="INSTRUMENT_ID_SEQ"/>
+        </rollback>
+    </changeSet>
+
+
+
+    <changeSet id="20200622-13" author="cherepanov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TEACHER" schemaName="public"/>
+            </not>
+        </preConditions>
+        <comment>Add table TEACHER</comment>
+        <sql>
+            create table TEACHER (
+            id serial primary key,
+            idd int not null,
+            first_name varchar(50) not null,
+            middle_name varchar(50) not null,
+            last_name varchar(50) not null,
+            passport varchar(15) not null,
+            birth_date timestamp(0) not null,
+            created_at timestamp(0) not null,
+            deleted_at timestamp(0),
+            status varchar(10)
+            );
+        </sql>
+        <rollback>
+            <sql>
+                drop table TEACHER;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200624-14" author="cherepanov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="LESSONS_ID_SEQ" schemaName="public"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="LESSONS_ID_SEQ" dataType="int" schemaName="public"/>
+        <rollback>
+            <dropSequence sequenceName="LESSONS_ID_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20200624-25" author="cherepanov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="ROOM_ID_SEQ" schemaName="public"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="ROOM_ID_SEQ" dataType="int" schemaName="public"/>
+        <rollback>
+            <dropSequence sequenceName="ROOM_ID_SEQ"/>
+        </rollback>
+    </changeSet>
+
 
 </databaseChangeLog>
