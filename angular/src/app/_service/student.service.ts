@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Page} from "../_model/page";
 import {PageParams} from "../_model/page-params";
+import {Room} from "../_model/room";
+import {Student} from "../_model/student";
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +20,31 @@ export class StudentService {
       orderBy:sort,
       orderDir:order
     }));
+  }
+
+  getStudentByIdd(idd: number): Observable<Student> {
+    const href = 'api/student/' + idd;
+
+    /* наш пост запрос на получение student дто */
+    return this._httpClient.get<Student>(href);
+
+  }
+
+  updateStudent(idd: number, data: Student): Observable<Object> {
+    const href = '/api/student/' + idd;
+    return this._httpClient.patch(href, data);
+  }
+
+  createStudent(data: Student): Observable<Object> {
+    const href = '/api/student';
+    return this._httpClient.post(href, data);
+  }
+
+  /* удаление объекта */
+  deleteObjectByIdd(deleteIdd: number) {
+    const href = '/api/student/' + deleteIdd;
+    return this._httpClient.delete(href).subscribe(data => {
+      console.log(data);
+    });
   }
 }

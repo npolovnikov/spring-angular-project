@@ -26,6 +26,8 @@ import {FormsModule} from "@angular/forms";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { AddInstrumentDialogComponent } from './room/room-edit-dialog/add-instrument-dialog/add-instrument-dialog.component';
 import {MatSelectModule} from "@angular/material/select";
+import { StudentEditDialogComponent } from './student/student-edit-dialog/student-edit-dialog.component';
+import { AddCourseDialogComponent } from './student/student-edit-dialog/add-course-dialog/add-course-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import {MatSelectModule} from "@angular/material/select";
     CourseComponent,
     LessonComponent,
     RoomEditDialogComponent,
-    AddInstrumentDialogComponent
+    AddInstrumentDialogComponent,
+    StudentEditDialogComponent,
+    AddCourseDialogComponent
   ],
     imports: [
         BrowserModule,

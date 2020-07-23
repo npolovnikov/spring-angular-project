@@ -1,4 +1,4 @@
-StudentList(
+Student(
     id serial,
     idd int,
     first_name varchar(50),
@@ -11,7 +11,7 @@ StudentList(
     status varchar(10)
 )
 
-TeacherList(
+Teacher(
     id serial primary key,
     idd int not null,
     first_name varchar(50),
@@ -37,7 +37,7 @@ USER (
     status varchar(10)
     )
 
-CourseList(
+Course(
     id serial,
     idd int,
     name varchar(100),
@@ -57,7 +57,7 @@ Student_to_course(
     success boolean
 )
 
-RoomList(
+Room(
     id serial,
     idd int,
     number varchar(5),
@@ -67,7 +67,7 @@ RoomList(
     delete_date timestamp
 )
 
-LessonList(
+Lesson(
     id serial,
     name varchar(100),
     description varchar(1000),
@@ -90,7 +90,7 @@ INSTRUMENT_TO_ROOM (
     room_idd int references ROOM (idd)
 )
 
-InstrumentList(
+Instrument(
     id serial
     idd int,
     name varchar(50),

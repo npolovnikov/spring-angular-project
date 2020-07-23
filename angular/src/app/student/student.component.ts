@@ -5,6 +5,12 @@ import {merge, of as observableOf} from "rxjs";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
 import {StudentList} from "../_model/student-list";
 import {StudentService} from "../_service/student.service";
+import {SelectionModel} from "@angular/cdk/collections";
+import {RoomList} from "../_model/room-list";
+import {RoomService} from "../_service/room.service";
+import {MatDialog} from "@angular/material/dialog";
+import {RoomEditDialogComponent} from "../room/room-edit-dialog/room-edit-dialog.component";
+import {StudentEditDialogComponent} from "./student-edit-dialog/student-edit-dialog.component";
 
 @Component({
   selector: 'app-student',
@@ -13,8 +19,10 @@ import {StudentService} from "../_service/student.service";
 })
 export class StudentComponent implements AfterViewInit {
   sizeOption:number[] = [2, 5, 10];
-  displayedColumns: string[] = ['idd', 'firstName', 'middleName','lastName','passport','birthDate','status', 'createDate'];
+  displayedColumns: string[] = ['select', 'idd', 'firstName', 'middleName','lastName','passport','birthDate','status', 'createDate'];
   data: StudentList[];
+  /* multiple - можно ли выделить неск элементов, initiallySelectedValues - изначально помеченные */
+  selection = new SelectionModel<RoomList>(false, []);
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -23,11 +31,31 @@ export class StudentComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _studentService: StudentService) {}
+  constructor(private _studentService: StudentService, public dialog: MatDialog) {}
 
   ngAfterViewInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.refresh();
+  }
 
+  /* при щелчке на кнопку открывает окно диалога StudentEditDialogComponent*/
+  openEditDialog(): void {
+    /*  открытие окна */
+    const dialogRef = this.dialog.open(StudentEditDialogComponent, {
+      width: '750px',
+
+      /* selected[0] - получаем выбранный в чекбоксе рум дто */
+      /* ? - проверка на null, если this.selection.selected[0]= null, то дальше не пойдет и вернет null */
+      data: this.selection.selected[0]?.idd
+    });
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
+    });
+  }
+
+  refresh() {
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
@@ -51,5 +79,16 @@ export class StudentComponent implements AfterViewInit {
           return observableOf([]);
         })
       ).subscribe(data => this.data = data);
+  }
+
+    ondDeleteObject(): void {
+      /* REP-IR!*/
+      const deleteIdd: number = this.selection.selected[0]?.idd;
+    if (deleteIdd == null) {
+      return;
+    }
+    this._studentService.deleteObjectByIdd(deleteIdd);
+    this.selection.clear();
+    this.refresh();
   }
 }
