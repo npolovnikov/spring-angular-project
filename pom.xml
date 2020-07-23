@@ -82,6 +82,11 @@
         </profile>
         <profile>
             <id>front</id>
+            <properties>
+                <url>jdbc:postgresql://localhost:5433/spring-angular-db</url>
+                <username>postgres</username>
+                <password>1234</password>
+            </properties>
             <modules>
                 <module>
                     angular
