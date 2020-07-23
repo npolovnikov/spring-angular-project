@@ -12,12 +12,6 @@
     <groupId>ru.dfsystems</groupId>
     <artifactId>spring-angular-project</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>angular</module>
-        <module>liquibase</module>
-        <module>spring</module>
-        <module>spring-base</module>
-    </modules>
 
     <packaging>pom</packaging>
 
@@ -74,12 +68,25 @@
 
     <profiles>
         <profile>
-            <id>samoylov</id>
+            <id>back</id>
             <properties>
                 <url>jdbc:postgresql://localhost:5433/spring-angular-db</url>
                 <username>postgres</username>
                 <password>1234</password>
             </properties>
+            <modules>
+                <module>liquibase</module>
+                <module>spring</module>
+                <module>spring-base</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>front</id>
+            <modules>
+                <module>
+                    angular
+                </module>
+            </modules>
         </profile>
     </profiles>
 
