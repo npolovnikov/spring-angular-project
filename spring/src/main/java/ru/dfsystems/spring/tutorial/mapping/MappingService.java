@@ -22,6 +22,7 @@ import ru.dfsystems.spring.tutorial.dto.student.StudentHistoryDto;
 import ru.dfsystems.spring.tutorial.dto.student.StudentListDto;
 import ru.dfsystems.spring.tutorial.dto.teacher.TeacherDto;
 import ru.dfsystems.spring.tutorial.dto.teacher.TeacherHistoryDto;
+import ru.dfsystems.spring.tutorial.dto.teacher.TeacherListDto;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.CourseDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.*;
 
@@ -65,7 +66,8 @@ public class MappingService implements BaseMapping {
                 context -> mapList(studentDao.getStudentsByCourseIdd(context.getSource()), StudentListDto.class);
         Converter<Integer, List<LessonListDto>> courseLessonList =
                 context -> mapList(lessonDao.getLessonByCourseIdd(context.getSource()), LessonListDto.class);
-        Converter<Integer, TeacherDto> courseTeacher = mappingContext -> map(teacherDao.getActiveByIdd(mappingContext.getSource()), TeacherDto.class);
+        Converter<Integer, TeacherListDto> courseTeacher =
+                mappingContext -> map(teacherDao.getActiveByIdd(mappingContext.getSource()), TeacherListDto.class);
 
         //Instrument
         Converter<Integer, List<LessonListDto>> instrumentLessonList =
@@ -76,10 +78,10 @@ public class MappingService implements BaseMapping {
         //Lesson
         Converter<Integer, List<InstrumentListDto>> lessonInstrumentsList =
                 context -> mapList(instrumentDao.getInstrumentsByLessonIdd(context.getSource()), InstrumentListDto.class);
-        Converter<Integer, RoomDto> lessonRoom =
-                mappingContext -> map(roomDao.getActiveByIdd(mappingContext.getSource()), RoomDto.class);
-        Converter<Integer, CourseDto> lessonCourse =
-                mappingContext -> map(courseDao.getActiveByIdd(mappingContext.getSource()), CourseDto.class);
+        Converter<Integer, RoomListDto> lessonRoom =
+                mappingContext -> map(roomDao.getActiveByIdd(mappingContext.getSource()), RoomListDto.class);
+        Converter<Integer, CourseListDto> lessonCourse =
+                mappingContext -> map(courseDao.getActiveByIdd(mappingContext.getSource()), CourseListDto.class);
 
         //Room
         Converter<Integer, List<InstrumentListDto>> roomInstrumentsList =
@@ -93,7 +95,7 @@ public class MappingService implements BaseMapping {
                 .addMappings(mapper -> mapper.using(courseHistory).map(Course::getIdd, CourseDto::setHistory))
                 .addMappings(mapper -> mapper.using(courseStudentList).map(Course::getIdd, CourseDto::setStudents))
                 .addMappings(mapper -> mapper.using(courseLessonList).map(Course::getIdd, CourseDto::setLessons))
-                .addMappings(mapper -> mapper.using(courseTeacher).map(Course::getIdd, CourseDto::setTeacher));
+                .addMappings(mapper -> mapper.using(courseTeacher).map(Course::getTeacherIdd, CourseDto::setTeacher));
 
         modelMapper.typeMap(Instrument.class, InstrumentDto.class)
                 .addMappings(mapper -> mapper.using(instrumentHistory).map(Instrument::getIdd, InstrumentDto::setHistory))

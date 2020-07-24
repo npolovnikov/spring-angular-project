@@ -1,6 +1,7 @@
 package ru.dfsystems.spring.tutorial.security;
 
 import org.springframework.stereotype.Component;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.AppUser;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -64,7 +65,7 @@ public class SecurityFilter implements Filter {
 
     private boolean isAuthRequest(Cookie userCookie) {
         if (userCookie != null && userCookie.getValue() != null && !userCookie.getValue().isEmpty()) {
-            var user = userService.getUserByLogin(userCookie.getValue());
+            AppUser user = userService.getUserByLogin(userCookie.getValue());
             if (user != null && user.getIsActive() &&
                     user.getLastLoginDate().isAfter(LocalDateTime.now().minus(6, HOURS))) {
                 userContext.setUser(user);

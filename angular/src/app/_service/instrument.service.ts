@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Page} from "../_model/page";
 import {PageParams} from "../_model/page-params";
-import {Room} from "../_model/room";
+import {Instrument} from "../_model/instrument";
 import {InstrumentList} from "../_model/instrument-list";
 
 @Injectable({
@@ -22,9 +22,19 @@ export class InstrumentService {
     }));
   }
 
-  getInstrumentByIdd(idd: number): Observable<InstrumentList> {
+  getInstrumentByIdd(idd: number): Observable<Instrument> {
     const href = '/api/instrument/' + idd;
 
-    return this._httpClient.get<InstrumentList>(href);
+    return this._httpClient.get<Instrument>(href);
+  }
+
+  updateInstrument(idd: number, data: Instrument):Observable<Object> {
+    const href = '/api/instrument/' + idd;
+    return this._httpClient.patch(href, data);
+  }
+
+  createInstrument(data: Instrument):Observable<Object> {
+    const href = '/api/instrument';
+    return this._httpClient.post(href, data);
   }
 }

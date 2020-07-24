@@ -1,36 +1,16 @@
 package ru.dfsystems.spring.tutorial.dao;
 
-import lombok.AllArgsConstructor;
-import lombok.val;
-import lombok.var;
 import org.jooq.DSLContext;
-import org.jooq.SelectSeekStepN;
-import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
-import ru.dfsystems.spring.tutorial.dto.Page;
-import ru.dfsystems.spring.tutorial.dto.PageParams;
-import ru.dfsystems.spring.tutorial.dto.course.CourseParams;
-import ru.dfsystems.spring.tutorial.dto.teacher.TeacherDto;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.CourseDao;
-import ru.dfsystems.spring.tutorial.generated.tables.daos.CourseDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
-import ru.dfsystems.spring.tutorial.generated.tables.records.CourseRecord;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Course.COURSE;
-import static ru.dfsystems.spring.tutorial.generated.tables.Course.COURSE;
-import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMENT;
-import static ru.dfsystems.spring.tutorial.generated.tables.LessonToInstruments.LESSON_TO_INSTRUMENTS;
 import static ru.dfsystems.spring.tutorial.generated.tables.StudentToCourse.STUDENT_TO_COURSE;
-import static ru.dfsystems.spring.tutorial.generated.tables.LessonToCourse.LESSON_TO_COURSE;
-import static ru.dfsystems.spring.tutorial.generated.tables.Teacher.TEACHER;
 
 @Repository
 public class CourseDaoImpl extends CourseDao implements BaseDao<Course> {
@@ -54,13 +34,15 @@ public class CourseDaoImpl extends CourseDao implements BaseDao<Course> {
                 .fetchInto(Course.class);
     }
 
-    public void create(Course course) {
+
+    public Course create(Course course) {
         course.setId(jooq.nextval(Sequences.COURSE_ID_SEQ));
         if (course.getIdd() == null) {
             course.setIdd(course.getId());
         }
         course.setCreateDate(LocalDateTime.now());
         super.insert(course);
+        return course;
     }
 
     public List<Course> getCoursesByStudentIdd(Integer idd) {

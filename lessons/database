@@ -31,6 +31,11 @@ Student_to_course(
     course_idd int,
     success boolean
 )
+Lesson_to_course(
+    id serial,
+    lesson_idd int,
+    course_idd int,
+)
 
 RoomList(
     id serial,
@@ -43,6 +48,7 @@ RoomList(
 )
 Lesson(
     id serial,
+    idd int
     name varchar(100),
     description varchar(1000),
     course_idd int,
@@ -50,6 +56,8 @@ Lesson(
     lesson_date_start timestamp,
     lesson_date_end timestamp,
     extra_instruments varchar(1000) //PRINTER,SENSOR_BOARD,...
+    create_date timestamp,
+    delete_date timestamp
 )
 
 Lesson_to_Instruments()

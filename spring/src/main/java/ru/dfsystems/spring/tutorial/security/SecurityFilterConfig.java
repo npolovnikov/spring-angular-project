@@ -9,7 +9,7 @@ public class SecurityFilterConfig {
 
     @Bean
     public FilterRegistrationBean<SecurityFilter> filterRegistrationBean(SecurityFilter filter) {
-        var registrationBean = new FilterRegistrationBean<SecurityFilter>();
+        FilterRegistrationBean<SecurityFilter> registrationBean = new FilterRegistrationBean<SecurityFilter>();
         registrationBean.setName("SecurityFilter");
         registrationBean.setFilter(filter);
 

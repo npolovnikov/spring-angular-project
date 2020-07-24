@@ -10,6 +10,7 @@ import ru.dfsystems.spring.tutorial.dto.lesson.LessonListDto;
 import ru.dfsystems.spring.tutorial.dto.student.StudentDto;
 import ru.dfsystems.spring.tutorial.dto.student.StudentListDto;
 import ru.dfsystems.spring.tutorial.dto.teacher.TeacherDto;
+import ru.dfsystems.spring.tutorial.dto.teacher.TeacherListDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 public class CourseDto extends BaseDto<CourseHistoryDto> {
     private String name;
     private String description;
-    private TeacherDto teacher;
+    private TeacherListDto teacher;
     private int maxCountStudent;
     private String status;
 

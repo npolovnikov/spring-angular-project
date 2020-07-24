@@ -1,0 +1,24 @@
+<button mat-button [matMenuTriggerFor]="menu" class="example-icon" aria-label="Выбор сущности">
+  <mat-icon>menu</mat-icon>
+</button>
+
+<mat-menu #menu="matMenu">
+  <form action="/course">
+    <buton (click)="showCourse()" mat-menu-item >Курс</buton>
+  </form>
+  <form action="/instrument">
+    <button (click)="showInstrument()" mat-menu-item>Инструмент</button>
+  </form>
+  <form action="/lesson">
+    <button (click)="showLesson()" mat-menu-item>Урок</button>
+  </form>
+  <form action="/room">
+    <button (click)="showRoom()" mat-menu-item>Комната</button>
+  </form>
+  <form action="/student">
+    <button (click)="showStudent()" mat-menu-item>Студент</button>
+  </form>
+  <form action="/teacher">
+    <button (click)="showTeacher()" mat-menu-item>Преподаватель</button>
+  </form>
+</mat-menu>

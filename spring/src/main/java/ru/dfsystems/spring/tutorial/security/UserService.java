@@ -29,7 +29,7 @@ public class UserService {
             return false;
         }
 
-        //ДЗ Добавить соль к паролю. Соль хранить в application.yml
+        //TODO:ДЗ Добавить соль к паролю. Соль хранить в application.yml
         String md5Hex = DigestUtils.md5DigestAsHex(password.getBytes())
                 .toUpperCase();
 

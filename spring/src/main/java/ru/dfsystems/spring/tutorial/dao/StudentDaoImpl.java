@@ -1,35 +1,16 @@
 package ru.dfsystems.spring.tutorial.dao;
 
-import lombok.AllArgsConstructor;
-import lombok.val;
-import lombok.var;
 import org.jooq.DSLContext;
-import org.jooq.SelectSeekStepN;
-import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
-import ru.dfsystems.spring.tutorial.dto.Page;
-import ru.dfsystems.spring.tutorial.dto.PageParams;
-import ru.dfsystems.spring.tutorial.dto.student.StudentParams;
-import ru.dfsystems.spring.tutorial.dto.lesson.LessonParams;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.StudentDao;
-import ru.dfsystems.spring.tutorial.generated.tables.daos.StudentDao;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Student;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Student;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Lesson;
-import ru.dfsystems.spring.tutorial.generated.tables.records.StudentRecord;
-import ru.dfsystems.spring.tutorial.generated.tables.records.LessonRecord;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-import static ru.dfsystems.spring.tutorial.generated.tables.InstrumentToRoom.INSTRUMENT_TO_ROOM;
-import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 import static ru.dfsystems.spring.tutorial.generated.tables.Student.STUDENT;
 import static ru.dfsystems.spring.tutorial.generated.tables.StudentToCourse.STUDENT_TO_COURSE;
-import static ru.dfsystems.spring.tutorial.generated.tables.Lesson.LESSON;
 
 @Repository
 public class StudentDaoImpl extends StudentDao implements BaseDao<Student> {
@@ -53,13 +34,14 @@ public class StudentDaoImpl extends StudentDao implements BaseDao<Student> {
                 .fetchInto(Student.class);
     }
 
-    public void create(Student student) {
+    public Student create(Student student) {
         student.setId(jooq.nextval(Sequences.STUDENT_ID_SEQ));
         if (student.getIdd() == null) {
             student.setIdd(student.getId());
         }
         student.setCreateDate(LocalDateTime.now());
         super.insert(student);
+        return student;
     }
 
     public List<Student> getStudentsByCourseIdd(Integer idd) {

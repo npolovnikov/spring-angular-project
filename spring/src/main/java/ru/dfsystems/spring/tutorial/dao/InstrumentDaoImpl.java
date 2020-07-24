@@ -1,32 +1,17 @@
 package ru.dfsystems.spring.tutorial.dao;
 
-import lombok.val;
-import lombok.var;
 import org.jooq.DSLContext;
-import org.jooq.SelectSeekStepN;
-import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
-import ru.dfsystems.spring.tutorial.dto.Page;
-import ru.dfsystems.spring.tutorial.dto.PageParams;
-import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentParams;
-import ru.dfsystems.spring.tutorial.dto.teacher.TeacherDto;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.InstrumentDao;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
-import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
-import ru.dfsystems.spring.tutorial.generated.tables.records.InstrumentRecord;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-import static ru.dfsystems.spring.tutorial.generated.tables.Course.COURSE;
-import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMENT;
 import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMENT;
 import static ru.dfsystems.spring.tutorial.generated.tables.InstrumentToRoom.INSTRUMENT_TO_ROOM;
 import static ru.dfsystems.spring.tutorial.generated.tables.LessonToInstruments.LESSON_TO_INSTRUMENTS;
-import static ru.dfsystems.spring.tutorial.generated.tables.Teacher.TEACHER;
 
 @Repository
 public class InstrumentDaoImpl extends InstrumentDao implements BaseDao<Instrument> {
@@ -52,13 +37,14 @@ public class InstrumentDaoImpl extends InstrumentDao implements BaseDao<Instrume
                 .fetchInto(Instrument.class);
     }
 
-    public void create(Instrument instrument) {
+    public Instrument create(Instrument instrument) {
         instrument.setId(jooq.nextval(Sequences.INSTRUMENT_ID_SEQ));
         if (instrument.getIdd() == null) {
             instrument.setIdd(instrument.getId());
         }
         instrument.setCreateDate(LocalDateTime.now());
         super.insert(instrument);
+        return instrument;
     }
 
     public List<Instrument> getInstrumentsByRoomIdd(Integer idd) {

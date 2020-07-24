@@ -1,0 +1,234 @@
+<h1 mat-dialog-title>{{data.idd? 'Редактирование курса' + data.idd : 'Создание нового курса'}}</h1>
+<div mat-dialog-content>
+  <div class="subheader">
+    <h2>Основное</h2>
+  </div>
+
+  <div class="line">
+    <mat-form-field>
+      <mat-label>Название</mat-label>
+      <input matInput [(ngModel)]="data.name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Преподаватель</mat-label>
+      <mat-select [(value)]="selectedTeacher">
+        <mat-option *ngFor="let i of teachers" [value]="i">{{i.firstName+" "+i.middleName+" "+i.lastName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="line">
+    <mat-form-field>
+      <mat-label>Описание</mat-label>
+      <input matInput [(ngModel)]="data.description">
+    </mat-form-field>
+  </div>
+
+  <div class="line">
+    <mat-form-field>
+      <mat-label>Макс. кол-во студентов</mat-label>
+      <input matInput [(ngModel)]="data.maxCountStudent">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Дата начала</mat-label>
+      <input matInput [(ngModel)]="dateStart" [matDatepicker]="picker" (dateChange)="addEvent($event)">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Дата конца</mat-label>
+      <input matInput [(ngModel)]="dateEnd" [matDatepicker]="picker1" (dateChange)="addEventEnd($event)">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+
+  <div class="line">
+    <mat-form-field>
+      <mat-label>Статус</mat-label>
+      <input matInput [(ngModel)]="data.status">
+    </mat-form-field>
+  </div>
+
+  <div class="subheader">
+    <h2>Студенты</h2>
+    <div class="button-panel">
+      <button mat-icon-button aria-label="Скрыть" (click)="setShowStudentsTable()">
+        <mat-icon>reorder</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="table-container" *ngIf="showStudentsTable">
+    <button mat-icon-button aria-label="Добавить" (click)="onAddStudent()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Удалить" [disabled]="selectionStudent.selected[0] == null" (click)="onDeleteStudent()">
+      <mat-icon>remove</mat-icon>
+    </button>
+    <table mat-table [dataSource]="data.students" class="students-table">
+      <!-- Number Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selectionStudent.toggle(row) : null"
+                        [checked]="selectionStudent.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="idd">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let row">{{row.idd}}</td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef>Имя</th>
+        <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="middleName">
+        <th mat-header-cell *matHeaderCellDef>Отчество</th>
+        <td mat-cell *matCellDef="let row">{{row.middleName}}</td>
+      </ng-container>
+
+      <!-- State Column -->
+      <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef>Фамилия</th>
+        <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="studentsDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: studentsDisplayedColumns;"></tr>
+    </table>
+  </div>
+
+  <div class="subheader">
+    <h2>Занятия</h2>
+    <div class="button-panel">
+      <button mat-icon-button aria-label="Скрыть" (click)="setShowLessonsTable()">
+        <mat-icon>reorder</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="table-container" *ngIf="showLessonsTable">
+    <button mat-icon-button aria-label="Добавить" (click)="onAddLesson()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Удалить" [disabled]="selectionLesson.selected[0] == null" (click)="onDeleteLesson()">
+      <mat-icon>remove</mat-icon>
+    </button>
+    <table mat-table [dataSource]="data.lessons" class="lessons-table">
+      <!-- Number Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selectionLesson.toggle(row) : null"
+                        [checked]="selectionLesson.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="idd">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let row">{{row.idd}}</td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Наименование</th>
+        <td mat-cell *matCellDef="let row">{{row.name}}</td>
+      </ng-container>
+
+      <!-- State Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Описание</th>
+        <td mat-cell *matCellDef="let row">{{row.description}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="lessonsDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: lessonsDisplayedColumns;"></tr>
+    </table>
+  </div>
+
+  <div class="subheader">
+    <h2>История</h2>
+    <div class="button-panel">
+      <button mat-icon-button aria-label="Скрыть" (click)="setShowHistoryTable()">
+        <mat-icon>reorder</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="table-container" *ngIf="showHistoryTable">
+    <table mat-table [dataSource]="data.history" class="history-table"
+           matSort matSortActive="createDate" matSortDisableClear matSortDirection="desc">
+      <!-- Number Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let row">{{row.id}}</td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Название</th>
+        <td mat-cell *matCellDef="let row">{{row.name}}</td>
+      </ng-container>
+
+      <!-- State Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Описание</th>
+        <td mat-cell *matCellDef="let row">{{row.description}}</td>
+      </ng-container>
+
+      <!-- Created Column
+      <ng-container matColumnDef="teacher">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Преподаватель</th>
+        <td mat-cell *matCellDef="let row">{{row.teacher}}</td>
+      </ng-container>-->
+
+      <!-- Created Column -->
+      <ng-container matColumnDef="maxCountStudent">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Макс. кол-во студентов</th>
+        <td mat-cell *matCellDef="let row">{{row.maxCountStudent}}</td>
+      </ng-container>
+
+      <!-- Created Column -->
+      <ng-container matColumnDef="dateStart">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Дата начала</th>
+        <td mat-cell *matCellDef="let row">{{row.dateStart}}</td>
+      </ng-container>
+
+      <!-- Created Column -->
+      <ng-container matColumnDef="dateEnd">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Дата конца</th>
+        <td mat-cell *matCellDef="let row">{{row.dateEnd}}</td>
+      </ng-container>
+
+      <!-- Created Column -->
+      <ng-container matColumnDef="createDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Дата создания</th>
+        <td mat-cell *matCellDef="let row">{{row.createDate}}</td>
+      </ng-container>
+
+      <!-- Created Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Статус</th>
+        <td mat-cell *matCellDef="let row">{{row.status}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="historyDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: historyDisplayedColumns;"></tr>
+    </table>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Отменить</button>
+  <button mat-button (click)="onSaveClick()" >Сохранить</button>
+</div>

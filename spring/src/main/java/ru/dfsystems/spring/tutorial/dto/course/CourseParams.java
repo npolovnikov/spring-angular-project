@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.dfsystems.spring.tutorial.dto.student.StudentDto;
 import ru.dfsystems.spring.tutorial.dto.teacher.TeacherDto;
+import ru.dfsystems.spring.tutorial.dto.teacher.TeacherListDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 public class CourseParams {
     private String name;
     private String description;
-    private TeacherDto teacher;
+    private TeacherListDto teacher;
     private Integer maxCountStudent;
     private String status;
     private String orderBy;

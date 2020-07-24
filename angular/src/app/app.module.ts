@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoomComponent } from './room/room.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatProgressSpinnerModule, MatSpinner} from "@angular/material/progress-spinner";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
@@ -24,16 +24,47 @@ import {MatSelectModule} from "@angular/material/select";
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 import { LoginComponent } from './login/login.component';
 import {AuthInterceptor} from "./_service/auth.interceptor";
+import {CourseComponent} from "./course/course.component";
+import {LessonComponent} from "./lesson/lesson.component";
+import {StudentComponent} from "./student/student.component";
+import {TeacherComponent} from "./teacher/teacher.component";
+import {MainMenuComponent} from "./main-menu/main-menu.component";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {SubMenuComponent} from "./main-menu/sub-menu/sub-menu.component";
+import {MatMenuModule} from "@angular/material/menu";
+import { CourseEditDialogComponent } from './course/course-edit-dialog/course-edit-dialog.component';
+import { LessonEditDialogComponent } from './lesson/lesson-edit-dialog/lesson-edit-dialog.component';
+import { StudentEditDialogComponent } from './student/student-edit-dialog/student-edit-dialog.component';
+import { TeacherEditDialogComponent } from './teacher/teacher-edit-dialog/teacher-edit-dialog.component';
+import { InstrumentEditDialogComponent } from './instrument/instrument-edit-dialog/instrument-edit-dialog.component';
+import {MatDatepicker, MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import { AddLessonDialogComponent } from './course/course-edit-dialog/add-lesson-dialog/add-lesson-dialog.component';
+import { AddStudentDialogComponent } from './course/course-edit-dialog/add-student-dialog/add-student-dialog.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    CourseComponent,
+    LessonComponent,
+    StudentComponent,
+    TeacherComponent,
     RoomComponent,
     InstrumentComponent,
     RoomEditDialogComponent,
     AddInstrumentDialogComponent,
     ErrorDialogComponent,
-    LoginComponent
+    LoginComponent,
+    MainMenuComponent,
+    SubMenuComponent,
+    CourseEditDialogComponent,
+    LessonEditDialogComponent,
+    StudentEditDialogComponent,
+    TeacherEditDialogComponent,
+    InstrumentEditDialogComponent,
+    AddLessonDialogComponent,
+    AddStudentDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +84,10 @@ import {AuthInterceptor} from "./_service/auth.interceptor";
     MatCheckboxModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     {

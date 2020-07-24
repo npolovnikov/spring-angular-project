@@ -2,6 +2,7 @@ package ru.dfsystems.spring.tutorial.dao;
 
 import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.InstrumentToRoomDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.InstrumentToRoom;
@@ -11,6 +12,7 @@ import java.util.List;
 import static ru.dfsystems.spring.tutorial.generated.tables.InstrumentToRoom.INSTRUMENT_TO_ROOM;
 
 @Repository
+@Primary
 public class InstrumentToRoomDaoImpl extends InstrumentToRoomDao {
     private final DSLContext jooq;
 
