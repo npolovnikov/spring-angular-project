@@ -118,12 +118,12 @@
         <comment>LessonList 1. Liquibase. Создание таблицы ROOM</comment>
         <sql>
             create table ROOM (
-                id serial primary key,
-                idd int NOT NULL,
-                number varchar(5),
-                block varchar(5),
-                create_date timestamp(0) not null,
-                delete_date timestamp(0)
+            id serial primary key,
+            idd int NOT NULL,
+            number varchar(5),
+            block varchar(5),
+            create_date timestamp(0) not null,
+            delete_date timestamp(0)
             );
         </sql>
         <rollback>
@@ -144,4 +144,25 @@
             <sqlFile path="sql/instrument_to_room_rollback.sql" relativeToChangelogFile="true"/>
         </rollback>
     </changeSet>
+
+    <!-- добавили поле USER_ID в рум-->
+    <changeSet id="20200620-07" author="polovnikov">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="ROOM" schemaName="public"/>
+        </preConditions>
+        <sql>
+            alter table ROOM add column USER_ID integer;
+        </sql>
+    </changeSet>
+
+    <!-- добавили поле USER_ID в инструменты-->
+    <changeSet id="20200620-08" author="polovnikov">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="INSTRUMENT" schemaName="public"/>
+        </preConditions>
+        <sql>
+            alter table INSTRUMENT add column USER_ID integer;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

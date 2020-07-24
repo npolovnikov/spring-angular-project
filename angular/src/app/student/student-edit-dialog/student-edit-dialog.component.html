@@ -74,6 +74,11 @@
         <td mat-cell *matCellDef="let row">{{row.passport}}</td>
       </ng-container>
 
+      <ng-container matColumnDef="userId">
+        <th mat-header-cell *matHeaderCellDef>User ID</th>
+        <td mat-cell *matCellDef="let row">{{row.userId}}</td>
+      </ng-container>
+
       <ng-container matColumnDef="deleteDate">
         <th mat-header-cell *matHeaderCellDef>Дата Удаления</th>
         <td mat-cell *matCellDef="let row">{{row.deleteDate}}</td>

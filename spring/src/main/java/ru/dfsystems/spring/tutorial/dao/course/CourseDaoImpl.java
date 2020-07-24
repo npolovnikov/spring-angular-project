@@ -6,6 +6,7 @@ import ru.dfsystems.spring.tutorial.dao.BaseDao;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.CourseDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Course;
+import ru.dfsystems.spring.tutorial.security.UserContext;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,10 +17,13 @@ import static ru.dfsystems.spring.tutorial.generated.Tables.STUDENT_TO_COURSE;
 @Repository
 public class CourseDaoImpl extends CourseDao implements BaseDao<Course> {
     private final DSLContext jooq;
+    /* из контекста мы получаем текущего юзера */
+    private UserContext userContext;
 
-    public CourseDaoImpl(DSLContext jooq) {
+    public CourseDaoImpl(DSLContext jooq, UserContext userContext) {
         super(jooq.configuration());
         this.jooq = jooq;
+        this.userContext=userContext;
     }
 
     /**
@@ -61,6 +65,8 @@ public class CourseDaoImpl extends CourseDao implements BaseDao<Course> {
         course.setId(jooq.nextval(Sequences.COURSE_ID_SEQ));
         course.setIdd(course.getId());
         course.setCreateDate(LocalDateTime.now());
+        /* проставляем id текущего юзера - кто последний раз изменял */
+        course.setUserId(userContext.getUser().getId());
         super.insert(course);
         return course;
     }

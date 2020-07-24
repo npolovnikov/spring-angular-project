@@ -25,7 +25,8 @@
             birth_date timestamp(0),
             create_date timestamp(0) not null,
             delete_date timestamp(0),
-            status varchar(10)
+            status varchar(10),
+            USER_ID int
             );
         </sql>
         <rollback>
@@ -54,7 +55,8 @@
             end_date timestamp(0),
             create_date timestamp(0) not null,
             delete_date timestamp(0),
-            status varchar(10)
+            status varchar(10),
+            USER_ID int
             );
         </sql>
         <rollback>
@@ -76,7 +78,8 @@
             id serial primary key,
             student_idd int,
             course_idd int,
-            success boolean
+            success boolean,
+            USER_ID int
             );
         </sql>
         <rollback>
@@ -104,7 +107,8 @@
             birth_date timestamp(0),
             create_date timestamp(0) not null,
             delete_date timestamp(0),
-            status varchar(10)
+            status varchar(10),
+            USER_ID int
             );
         </sql>
         <rollback>
@@ -117,27 +121,23 @@
     <changeSet id="20200630-05" author="magidin">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="USER" schemaName="public"/>
+                <tableExists tableName="APP_USERS" schemaName="public"/>
             </not>
         </preConditions>
-        <comment>LessonList 2. Liquibase. Создание таблицы USER</comment>
+        <comment>Lesson 9. Liquibase. Создание таблицы APP_USERS</comment>
         <sql>
-            create table "user" (
+            create table APP_USER (
             id serial primary key,
-            idd int NOT NULL,
-            first_name varchar(50),
-            middle_name varchar(50),
-            last_name varchar(50),
-            passport varchar(15),
-            birth_date timestamp(0),
-            create_date timestamp(0) not null,
-            delete_date timestamp(0),
-            status varchar(10)
+            login varchar(50),
+            password_hash varchar(50),
+            fio varchar(255),
+            is_active boolean,
+            last_login_date timestamp(0)
             );
         </sql>
         <rollback>
             <sql>
-                drop table USER;
+                drop table APP_USER;
             </sql>
         </rollback>
     </changeSet>
@@ -161,7 +161,8 @@
             lesson_date_end timestamp(0),
             create_date timestamp(0) not null,
             delete_date timestamp(0),
-            extra_instruments varchar(1000)
+            extra_instruments varchar(1000),
+            USER_ID int
             );
         </sql>
         <rollback>
@@ -182,7 +183,8 @@
             create table INSTRUMENT_TO_LESSON (
             id serial primary key,
             instrument_idd int,
-            lesson_id int
+            lesson_id int,
+            USER_ID int
             );
         </sql>
         <rollback>

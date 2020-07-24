@@ -21,7 +21,7 @@ export class RoomEditDialogComponent implements OnInit {
   showInstrumentTable: boolean = false;
   selection = new SelectionModel(false, []);
 
-  historyDisplayedColumns: string[] = ['id', 'number', 'block', 'deleteDate'];
+  historyDisplayedColumns: string[] = ['id', 'number', 'block', 'userId', 'deleteDate'];
   showHistoryTable: boolean = false;
 
   constructor(

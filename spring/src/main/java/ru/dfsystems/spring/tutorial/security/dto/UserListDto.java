@@ -1,16 +1,16 @@
-package ru.dfsystems.spring.tutorial.dto.user;
+package ru.dfsystems.spring.tutorial.security.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import ru.dfsystems.spring.tutorial.dto.BaseDto;
+import ru.dfsystems.spring.tutorial.dto.BaseListDto;
 
 import java.time.LocalDateTime;
 
 
 @Getter
 @Setter
-public class UserDto extends BaseDto<UserHistoryDto> {
+public class UserListDto extends BaseListDto {
     private String firstName;
     private String middleName;
     private String lastName;

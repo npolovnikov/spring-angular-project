@@ -23,7 +23,7 @@ export class StudentEditDialogComponent implements OnInit {
   showCourseTable: boolean = false;
   selection = new SelectionModel(false, []);
 
-  historyDisplayedColumns: string[] = ['id', 'firstName', 'lastName', 'passport' , 'deleteDate'];
+  historyDisplayedColumns: string[] = ['id', 'firstName', 'lastName', 'passport' ,'userId', 'deleteDate'];
   showHistoryTable: boolean = false;
 
   constructor(
