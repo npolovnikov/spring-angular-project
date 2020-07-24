@@ -16,6 +16,19 @@ import { TeacherComponent } from './teacher/teacher.component';
 import { LessonComponent } from './lesson/lesson.component';
 import { InstrumentComponent } from './instrument/instrument.component';
 import { CourseComponent } from './course/course.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import { RoomEditDialogComponent } from './room/room-edit-dialog/room-edit-dialog.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatDialogModule} from "@angular/material/dialog";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { LoginComponent } from './login/login.component';
+import { signInComponent } from './sign-in/sign-in.component';
+import { ChoiceComponent } from './choice/choice.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
+
+
 
 @NgModule({
   declarations: [
@@ -27,17 +40,29 @@ import { CourseComponent } from './course/course.component';
     LessonComponent,
     InstrumentComponent,
     CourseComponent,
+    RoomEditDialogComponent,
+    LoginComponent,
+    signInComponent,
+    ChoiceComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatProgressSpinnerModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatTableModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatProgressSpinnerModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatTableModule,
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDialogModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatCheckboxModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

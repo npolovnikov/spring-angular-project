@@ -39,4 +39,14 @@ public class RoomService extends BaseService<RoomListDto, RoomDto, RoomParams, R
         link.setInstrumentIdd(instrumentIdd);
         instrumentToRoomDao.insert(link);
     }
+
+    @Override
+    public void create(RoomDto dto) {
+        super.create(dto);
+    }
+
+    @Override
+    public RoomDto update(Integer idd, RoomDto dto) {
+        return super.update(idd, dto);
+    }
 }

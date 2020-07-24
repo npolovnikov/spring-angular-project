@@ -41,12 +41,12 @@ p {
 }
 
 .content {
-  margin: 82px auto 32px;
+/*  margin: 82px auto 32px;
   padding: 0 16px;
   max-width: 800px;
   flex-direction: column;
   align-items: stretch;
-  display: flex;
+  display: flex*/
 }
 
 svg.material-icons {
@@ -107,7 +107,8 @@ footer a {
 .header{
   padding-top: 1px;
   position: absolute;
-  background-color: rgb(238, 151, 97);
+  background: rgb(228,138,35);
+  background: linear-gradient(90deg, rgba(228,138,35,0.3393732492997199) 0%, rgba(207,97,29,0.5802696078431373) 41%, rgba(15,120,215,0.4654236694677871) 100%);
   top: 0px;
   left: 0;
   right: 0;

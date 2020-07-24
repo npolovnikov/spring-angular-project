@@ -7,6 +7,10 @@ import {UserComponent} from "./user/user.component";
 import {TeacherComponent} from "./teacher/teacher.component";
 import {StudentComponent} from "./student/student.component";
 import {CourseComponent} from "./course/course.component";
+import {LoginComponent} from "./login/login.component";
+import {signInComponent} from "./sign-in/sign-in.component";
+import {ChoiceComponent} from "./choice/choice.component";
+
 
 
 const routes: Routes = [
@@ -17,6 +21,9 @@ const routes: Routes = [
   {path:'teacher', component:TeacherComponent},
   {path:'student', component:StudentComponent},
   {path:'course', component:CourseComponent},
+  {path:'login', component:LoginComponent},
+  {path:'sign', component:signInComponent},
+  {path:'choice', component:ChoiceComponent},
 
 {path: '**', redirectTo:'/main'}
 ];

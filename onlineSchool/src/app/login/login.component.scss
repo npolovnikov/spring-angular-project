@@ -1,0 +1,39 @@
+form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  color: rgb(238, 151, 97);
+/*  margin: 60px auto 0;*/
+}
+H1{
+  color: rgb(3, 2, 0);
+}
+.btn{
+  display: inline-block;
+  vertical-align: top;
+  padding: 10px 15px;
+
+  border: 1px solid rgb(238, 151, 97);
+
+  text-align: unset;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgb(238, 151, 97);
+  text-transform: uppercase;
+  text-decoration: #0086b3;
+
+  transition: background .1s
+  linear, color .1s linear;
+}
+.btn:hover{
+  background-color: rgb(238, 151, 97);
+  color: #ffffff;
+}
+.form-control{
+  color: #006666;
+  text-decoration: none;
+}
+.form-title{
+  color: #006666;
+  text-decoration: none;
+}

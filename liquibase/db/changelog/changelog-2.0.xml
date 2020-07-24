@@ -197,4 +197,32 @@
             alter table LESSON add column idd int;
         </sql>
     </changeSet>
+
+    <changeSet id="20200723-09" author="ivonin">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="USERS" schemaName="public"/>
+                <not>
+                    <columnExists tableName="USERS" columnName="login"/>
+                </not>
+            </and>
+        </preConditions>
+        <sql>
+            alter table USERS add column login varchar(50);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20200723-10" author="ivonin">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="USERS" schemaName="public"/>
+                <not>
+                    <columnExists tableName="USERS" columnName="password"/>
+                </not>
+            </and>
+        </preConditions>
+        <sql>
+            alter table USERS add column password varchar(50);
+        </sql>
+    </changeSet>
 </databaseChangeLog>

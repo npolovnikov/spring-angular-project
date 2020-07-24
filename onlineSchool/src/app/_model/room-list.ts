@@ -1,8 +1,6 @@
-export class Room {
+export interface RoomList {
   idd:number;
   number:string;
   block:string;
   createDate:string;
-  history:[];
-  instruments:[];
 }

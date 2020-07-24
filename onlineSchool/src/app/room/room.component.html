@@ -1,45 +1,63 @@
-
 <div class="example-container mat-elevation-z8">
   <div class="example-loading-shade"
        *ngIf="isLoadingResults || isRateLimitReached">
-   <!-- <mat-spinner *ngIf="isLoadingResults"></mat-spinner>-->
+    <!-- <mat-spinner *ngIf="isLoadingResults"></mat-spinner>-->
     <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
       чёт не могу прогрузица
     </div>
   </div>
 
-  <div class="example-table-container">
-
-    <table mat-table [dataSource]="data" class="example-table"
-           matSort matSortActive="createDate" matSortDisableClear matSortDirection="desc">
-
-      <ng-container matColumnDef="idd">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>#</th>
-        <td mat-cell *matCellDef="let row">{{row.idd}}</td>
-      </ng-container>
+  <div class="content">
+  <div class="content">
+    <div class="button-panel">
+      <button mat-icon-button aria-label="Edit" (click)="openEditDialog()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
 
 
-      <ng-container matColumnDef="number">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>number</th>
-        <td mat-cell *matCellDef="let row">{{row.number}}</td>
-      </ng-container>
+    <div class="table-container">
+
+      <table mat-table [dataSource]="data" class="example-table"
+             matSort matSortActive="createDate" matSortDisableClear matSortDirection="desc">
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? selection.toggle(row) : null"
+                          [checked]="selection.isSelected(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="idd">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>#</th>
+          <td mat-cell *matCellDef="let row">{{row.idd}}</td>
+        </ng-container>
 
 
-      <ng-container matColumnDef="block">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>block</th>
-        <td mat-cell *matCellDef="let row">{{row.block}}</td>
-      </ng-container>
+        <ng-container matColumnDef="number">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>number</th>
+          <td mat-cell *matCellDef="let row">{{row.number}}</td>
+        </ng-container>
 
 
-      <ng-container matColumnDef="createDate">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>createDate</th>
-        <td mat-cell *matCellDef="let row">{{row.createDate}}</td>
-      </ng-container>
+        <ng-container matColumnDef="block">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>block</th>
+          <td mat-cell *matCellDef="let row">{{row.block}}</td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+
+        <ng-container matColumnDef="createDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>createDate</th>
+          <td mat-cell *matCellDef="let row">{{row.createDate}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
   </div>
-
+  </div>
   <mat-paginator [length]="resultsLength" [pageSizeOptions]="sizeOption" [pageSize]="5"></mat-paginator>
 </div>
