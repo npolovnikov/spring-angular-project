@@ -1,11 +1,10 @@
-import {HttpClient} from '@angular/common/http';
 import {Component, ViewChild, AfterViewInit} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {merge, Observable, of as observableOf} from 'rxjs';
+import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {Room} from "../_model/room";
-import {RoomService} from "../_service/room.service";
+import {RoomService} from "../_service/room/room.service";
 
 @Component({
   selector: 'app-room',
