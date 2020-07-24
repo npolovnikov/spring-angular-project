@@ -20,8 +20,13 @@ public class RoomController extends BaseController<RoomListDto, RoomDto, RoomPar
         this.roomService = roomService;
     }
 
-    @PutMapping("/{idd}/instrument")
-    public void putInstrument(@PathVariable("idd") Integer idd, @RequestBody Integer instrumentIdd) {
-        roomService.putInstrument(idd, instrumentIdd);
+    @Override
+    public RoomDto get(Integer idd) {
+        return super.get(idd);
+    }
+
+    @GetMapping("/{idd}/instrument/{inidd}")
+    public void putInstrument(@PathVariable("idd") Integer idd, @PathVariable("idd") Integer inidd) {
+        roomService.putInstrument(idd, inidd);
     }
 }

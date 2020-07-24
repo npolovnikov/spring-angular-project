@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.AppUser;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.User;
 
 @Component
 @Getter
@@ -15,7 +16,7 @@ import ru.dfsystems.spring.tutorial.generated.tables.pojos.AppUser;
 @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class AuthUserContext {
 
-    private AppUser user;
+    private User user;
     @Value("${hash.key}")
     private String hashKey;
 }

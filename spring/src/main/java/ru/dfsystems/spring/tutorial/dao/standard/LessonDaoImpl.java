@@ -8,6 +8,8 @@ import ru.dfsystems.spring.tutorial.generated.tables.daos.LessonDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Lesson;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 
+import java.time.LocalDateTime;
+
 import static ru.dfsystems.spring.tutorial.generated.tables.Lesson.LESSON;
 import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 
@@ -23,6 +25,10 @@ public class LessonDaoImpl extends LessonDao implements BaseDao<Lesson> {
     @Override
     public Lesson create(Lesson lesson) {
         lesson.setId(jooq.nextval(Sequences.LESSON_ID_SEQ));
+        if (lesson.getIdd() == null) {
+            lesson.setIdd(lesson.getId());
+        }
+        lesson.setCreateDate(LocalDateTime.now());
         super.insert(lesson);
         return lesson;
     }

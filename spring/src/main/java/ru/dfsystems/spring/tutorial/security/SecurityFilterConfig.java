@@ -17,11 +17,8 @@ public class SecurityFilterConfig {
         registrationBean.setName("SecurityFilter");
         registrationBean.setFilter(filter);
 
-        registrationBean.addInitParameter("public", "/*");
-
-//TODO Убрать при релизе
-//        registrationBean.addInitParameter("public", "/api/auth/login");
-//        registrationBean.addUrlPatterns("/*");
+        registrationBean.addInitParameter("public", "/api/auth/*");
+        registrationBean.addUrlPatterns("/*");
         return registrationBean;
     }
 }

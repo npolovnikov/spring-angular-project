@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class InstrumentListDto extends BaseListDto {
+
     private String name;
     private String number;
 

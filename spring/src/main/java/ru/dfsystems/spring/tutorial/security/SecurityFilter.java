@@ -1,6 +1,7 @@
 package ru.dfsystems.spring.tutorial.security;
 
 import org.springframework.stereotype.Component;
+import ru.dfsystems.spring.tutorial.service.UserService;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -16,11 +17,12 @@ import static ru.dfsystems.spring.tutorial.security.CookieUtils.extractLoginCook
 public class SecurityFilter implements Filter {
     private String[] publicUriPatterns;
 
-    private AuthUserService authUserService;
+//    private AuthUserService authUserService;
+    private UserService userService;
     private AuthUserContext authUserContext;
 
-    public SecurityFilter(AuthUserService authUserService, AuthUserContext authUserContext) {
-        this.authUserService = authUserService;
+    public SecurityFilter(UserService userService, AuthUserContext authUserContext) {
+        this.userService = userService;
         this.authUserContext = authUserContext;
     }
 
@@ -64,7 +66,8 @@ public class SecurityFilter implements Filter {
 
     private boolean isAuthRequest(Cookie userCookie) {
         if (userCookie != null && userCookie.getValue() != null && !userCookie.getValue().isEmpty()) {
-            var user = authUserService.getUserByLogin(userCookie.getValue());
+//            var user = authUserService.getUserByLogin(userCookie.getValue());
+            var user = userService.getUserByLogin(userCookie.getValue());
             if (user != null && user.getIsActive() &&
                     user.getLastLoginDate().isAfter(LocalDateTime.now().minus(6, HOURS))) {
                 authUserContext.setUser(user);

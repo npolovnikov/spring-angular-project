@@ -42,7 +42,7 @@ public class CourseListDao implements BaseListDao<Course, CourseParams> {
 
     private SelectSeekStepN<CourseRecord> getCourseSelect(CourseParams params) {
         var condition = COURSE.DELETE_DATE.isNull();
-        if (!params.getName().isEmpty()) {
+        if (params.getName() != null && !params.getName().isEmpty()) {
             condition = condition.and(COURSE.NAME.like(params.getName()));
         }
         if (params.getStatus() != null) {

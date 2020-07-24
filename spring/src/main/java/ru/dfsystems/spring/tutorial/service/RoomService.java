@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class RoomService extends BaseService<RoomListDto, RoomDto, RoomParams, Room> {
+
     private InstrumentToRoomDaoImpl instrumentToRoomDao;
 
     @Autowired
@@ -34,30 +35,5 @@ public class RoomService extends BaseService<RoomListDto, RoomDto, RoomParams, R
         link.setRoomIdd(idd);
         link.setInstrumentIdd(instrumentIdd);
         instrumentToRoomDao.insert(link);
-    }
-
-    @Override
-    public RoomDto create(RoomDto dto) {
-        RoomDto result = super.create(dto);
-        mergeInstruments(dto.getIdd(), dto.getInstruments(), result.getInstruments());
-        return get(result.getIdd());
-    }
-
-    @Override
-    public RoomDto update(Integer idd, RoomDto dto) {
-        RoomDto result = super.update(idd, dto);
-        mergeInstruments(dto.getIdd(), dto.getInstruments(), result.getInstruments());
-        return get(result.getIdd());
-    }
-
-    private void mergeInstruments(Integer roomIdd, List<InstrumentListDto> newInstruments, List<InstrumentListDto> oldInstruments) {
-        List<Integer> newIdds = newInstruments.stream().map(BaseListDto::getIdd).collect(Collectors.toList());
-        List<Integer> oldIdds = oldInstruments.stream().map(BaseListDto::getIdd).collect(Collectors.toList());
-
-        List<Integer> iddsToBeDelete = oldIdds.stream().filter(o -> !newIdds.contains(o)).collect(Collectors.toList());
-        List<Integer> iddsToBeAdd = newIdds.stream().filter(o -> !oldIdds.contains(o)).collect(Collectors.toList());
-
-        instrumentToRoomDao.deleteByRoomAndInstrumentIdd(roomIdd, iddsToBeDelete);
-        instrumentToRoomDao.createByRoomAndInstrumentIdd(roomIdd, iddsToBeAdd);
     }
 }

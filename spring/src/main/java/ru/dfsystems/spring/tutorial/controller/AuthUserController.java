@@ -4,16 +4,18 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.dfsystems.spring.tutorial.dto.user.AuthUserDto;
 import ru.dfsystems.spring.tutorial.dto.user.UserDto;
-import ru.dfsystems.spring.tutorial.security.AuthUserService;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.User;
+import ru.dfsystems.spring.tutorial.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RestController
 @RequestMapping(value = "/auth", produces = "application/json; charset=UTF-8")
 @AllArgsConstructor
 public class AuthUserController {
-    private AuthUserService authUserService;
+    private UserService authUserService;
 
     @PostMapping("/login")
     public void login(@RequestBody AuthUserDto authUserDto, HttpServletResponse response) {
@@ -23,7 +25,7 @@ public class AuthUserController {
     }
 
     @GetMapping("/current")
-    public UserDto getCurrentUser() {
+    public User getCurrentUser() {
         return authUserService.getCurrentUser();
     }
 
@@ -33,7 +35,7 @@ public class AuthUserController {
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody UserDto userDto) {
-        authUserService.doRegister(userDto);
+    public void register(@RequestBody UserDto userDto, HttpServletResponse response) throws IOException {
+        authUserService.doRegister(userDto, response);
     }
 }

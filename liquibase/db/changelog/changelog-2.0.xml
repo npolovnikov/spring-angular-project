@@ -276,4 +276,31 @@
         </rollback>
     </changeSet>
 
+    <changeSet id="20200724-00" author="grigoriev">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="USER" schemaName="public"/>
+                <not>
+                    <columnExists tableName="USER" columnName="is_active"/>
+                </not>
+                <not>
+                    <columnExists tableName="USER" columnName="last_login_date"/>
+                </not>
+            </and>
+        </preConditions>
+        <comment>Append two column is_active, last_login_date </comment>
+
+        <addColumn tableName="USER">
+            <column name="is_active" type="boolean"/>
+            <column name="last_login_date" type="timestamp(0)"/>
+        </addColumn>
+
+        <rollback>
+            <dropColumn tableName="USER">
+                <column name="is_active" type="boolean"/>
+                <column name="last_login_date" type="timestamp(0)"/>
+            </dropColumn>
+        </rollback>
+    </changeSet>
+
 </databaseChangeLog>

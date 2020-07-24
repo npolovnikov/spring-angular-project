@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class InstrumentParams implements Serializable {
+
     private String idd;
     private String name;
     private String number;

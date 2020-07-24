@@ -10,8 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 public class InstrumentDto extends BaseDto<InstrumentHistoryDto> {
+
     private String name;
     private String number;
-
-    private List<RoomListDto> rooms;
 }
