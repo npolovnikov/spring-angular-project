@@ -10,6 +10,7 @@ import {CourseComponent} from "./course/course.component";
 import {LoginComponent} from "./login/login.component";
 import {signInComponent} from "./sign-in/sign-in.component";
 import {ChoiceComponent} from "./choice/choice.component";
+import {InstrumentComponent} from "./instrument/instrument.component";
 
 
 
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path:'sign', component:signInComponent},
   {path:'choice', component:ChoiceComponent},
+  {path:'instrument', component:InstrumentComponent},
 
 {path: '**', redirectTo:'/main'}
 ];

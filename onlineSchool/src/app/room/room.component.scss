@@ -1,9 +1,9 @@
 /* Structure */
 .example-container {
   position: relative;
-  min-height: 200px;
-  padding: 100px;
-
+  min-height: 100px;
+  margin-top: 42px;
+  border: 1px solid chartreuse;
 }
 
 .table-container {
@@ -19,6 +19,7 @@
 
 table {
   width: 100%;
+  border: 1px solid chocolate;
 }
 
 .example-rate-limit-reached {
@@ -41,6 +42,7 @@ table {
   justify-content: flex-end;
 }
 .content{
+  border: 1px solid #ff5088;
 /*  padding-top: 30px;*/
 /*  margin: 50px;*/
 }

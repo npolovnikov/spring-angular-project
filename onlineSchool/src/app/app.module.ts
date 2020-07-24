@@ -31,6 +31,7 @@ import { UserEditDialogComponent } from './user/user-edit-dialog/user-edit-dialo
 import { StudentEditDialogComponent } from './student/student-edit-dialog/student-edit-dialog.component';
 import { TeacherEditDialogComponent } from './teacher/teacher-edit-dialog/teacher-edit-dialog.component';
 import { CourseEditDialogComponent } from './course/course-edit-dialog/course-edit-dialog.component';
+import { InstrumentEditDialogComponent } from './instrument/instrument-edit-dialog/instrument-edit-dialog.component';
 
 
 
@@ -52,6 +53,7 @@ import { CourseEditDialogComponent } from './course/course-edit-dialog/course-ed
     StudentEditDialogComponent,
     TeacherEditDialogComponent,
     CourseEditDialogComponent,
+    InstrumentEditDialogComponent,
   ],
     imports: [
         BrowserModule,
