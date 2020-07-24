@@ -27,6 +27,10 @@ import { LoginComponent } from './login/login.component';
 import { signInComponent } from './sign-in/sign-in.component';
 import { ChoiceComponent } from './choice/choice.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { UserEditDialogComponent } from './user/user-edit-dialog/user-edit-dialog.component';
+import { StudentEditDialogComponent } from './student/student-edit-dialog/student-edit-dialog.component';
+import { TeacherEditDialogComponent } from './teacher/teacher-edit-dialog/teacher-edit-dialog.component';
+import { CourseEditDialogComponent } from './course/course-edit-dialog/course-edit-dialog.component';
 
 
 
@@ -44,6 +48,10 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     LoginComponent,
     signInComponent,
     ChoiceComponent,
+    UserEditDialogComponent,
+    StudentEditDialogComponent,
+    TeacherEditDialogComponent,
+    CourseEditDialogComponent,
   ],
     imports: [
         BrowserModule,

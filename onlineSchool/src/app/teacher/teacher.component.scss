@@ -2,6 +2,8 @@
 .example-container {
   position: relative;
   min-height: 200px;
+  padding: 100px;
+
 }
 
 .table-container {
@@ -9,6 +11,10 @@
   max-height: 400px;
   overflow: auto;
   background: #2d2d2d;
+
+  flex-direction: column;
+  align-items: stretch;
+  display: flex
 }
 
 table {
@@ -29,4 +35,12 @@ table {
 
 .mat-column-created {
   max-width: 124px;
+}
+.button-panel{
+  display: flex;
+  justify-content: flex-end;
+}
+.content{
+  /*  padding-top: 30px;*/
+  /*  margin: 50px;*/
 }

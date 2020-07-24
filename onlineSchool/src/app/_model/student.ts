@@ -1,4 +1,4 @@
-export interface Student {
+export class student {
   idd:number;
   firstName:string;
   middleName:string;
@@ -7,4 +7,5 @@ export interface Student {
   status:string;
   birthDate:string;
   createDate:string;
+  history:[];
 }

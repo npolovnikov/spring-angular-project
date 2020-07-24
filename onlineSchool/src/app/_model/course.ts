@@ -1,4 +1,4 @@
-export interface Course {
+export class Course{
   idd:number;
   name:string;
   description:string;
@@ -8,4 +8,5 @@ export interface Course {
   endDate:string;
   createDate:string;
   status:string;
+  history:[];
 }

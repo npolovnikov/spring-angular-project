@@ -3,8 +3,11 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-import {Student} from "../_model/student";
+import {StudentList} from "../_model/student-list";
 import {StudentService} from "../_sevice/student.service";
+import {SelectionModel} from "@angular/cdk/collections";
+import {StudentEditDialogComponent} from "../student/student-edit-dialog/student-edit-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-student',
@@ -12,23 +15,37 @@ import {StudentService} from "../_sevice/student.service";
   styleUrls: ['./student.component.scss']
 })
 export class StudentComponent implements AfterViewInit {
-  displayedColumns: string[] = ['idd', 'firstName', 'middleName', 'lastName', 'passport', 'status', 'birthDate', 'createDate'];
+  displayedColumns: string[] = ['select', 'idd', 'firstName', 'middleName', 'lastName', 'passport', 'status', 'birthDate', 'createDate'];
   sizeOption:number[] = [1, 5, 10];
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
-  data: Student[];
+  data: StudentList[];
+  selection = new SelectionModel<StudentList>(false, []);
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _studentService: StudentService) {}
+  constructor(private _studentService: StudentService,   public dialog: MatDialog) {}
 
   ngAfterViewInit() {
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+  }
 
+  openEditDialog() {
+    const dialogRef = this.dialog.open(StudentEditDialogComponent, {
+      width: '900px',
+      data: this.selection.selected[0]?.idd
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
+    });
+  }
+
+  refresh(){
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),

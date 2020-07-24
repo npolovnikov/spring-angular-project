@@ -1,4 +1,4 @@
-export interface User {
+export class User {
   idd:number;
   firstName:string;
   middleName:string;
@@ -7,4 +7,5 @@ export interface User {
   status:string;
   birthDate:string;
   createDate:string;
+  history:[];
 }

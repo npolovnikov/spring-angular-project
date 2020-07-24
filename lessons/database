@@ -1,4 +1,4 @@
-Student(
+StudentList(
     id serial,
     idd int,
     first_name varchar(50),
@@ -10,9 +10,9 @@ Student(
     delete_date timestamp,
     status varchar(10)
 )
-Teacher()
-User()
-Course(
+TeacherList()
+UserList()
+CourseList(
     id serial,
     idd int,
     name varchar(100),

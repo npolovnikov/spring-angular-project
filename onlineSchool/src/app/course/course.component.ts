@@ -3,8 +3,11 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-import {Course} from "../_model/course";
 import {CourseService} from "../_sevice/course.service";
+import {CourseEditDialogComponent} from "../course/course-edit-dialog/course-edit-dialog.component";
+import {SelectionModel} from "@angular/cdk/collections";
+import {CourseList} from "../_model/course-list";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-course',
@@ -12,23 +15,37 @@ import {CourseService} from "../_sevice/course.service";
   styleUrls: ['./course.component.scss']
 })
 export class CourseComponent implements AfterViewInit {
-  displayedColumns: string[] = ['idd', 'name', 'description', 'teacherId', 'maxCountOfStudent', 'startDate', 'endDate', 'createDate', 'status'];
+  displayedColumns: string[] = ['select', 'idd', 'name', 'description', 'teacherId', 'maxCountOfStudent', 'startDate', 'endDate', 'createDate', 'status'];
   sizeOption:number[] = [1, 5, 10];
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
-  data: Course[];
+  data: CourseList[];
+  selection = new SelectionModel<CourseList>(false, []);
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _courseService: CourseService) {}
+  constructor(private _courseService: CourseService,  public dialog: MatDialog) {}
 
   ngAfterViewInit() {
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+  }
 
+  openEditDialog() {
+    const dialogRef = this.dialog.open(CourseEditDialogComponent, {
+      width: '900px',
+      data: this.selection.selected[0]?.idd
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
+    });
+  }
+
+  refresh(){
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
@@ -47,7 +64,6 @@ export class CourseComponent implements AfterViewInit {
         }),
         catchError(() => {
           this.isLoadingResults = false;
-          // Catch if the GitHub API has reached its rate limit. Return empty data.
           this.isRateLimitReached = true;
           return observableOf([]);
         })
