@@ -1,0 +1,86 @@
+<div class="example-container mat-elevation-z8">
+  <div *ngIf="isLoadingResults || isRateLimitReached"
+       class="example-loading-shade">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    <div *ngIf="isRateLimitReached" class="example-rate-limit-reached">
+      Ожидание
+    </div>
+  </div>
+
+  <div class="example-table-container">
+
+    <table [dataSource]="data" class="example-table" mat-table
+           matSort matSortActive="createDate" matSortDirection="desc" matSortDisableClear>
+      <!-- Number Column -->
+      <ng-container matColumnDef="idd">
+        <th *matHeaderCellDef disableClear mat-header-cell mat-sort-header>#</th>
+        <td *matCellDef="let row" mat-cell>{{row.idd}}</td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="firstName">
+        <th *matHeaderCellDef disableClear mat-header-cell mat-sort-header>Фамилия</th>
+        <td *matCellDef="let row" mat-cell>{{row.firstName}}</td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="middleName">
+        <th *matHeaderCellDef disableClear mat-header-cell mat-sort-header>Имя</th>
+        <td *matCellDef="let row" mat-cell>{{row.middleName}}</td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="lastName">
+        <th *matHeaderCellDef disableClear mat-header-cell mat-sort-header>Отчество</th>
+        <td *matCellDef="let row" mat-cell>{{row.lastName}}</td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="contacts">
+        <th *matHeaderCellDef disableClear mat-header-cell mat-sort-header>Контакты</th>
+        <td *matCellDef="let row" mat-cell>{{row.contacts}}</td>
+      </ng-container>
+
+      <!-- State Column -->
+      <ng-container matColumnDef="passport">
+        <th *matHeaderCellDef disableClear mat-header-cell mat-sort-header>Пасспорт</th>
+        <td *matCellDef="let row" mat-cell>{{row.passport}}</td>
+      </ng-container>
+
+      <!-- State Column -->
+      <ng-container matColumnDef="birthDate">
+        <th *matHeaderCellDef disableClear mat-header-cell mat-sort-header>День рождения</th>
+        <td *matCellDef="let row" mat-cell>{{row.birthDate}}</td>
+      </ng-container>
+
+      <!-- State Column -->
+      <ng-container matColumnDef="status">
+        <th *matHeaderCellDef disableClear mat-header-cell mat-sort-header>Статус</th>
+        <td *matCellDef="let row" mat-cell>{{row.status}}</td>
+      </ng-container>
+
+      <!-- State Column -->
+      <ng-container matColumnDef="courseIdd">
+        <th *matHeaderCellDef disableClear mat-header-cell mat-sort-header># курса</th>
+        <td *matCellDef="let row" mat-cell>{{row.courseIdd}}</td>
+      </ng-container>
+
+      <!-- Created Column -->
+      <ng-container matColumnDef="createDate">
+        <th *matHeaderCellDef disableClear mat-header-cell mat-sort-header>Дата обновления</th>
+        <td *matCellDef="let row" mat-cell>{{row.createDate}}</td>
+      </ng-container>
+
+      <!-- Created Column -->
+      <ng-container matColumnDef="instrumentIdd">
+        <th *matHeaderCellDef disableClear mat-header-cell mat-sort-header># инструмента</th>
+        <td *matCellDef="let row" mat-cell>{{row.instrumentIdd}}</td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+    </table>
+  </div>
+
+  <mat-paginator [length]="resultsLength" [pageSizeOptions]="sizeOption" [pageSize]="5"></mat-paginator>
+</div>
