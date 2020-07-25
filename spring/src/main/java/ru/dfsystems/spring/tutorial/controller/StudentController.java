@@ -1,5 +1,8 @@
 package ru.dfsystems.spring.tutorial.controller;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.web.bind.annotation.*;
 import ru.dfsystems.spring.tutorial.dto.course.CourseListDto;
 import ru.dfsystems.spring.tutorial.dto.student.StudentDto;
@@ -11,10 +14,15 @@ import ru.dfsystems.spring.tutorial.service.StudentService;
 
 import java.util.List;
 
+@ApiOperation(value = "Сервис для работы с профилями учеников")
+@ApiResponses(value = {@ApiResponse(code = 200, message = "OK"),
+                        @ApiResponse(code = 201, message = "Create")})
 @RestController
 @RequestMapping(value = "/student", produces = "application/json; charset=UTF-8")
 public class StudentController extends BaseController<StudentListDto, StudentDto, StudentParams, Student> {
-    private final StudentService studentService;
+
+    private StudentService studentService;
+
     public StudentController(StudentService service) {
         super(service);
         this.studentService = service;

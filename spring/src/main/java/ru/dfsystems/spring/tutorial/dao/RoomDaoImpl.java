@@ -3,12 +3,14 @@ package ru.dfsystems.spring.tutorial.dao;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
+import ru.dfsystems.spring.tutorial.generated.tables.Lesson;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.RoomDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static ru.dfsystems.spring.tutorial.generated.tables.Lesson.LESSON;
 import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 
 @Repository
@@ -24,6 +26,14 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
         return jooq.select(ROOM.fields())
                 .from(ROOM)
                 .where(ROOM.IDD.eq(idd).and(ROOM.DELETED_AT.isNull()))
+                .fetchOneInto(Room.class);
+    }
+
+    public Room getRoomByLessonIdd(Integer idd) {
+        return jooq.select(ROOM.fields())
+                .from(ROOM)
+                .join(LESSON).on(LESSON.ROOM_IDD.eq(ROOM.IDD))
+                .where(LESSON.IDD.eq(idd).and(LESSON.DELETED_AT.isNull()))
                 .fetchOneInto(Room.class);
     }
 

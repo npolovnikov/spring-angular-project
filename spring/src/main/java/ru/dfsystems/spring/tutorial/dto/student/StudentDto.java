@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import ru.dfsystems.spring.tutorial.dto.BaseDto;
+import ru.dfsystems.spring.tutorial.dto.course.CourseDto;
 import ru.dfsystems.spring.tutorial.dto.course.CourseListDto;
 
 import java.time.LocalDateTime;
@@ -21,5 +22,5 @@ public class StudentDto extends BaseDto<StudentHistoryDto> {
     private LocalDateTime birthDate;
     private String status;
 
-    private List<Integer> courseIds;
+    private List<CourseListDto> courses;
 }

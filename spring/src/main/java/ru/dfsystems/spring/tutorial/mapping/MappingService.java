@@ -15,11 +15,13 @@ import ru.dfsystems.spring.tutorial.dto.lesson.LessonHistoryDto;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonListDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomHistoryDto;
+import ru.dfsystems.spring.tutorial.dto.room.RoomListDto;
 import ru.dfsystems.spring.tutorial.dto.student.StudentDto;
 import ru.dfsystems.spring.tutorial.dto.student.StudentHistoryDto;
 import ru.dfsystems.spring.tutorial.dto.student.StudentListDto;
 import ru.dfsystems.spring.tutorial.dto.teacher.TeacherDto;
 import ru.dfsystems.spring.tutorial.dto.teacher.TeacherHistoryDto;
+import ru.dfsystems.spring.tutorial.dto.teacher.TeacherListDto;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.*;
 
 import javax.annotation.PostConstruct;
@@ -54,6 +56,8 @@ public class MappingService implements BaseMapping {
                 context -> mapList(courseDao.getHistory(context.getSource()), CourseHistoryDto.class);
         Converter<Integer, TeacherDto> courseTeacher =
                 mappingContext -> map(teacherDao.getActiveByIdd(mappingContext.getSource()), TeacherDto.class);
+        Converter<Integer, TeacherListDto> courseTeacherList =
+                mappingContext -> map(teacherDao.getActiveByIdd(mappingContext.getSource()), TeacherListDto.class);
         Converter<Integer, List<StudentListDto>> courseStudents =
                 mappingContext -> mapList(studentDao.getStudentsByCourseIdd(mappingContext.getSource()), StudentListDto.class);
         Converter<Integer, List<LessonListDto>> courseLessons =
@@ -67,15 +71,23 @@ public class MappingService implements BaseMapping {
         modelMapper.typeMap(Course.class, CourseHistoryDto.class)
                 .addMappings(mapping -> mapping.using(courseTeacher).map(Course::getIdd, CourseHistoryDto::setTeacher));
 
+        modelMapper.typeMap(Course.class, CourseListDto.class)
+                .addMappings(mapping -> mapping.using(courseTeacherList).map(Course::getTeacherIdd, CourseListDto::setTeacher));
+        modelMapper.typeMap(Course.class, CourseHistoryDto.class)
+                .addMappings(mapping -> mapping.using(courseTeacher).map(Course::getIdd, CourseHistoryDto::setTeacher));
+
         //Lessons
-        Converter<Integer, RoomDto> lessonRoom =
-                mappingContext -> map(roomDao.getActiveByIdd(mappingContext.getSource()), RoomDto.class);
+        Converter<Integer, RoomListDto> lessonRoom =
+                mappingContext -> map(roomDao.getRoomByLessonIdd(mappingContext.getSource()), RoomListDto.class);
         Converter<Integer, CourseDto> lessonCourse =
                 mappingContext -> map(courseDao.getActiveByIdd(mappingContext.getSource()), CourseDto.class);
         Converter<Integer, InstrumentListDto> lessonInstruments =
                 mappingContext -> map(instrumentDao.getInstrumentsByLessonIdd(mappingContext.getSource()), InstrumentListDto.class);
         Converter<Integer, List<LessonHistoryDto>> lessonHistory =
                 context -> mapList(lessonDao.getHistory(context.getSource()), LessonHistoryDto.class);
+
+//        Converter<Integer, List<RoomListDto>> roomToLesson =
+//                context -> map(roomDao.getActiveByIdd(context.getSource()), RoomListDto.class);
 
 
         modelMapper.typeMap(Lesson.class, LessonDto.class)
@@ -93,13 +105,13 @@ public class MappingService implements BaseMapping {
                 context -> mapList(studentDao.getHistory(context.getSource()), StudentHistoryDto.class);
         Converter<Integer, List<CourseListDto>> studentCourses =
                 context -> mapList(courseDao.getCoursesByStudentIdd(context.getSource()), CourseListDto.class);
-        Converter<Integer, List<Integer>> studentCourseIds =
-                context -> mapList(courseDao.getCoursesByStudentIdd(context.getSource()), Integer.class);
 
         modelMapper.typeMap(Student.class, StudentDto.class)
                 .addMappings(mapping -> mapping.using(studentHistory).map(Student::getIdd, StudentDto::setHistory))
-                .addMappings(mapping -> mapping.using(studentCourseIds).map(Student::getIdd, StudentDto::setCourseIds));
+                .addMappings(mapping -> mapping.using(studentCourses).map(Student::getIdd, StudentDto::setCourses));
 
+        modelMapper.typeMap(Student.class, StudentDto.class)
+                .addMappings(mapping -> mapping.using(studentCourses).map(Student::getIdd, StudentDto::setCourses));
 
         //Teachers
         Converter<Integer, List<TeacherHistoryDto>> teacherHistory =
