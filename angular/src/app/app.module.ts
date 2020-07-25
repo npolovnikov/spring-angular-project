@@ -14,6 +14,8 @@ import {InstrumentComponent} from './instrument/instrument.component';
 import {TeacherComponent} from "./teacher/teacher.component";
 import {StudentComponent} from "./student/student.component";
 import {CourseComponent} from "./course/course.component";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import {CourseComponent} from "./course/course.component";
     MatTableModule,
     MatProgressSpinnerModule,
     HttpClientModule,
+    MatMenuModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -20,7 +20,7 @@ public class RoomController extends BaseController<RoomListDto, RoomDto, RoomPar
     }
 
     @PutMapping("/{idd}/instrument")
-    public void putInstrument(@PathVariable("idd") Integer idd, @RequestBody Integer instrumentIdd) {
+    public void putInstrument(@PathVariable("idd") Integer instrumentIdd, @RequestBody Integer idd) {
         roomService.putInstrument(idd, instrumentIdd);
     }
 }

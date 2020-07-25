@@ -1,8 +1,42 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
   <img alt="Региональный институт непрерываного образвания" height="60" src="../assets/rino.png"/>
-  <span>Учебный проекта Spring - Angular</span>
+
+  <button [matMenuTriggerFor]="menu" class="material-icons" mat-icon-button>
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <a href="course" style="color: #fff">
+        <span>Курсы</span>
+      </a>
+    </button>
+    <button mat-menu-item>
+      <a href="student" style="color: #fff">
+        <span>Студенты</span>
+      </a>
+    </button>
+    <button mat-menu-item>
+      <a href="teacher" style="color: #fff">
+        <span>Преподаватели</span>
+      </a>
+    </button>
+    <button mat-menu-item>
+      <a href="room" style="color: #fff">
+        <span>Аудитории</span>
+      </a>
+    </button>
+    <button mat-menu-item>
+      <a href="instrument" style="color: #fff">
+        <span>Инструменты</span>
+      </a>
+    </button>
+  </mat-menu>
+
   <div class="spacer"></div>
+
+  <span>Учебный проекта Spring - Angular</span>
+
   <a aria-label="Digital Future Systems" href="https://dfsystems.ru" rel="noopener" target="_blank" title="DFSystems">
     <img alt="Digital Future Systems" height="50" src="../assets/dfs.png"/>
   </a>
