@@ -8,6 +8,8 @@ import {RoomService} from "../_service/room.service";
 import {RoomEditDialogComponent} from "./room-edit-dialog/room-edit-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {SelectionModel} from "@angular/cdk/collections";
+import {AuthService} from "../_service/auth.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -35,7 +37,10 @@ export class RoomComponent implements AfterViewInit {
   /* добавили в конструктор roomService */
 
   /* dialog: MatDialog, из которого вызываем openDialog() */
-  constructor(private _roomService: RoomService, public dialog: MatDialog) {
+  constructor(private _roomService: RoomService,
+              public dialog: MatDialog,
+              private _authService: AuthService,
+              private router: Router) {
   }
 
   ngAfterViewInit() {
@@ -95,6 +100,14 @@ export class RoomComponent implements AfterViewInit {
     this._roomService.deleteObjectByIdd(deleteIdd);
     this.selection.clear();
     this.refresh();
+  }
+
+  logOut(): void {
+    this._authService.logout()
+      .pipe()
+      .subscribe(res => {
+        this.router.navigateByUrl('/login');
+      });
   }
 }
 

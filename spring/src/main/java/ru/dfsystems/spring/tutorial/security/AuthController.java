@@ -6,6 +6,7 @@ import ru.dfsystems.spring.tutorial.security.dto.AuthDto;
 import ru.dfsystems.spring.tutorial.security.dto.UserDto;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static ru.dfsystems.spring.tutorial.security.CookieUtils.LOGIN_COOKIE_NAME;
@@ -42,9 +43,20 @@ public class AuthController {
 
             /* логин произошел успешно */
             userService.login(authDto.getLogin());
+
             return true;
         }
         return false;
+    }
+
+    @GetMapping("/logout")
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        Cookie cookie = CookieUtils.extractLoginCookie(request);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        cookie.setValue("");
+        response.addCookie(cookie);
+        userService.logOut();
     }
 
     //TODO ДЗ logout, чтобы кука стала больше не действительной

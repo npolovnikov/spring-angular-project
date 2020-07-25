@@ -5,6 +5,8 @@ import {merge, of as observableOf} from "rxjs";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
 import {CourseList} from "../_model/course-list";
 import {CourseService} from "../_service/course.service";
+import {AuthService} from "../_service/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-course',
@@ -27,7 +29,9 @@ export class CourseComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _courseService: CourseService) {
+  constructor(private _courseService: CourseService,
+              private _authService: AuthService,
+              private router: Router) {
   }
 
   ngAfterViewInit() {
@@ -58,5 +62,13 @@ export class CourseComponent implements AfterViewInit {
           return observableOf([]);
         })
       ).subscribe(data => this.data = data);
+  }
+
+  logOut(): void {
+    this._authService.logout()
+      .pipe()
+      .subscribe(res => {
+        this.router.navigateByUrl('/login');
+      });
   }
 }

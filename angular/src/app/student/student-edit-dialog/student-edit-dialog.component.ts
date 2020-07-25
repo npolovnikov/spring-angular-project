@@ -18,12 +18,12 @@ export class StudentEditDialogComponent implements OnInit {
   @ViewChild(MatTable) courseTable: MatTable<InstrumentList>;
   data: Student = new Student();
 
-  coursesDisplayedColumns: string[] = ['select', 'idd', 'name', 'description', 'teacherIdd', 'maxCountStudent', 'startDate', 'endDate', 'status', 'createDate'];
+  coursesDisplayedColumns: string[] = ['select', 'idd', 'name', 'maxCountStudent', 'startDate', 'endDate', 'createDate'];
   /* multiple - можно ли выделить неск элементов, initiallySelectedValues - изначально помеченные */
   showCourseTable: boolean = false;
   selection = new SelectionModel(false, []);
 
-  historyDisplayedColumns: string[] = ['id', 'firstName', 'lastName', 'passport' ,'userId', 'deleteDate'];
+  historyDisplayedColumns: string[] = ['id', 'firstName', 'lastName', 'passport', 'userId', 'deleteDate'];
   showHistoryTable: boolean = false;
 
   constructor(
@@ -31,7 +31,8 @@ export class StudentEditDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<StudentEditDialogComponent>,
     /* запрашиваем idd и по нему получаем элемент с бэка*/
     @Inject(MAT_DIALOG_DATA) public idd: number,
-    public dialog: MatDialog) {}
+    public dialog: MatDialog) {
+  }
 
 
   /* данные, которые первоначально выводятся в диалог окне */
@@ -76,6 +77,7 @@ export class StudentEditDialogComponent implements OnInit {
         .catch(error => console.log(error));
     }
   }
+
   /* убираем на фронте курс - он удаляется при сохранении */
   onDeleteCourse() {
     this.data.courses
@@ -93,7 +95,7 @@ export class StudentEditDialogComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       /* добавляет выбранный курс в список */
       this.data.courses.push(result);
-      // this.courseTable.renderRows();
+      this.courseTable.renderRows();
     });
   }
 }

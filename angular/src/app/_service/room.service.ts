@@ -33,7 +33,6 @@ export class RoomService {
 
     /* наш пост запрос на получение рум дто */
     return this._httpClient.get<Room>(href);
-
   }
 
   updateRoom(idd: number, data: Room): Observable<Object> {

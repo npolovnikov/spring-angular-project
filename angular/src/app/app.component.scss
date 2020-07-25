@@ -32,7 +32,7 @@ p {
   height: 60px;
   display: flex;
   align-items: center;
-  background-color: #1976d2;
+  background-color: #2F4F4F;
   color: white;
   font-weight: 600;
 }
@@ -85,13 +85,6 @@ footer a {
 
 /* Здесь будут стили для маленьких экранов */
 @media screen and (max-width: 767px) {
-
 }
 
-.toolbar2 {
-  position: absolute;
-  top: 8%;
-  left: 80%;
-  background-color: #FFFFFF;
-}
 

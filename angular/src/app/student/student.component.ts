@@ -11,6 +11,8 @@ import {RoomService} from "../_service/room.service";
 import {MatDialog} from "@angular/material/dialog";
 import {RoomEditDialogComponent} from "../room/room-edit-dialog/room-edit-dialog.component";
 import {StudentEditDialogComponent} from "./student-edit-dialog/student-edit-dialog.component";
+import {AuthService} from "../_service/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-student',
@@ -31,7 +33,10 @@ export class StudentComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _studentService: StudentService, public dialog: MatDialog) {}
+  constructor(private _studentService: StudentService,
+              public dialog: MatDialog,
+              private _authService: AuthService,
+              private router: Router) {}
 
   ngAfterViewInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -90,5 +95,13 @@ export class StudentComponent implements AfterViewInit {
     this._studentService.deleteObjectByIdd(deleteIdd);
     this.selection.clear();
     this.refresh();
+  }
+
+  logOut(): void {
+    this._authService.logout()
+      .pipe()
+      .subscribe(res => {
+        this.router.navigateByUrl('/login');
+      });
   }
 }

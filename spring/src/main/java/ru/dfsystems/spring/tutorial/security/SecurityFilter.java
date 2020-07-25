@@ -28,7 +28,7 @@ public class SecurityFilter implements Filter {
         this.userContext = userContext;
     }
 
-    /* из конфига поулчаем publicUriPatterns*/
+    /* из конфига получаем publicUriPatterns*/
     @Override
     public void init(FilterConfig filterConfig) {
         String publicUriPatterns = filterConfig.getInitParameter("public");

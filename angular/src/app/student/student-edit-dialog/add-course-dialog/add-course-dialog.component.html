@@ -1,16 +1,15 @@
-<h1 mat-dialog-title>Добавление курса студенту</h1>
+<h1 mat-dialog-title>Р”РѕР±Р°РІР»РµРЅРёРµ РєСѓСЂСЃР° СЃС‚СѓРґРµРЅС‚Сѓ</h1>
 <div mat-dialog-content>
   <mat-form-field appearance="fill">
-    <!--    выдает список курсов -->
-    <mat-label>Купс</mat-label>
+    <!--    РІС‹РґР°РµС‚ СЃРїРёСЃРѕРє РєСѓСЃСЂРѕРІ -->
+    <mat-label>РљСѓСЂСЃ</mat-label>
     <mat-select [(value)]="selected">
-      <!--  выбираем из массива курсов -->
+      <!--  РІС‹Р±РёСЂР°РµРј РёР· РјР°СЃСЃРёРІР° РєСѓСЂСЃС‹ -->
       <mat-option *ngFor="let i of courses" [value]="i">{{i.name}}</mat-option>
     </mat-select>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onCancelClick()">Отменить</button>
-  <button mat-button [disabled]="selected == null" (click)="onSaveClick()">Добавить</button>
+  <button mat-button (click)="onCancelClick()">РћС‚РјРµРЅРёС‚СЊ</button>
+  <button mat-button [disabled]="selected == null" (click)="onSaveClick()">Р”РѕР±Р°РІРёС‚СЊ</button>
 </div>
-

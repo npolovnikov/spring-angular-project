@@ -1,3 +1,20 @@
+<form align="right" name="form1" method="post" (click)="logOut()">
+  <label class="logoutLblPos">
+    <input name="submit2" type="submit" id="submit2" value="LOG OUT">
+  </label>
+</form>
+
+<div class="toolbar2">
+  <ul>
+    <li><a href="http://localhost:4200/room">Кабинеты</a></li>
+    <li><a href="http://localhost:4200/instrument">Инструменты</a></li>
+    <li><a href="http://localhost:4200/student">Студенты</a></li>
+    <li><a href="http://localhost:4200/teacher">Преподаватели</a></li>
+    <li><a href="http://localhost:4200/course">Курсы</a></li>
+    <li><a href="http://localhost:4200/lesson">Уроки</a></li>
+  </ul>
+</div>
+
 <div class="example-container mat-elevation-z8">
   <div class="example-loading-shade"
        *ngIf="isLoadingResults || isRateLimitReached">
@@ -62,3 +79,5 @@
   [pageSize]="5" - начальное значение -->
   <mat-paginator [length]="resultsLength" [pageSizeOptions]="sizeOption" [pageSize]="5"></mat-paginator>
 </div>
+
+

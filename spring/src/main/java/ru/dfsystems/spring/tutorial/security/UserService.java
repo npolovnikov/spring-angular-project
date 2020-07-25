@@ -30,7 +30,6 @@ public class UserService {
         if (user == null) {
             return false;
         }
-
        /* ДЗ Добавить соль к паролю. Соль хранить в application.yml, чтобы на разных сайтах были разные хеши для
         одних паролей */
         /* преобразуем пароль через встроенный класс DigestUtils в md5Hex строку */
@@ -50,6 +49,13 @@ public class UserService {
         user.setLastLoginDate(LocalDateTime.now());
         user.setIsActive(true);
 
+        appUserDao.update(user);
+    }
+
+    public void logOut() {
+        AppUser user = getUserByLogin(getCurrentUser().getLogin());
+        user.setLastLoginDate(LocalDateTime.now());
+        user.setIsActive(false);
         appUserDao.update(user);
     }
 

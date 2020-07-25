@@ -30,6 +30,7 @@ import {LessonComponent} from "./lesson/lesson.component";
 import {StudentComponent} from "./student/student.component";
 import {StudentEditDialogComponent} from "./student/student-edit-dialog/student-edit-dialog.component";
 import {TeacherComponent} from "./teacher/teacher.component";
+import { InstrumentEditDialogComponent } from './instrument/instrument-edit-dialog/instrument-edit-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {TeacherComponent} from "./teacher/teacher.component";
     LessonComponent,
     StudentComponent,
     StudentEditDialogComponent,
-    TeacherComponent
+    TeacherComponent,
+    InstrumentEditDialogComponent
   ],
   imports: [
     BrowserModule,

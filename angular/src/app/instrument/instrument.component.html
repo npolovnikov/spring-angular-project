@@ -1,3 +1,20 @@
+<form align="right" name="form1" method="post" (click)="logOut()">
+  <label class="logoutLblPos">
+    <input name="submit2" type="submit" id="submit2" value="LOG OUT">
+  </label>
+</form>
+
+<div class="toolbar2">
+  <ul>
+    <li><a href="http://localhost:4200/room">Кабинеты</a></li>
+    <li><a href="http://localhost:4200/instrument">Инструменты</a></li>
+    <li><a href="http://localhost:4200/student">Студенты</a></li>
+    <li><a href="http://localhost:4200/teacher">Преподаватели</a></li>
+    <li><a href="http://localhost:4200/course">Курсы</a></li>
+    <li><a href="http://localhost:4200/lesson">Уроки</a></li>
+  </ul>
+</div>
+
 <div class="example-container mat-elevation-z8">
   <div class="example-loading-shade"
        *ngIf="isLoadingResults || isRateLimitReached">
@@ -7,23 +24,43 @@
     </div>
   </div>
 
-  <div class="example-table-container">
+  <div class="button-panel">
+    <!-- Добавили кнопку, которая при щелчке переходит на диалог редактирования -->
+    <button mat-icon-button aria-label="Редактировать" (click)="openEditDialog()">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <!-- Кнопка удаления элемента -->
+    <button mat-icon-button aria-label="Удалить" [disabled]="selection.selected[0] == null" (click)="ondDeleteObject()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
 
+  <div class="example-table-container">
     <table mat-table [dataSource]="data" class="example-table"
            matSort matSortActive="createDate" matSortDisableClear matSortDirection="desc">
-      <!-- Number Column -->
+
+      <!-- Чекбокс -->
+      <!-- selection.selected[0], selected[0] - объект выбора, из которого можно получить поля -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="idd">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>#</th>
         <td mat-cell *matCellDef="let row">{{row.idd}}</td>
       </ng-container>
 
-      <!-- Title Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Инструмент</th>
         <td mat-cell *matCellDef="let row">{{row.name}}</td>
       </ng-container>
 
-      <!-- State Column -->
       <ng-container matColumnDef="number">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Номер</th>
         <td mat-cell *matCellDef="let row">{{row.number}}</td>

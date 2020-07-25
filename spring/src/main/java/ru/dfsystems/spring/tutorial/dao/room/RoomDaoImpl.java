@@ -11,6 +11,7 @@ import ru.dfsystems.spring.tutorial.security.UserContext;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static ru.dfsystems.spring.tutorial.generated.Tables.INSTRUMENT_TO_ROOM;
 import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 
 @Repository
@@ -26,6 +27,18 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
         super(jooq.configuration());
         this.jooq = jooq;
         this.userContext = userContext;
+    }
+
+    /**
+     * Возвращает список комнат, где используют этот инструмент
+     */
+    public List<Room> getRoomsByInstrumentIdd(Integer idd) {
+        return jooq.select(ROOM.fields())
+                .from(ROOM)
+                .join(INSTRUMENT_TO_ROOM)
+                .on(ROOM.IDD.eq(INSTRUMENT_TO_ROOM.ROOM_IDD))
+                .where(INSTRUMENT_TO_ROOM.INSTRUMENT_IDD.eq(idd))
+                .fetchInto(Room.class);
     }
 
     /**
