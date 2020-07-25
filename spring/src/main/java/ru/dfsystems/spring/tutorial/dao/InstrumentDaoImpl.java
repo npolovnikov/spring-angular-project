@@ -28,11 +28,10 @@ public class InstrumentDaoImpl extends InstrumentDao implements BaseDao<Instrume
                             .on(INSTRUMENT.IDD.eq(INSTRUMENT_TO_ROOM.INSTRUMENT_IDD))
                     .where(INSTRUMENT_TO_ROOM.ROOM_IDD.eq(idd))
                     .fetchInto(Instrument.class);
-
     }
 
     @Override
-    public Instrument create(Instrument instrument, Integer userId) {
+    public Instrument create(Instrument instrument) {
         instrument.setId(jooq.nextval(Sequences.INSTRUMENT_ID_SEQ));
         if (instrument.getIdd() == null) {
             instrument.setIdd(instrument.getId());

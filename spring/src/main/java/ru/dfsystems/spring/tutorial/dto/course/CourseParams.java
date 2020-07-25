@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.jooq.Field;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -15,14 +16,17 @@ public class CourseParams {
     private String description;
     private String teacherId;
     private String maxCountStudent;
-    private String startDate;
-    private String endDate;
+//    private String startDate;
     private String orderBy;
     private String orderDir;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDateTime startDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDateTime endDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime getCreateDateStart;
+    private LocalDateTime createDateStart;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime getCreateDateEnd;
+    private LocalDateTime createDateEnd;
 
 }

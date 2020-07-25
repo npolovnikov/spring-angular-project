@@ -18,10 +18,9 @@ public class StudentController extends BaseController<StudentListDto, StudentDto
         super(studentService);
         this.studentService = studentService;
     }
-/*
-    @PutMapping("/{idd}/instrument")
-    public void putInstrument(@PathVariable("idd") Integer idd, @RequestBody Integer instrumentIdd) {
-        studentService.putInstrument(idd, instrumentIdd);
+
+    @PutMapping("/{idd}/course")
+    public void putCourse(@PathVariable("idd") Integer idd, @RequestBody Integer courseIdd) {
+        studentService.putCourse(idd, courseIdd);
     }
-    */
 }

@@ -9,13 +9,17 @@ import org.springframework.stereotype.Repository;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentParams;
+import ru.dfsystems.spring.tutorial.dto.room.RoomParams;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 import ru.dfsystems.spring.tutorial.generated.tables.records.InstrumentRecord;
+import ru.dfsystems.spring.tutorial.generated.tables.records.RoomRecord;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Instrument.INSTRUMENT;
+import static ru.dfsystems.spring.tutorial.generated.tables.Room.ROOM;
 
 @Repository
 @AllArgsConstructor

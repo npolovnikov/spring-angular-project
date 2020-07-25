@@ -25,7 +25,7 @@ p {
 }
 
 .toolbar {
-  position: absolute;
+/*  position: absolute;*/
   top: 0;
   left: 0;
   right: 0;
@@ -42,7 +42,7 @@ p {
 }
 
 .content {
-  margin: 82px auto 32px;
+  margin: 12px auto;
   padding: 0 16px;
   max-width: 960px;
   flex-direction: column;
@@ -70,6 +70,15 @@ a:hover {
   color: #125699;
 }
 
+.rowmenu {
+  margin: 12px auto;
+  padding: 0 16px;
+}
+
+.rowmenu a {
+  padding: 0 10px;
+}
+
 footer {
   margin-top: 8px;
   display: flex;
@@ -87,3 +96,4 @@ footer a {
 @media screen and (max-width: 767px) {
 
 }
+

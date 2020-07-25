@@ -3,7 +3,6 @@ package ru.dfsystems.spring.tutorial.dao;
 import lombok.AllArgsConstructor;
 import lombok.val;
 import org.jooq.DSLContext;
-import org.jooq.SQL;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
@@ -28,7 +27,7 @@ public class StudentListDao implements BaseListDao<Student, StudentParams> {
         val listQuery = getStudentSelect(params);
 
         val count = jooq.selectCount()
-                .from((SQL) listQuery)
+                .from(listQuery)
                 .fetchOne(0, Long.class);
 
         List<Student> list = listQuery.offset(pageParams.getStart())
@@ -73,14 +72,20 @@ public class StudentListDao implements BaseListDao<Student, StudentParams> {
             if (order.equalsIgnoreCase("idd")){
                 listSortBy.add(asc ? STUDENT.IDD.asc() : STUDENT.IDD.desc());
             }
-            if (order.equalsIgnoreCase("last_name")){
+            if (order.equalsIgnoreCase("lastName")){
                 listSortBy.add(asc ? STUDENT.LAST_NAME.asc() : STUDENT.LAST_NAME.desc());
             }
-            if (order.equalsIgnoreCase("first_name")){
+            if (order.equalsIgnoreCase("middleName")){
+                listSortBy.add(asc ? STUDENT.FIRST_NAME.asc() : STUDENT.FIRST_NAME.desc());
+            }
+            if (order.equalsIgnoreCase("firstName")){
                 listSortBy.add(asc ? STUDENT.FIRST_NAME.asc() : STUDENT.FIRST_NAME.desc());
             }
             if (order.equalsIgnoreCase("createDate")){
                 listSortBy.add(asc ? STUDENT.CREATE_DATE.asc() : STUDENT.CREATE_DATE.desc());
+            }
+            if (order.equalsIgnoreCase("birthDate")){
+                listSortBy.add(asc ? STUDENT.BIRTH_DATE.asc() : STUDENT.BIRTH_DATE.desc());
             }
         }
 

@@ -3,7 +3,6 @@ package ru.dfsystems.spring.tutorial.dao;
 import lombok.AllArgsConstructor;
 import lombok.val;
 import org.jooq.DSLContext;
-import org.jooq.SQL;
 import org.jooq.SelectSeekStepN;
 import org.jooq.SortField;
 import org.springframework.stereotype.Repository;
@@ -28,7 +27,7 @@ public class CourseListDao implements BaseListDao<Course, CourseParams> {
         val listQuery = getCourseSelect(params);
 
         val count = jooq.selectCount()
-                .from((SQL) listQuery)
+                .from(listQuery)
                 .fetchOne(0, Long.class);
 
         List<Course> list = listQuery.offset(pageParams.getStart())

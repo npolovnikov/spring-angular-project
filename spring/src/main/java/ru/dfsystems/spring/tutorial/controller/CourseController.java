@@ -18,10 +18,4 @@ public class CourseController extends BaseController<CourseListDto, CourseDto, C
         super(courseService);
         this.courseService = courseService;
     }
-/*
-    @PutMapping("/{idd}/instrument")
-    public void putInstrument(@PathVariable("idd") Integer idd, @RequestBody Integer instrumentIdd) {
-        studentService.putInstrument(idd, instrumentIdd);
-    }
-    */
 }

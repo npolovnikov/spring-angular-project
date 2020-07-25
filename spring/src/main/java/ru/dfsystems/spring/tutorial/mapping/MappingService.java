@@ -8,14 +8,18 @@ import ru.dfsystems.spring.tutorial.dao.CourseDaoImpl;
 import ru.dfsystems.spring.tutorial.dao.InstrumentDaoImpl;
 import ru.dfsystems.spring.tutorial.dao.RoomDaoImpl;
 import ru.dfsystems.spring.tutorial.dao.StudentDaoImpl;
+import ru.dfsystems.spring.tutorial.dto.course.CourseListDto;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentDto;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentHistoryDto;
 import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentListDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomHistoryDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomListDto;
+import ru.dfsystems.spring.tutorial.dto.student.StudentDto;
+import ru.dfsystems.spring.tutorial.dto.student.StudentHistoryDto;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.Student;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -50,6 +54,16 @@ public class MappingService implements BaseMapping {
         modelMapper.typeMap(Instrument.class, InstrumentDto.class)
                 .addMappings(mapper -> mapper.using(instrumentHistory).map(Instrument::getIdd, InstrumentDto::setHistory))
                 .addMappings(mapper -> mapper.using(roomList).map(Instrument::getIdd, InstrumentDto::setRooms));
+
+        Converter<Integer, List<StudentHistoryDto>> studentHistory =
+                context -> mapList(studentDao.getHistory(context.getSource()), StudentHistoryDto.class);
+        Converter<Integer, List<CourseListDto>> courseList =
+                context -> mapList(courseDao.getCoursesByStudentIdd(context.getSource()), CourseListDto.class);
+
+        modelMapper.typeMap(Student.class, StudentDto.class)
+                .addMappings(mapper -> mapper.using(studentHistory).map(Student::getIdd, StudentDto::setHistory))
+                .addMappings(mapper -> mapper.using(courseList).map(Student::getIdd, StudentDto::setCourses));
+
     }
 
     public <S, D> D map(S source, Class<D> clazz) {

@@ -24,6 +24,14 @@ import {MatSelectModule} from "@angular/material/select";
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 import { LoginComponent } from './login/login.component';
 import {AuthInterceptor} from "./_service/auth.interceptor";
+import { StudentComponent } from './student/student.component';
+import { CourseComponent } from './course/course.component';
+import { AddCourseDialogComponent } from './student/student-edit-dialog/add-course-dialog/add-course-dialog.component';
+import { StudentEditDialogComponent } from './student/student-edit-dialog/student-edit-dialog.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import { MatNativeDateModule } from '@angular/material/core';
+import { CourseEditDialogComponent } from './course/course-edit-dialog/course-edit-dialog.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -33,27 +41,34 @@ import {AuthInterceptor} from "./_service/auth.interceptor";
     RoomEditDialogComponent,
     AddInstrumentDialogComponent,
     ErrorDialogComponent,
-    LoginComponent
+    LoginComponent,
+    StudentComponent,
+    CourseComponent,
+    StudentEditDialogComponent,
+    AddCourseDialogComponent,
+    CourseEditDialogComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatTableModule,
-    MatProgressSpinnerModule,
-    HttpClientModule,
-    MatIconModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDialogModule,
-    FormsModule,
-    MatCheckboxModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatTableModule,
+        MatProgressSpinnerModule,
+        HttpClientModule,
+        MatIconModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDialogModule,
+        FormsModule,
+        MatCheckboxModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        MatMenuModule
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

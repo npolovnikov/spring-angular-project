@@ -1,7 +1,7 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
   <img height="60" alt="Региональный институт непрерываного образвания" src="../assets/rino.png"/>
-  <span>Учебный проекта Spring - Angular</span>
+  <span>Учебный проект Spring - Angular</span>
     <div class="spacer"></div>
     <a aria-label="Digital Future Systems" target="_blank" rel="noopener" href="https://dfsystems.ru" title="DFSystems">
       <img height="50" alt="Digital Future Systems" src="../assets/dfs.png"/>
@@ -9,6 +9,21 @@
 </div>
 
 <div class="content" role="main">
+  <div class="rowmenu">
+    <div class="col-md-auto">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical"><!-- *ngIf="!isLoginPage"-->
+        <!--
+        <a class="nav-link" id="v-item-1" data-toggle="pill" href="/student" aria-controls="v-pills-1" aria-selected="true">Студенты</a>
+        <a class="nav-link" id="v-item-2" data-toggle="pill" href="/course" aria-controls="v-pills-2" aria-selected="false">Курсы</a>
+        <a class="nav-link" id="v-item-3" data-toggle="pill" href="/room" aria-controls="v-pills-3" aria-selected="false">Аудитории</a>
+        -->
+        <a class="nav-link" id="v-item-1" href="/student">Студенты</a>
+        <a class="nav-link" id="v-item-2" href="/course">Курсы</a>
+        <a class="nav-link" id="v-item-3" href="/room">Аудитории</a>
+      </div>
+    </div>
+  </div>
+
   <router-outlet></router-outlet>
   <footer>
       2020&nbsp;
