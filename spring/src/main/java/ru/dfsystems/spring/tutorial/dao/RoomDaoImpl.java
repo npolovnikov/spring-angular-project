@@ -34,13 +34,14 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
                 .fetchInto(Room.class);
     }
 
-    public void create(Room room) {
-       /* room.setId(jooq.nextval(Sequences.ROOM_ID_SEQ));*/
+    public Room create(Room room) {
+        room.setId(jooq.nextval(Sequences.ROOM_ID_SEQ));
         if (room.getIdd() == null) {
             room.setIdd(room.getId());
         }
         room.setCreateDate(LocalDateTime.now());
         super.insert(room);
+        return room;
     }
 
     public List<Room> getRoomsByInstrumentIdd(Integer idd) {

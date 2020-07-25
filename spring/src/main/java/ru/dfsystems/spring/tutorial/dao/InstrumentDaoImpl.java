@@ -30,13 +30,14 @@ public class InstrumentDaoImpl extends InstrumentDao implements BaseDao<Instrume
 
     }
 
-    public void create(Instrument instrument) {
+    public Instrument create(Instrument instrument) {
         instrument.setId(jooq.nextval(Sequences.INSTRUMENT_TO_ROOM_ID_SEQ));
         if (instrument.getIdd() == null) {
             instrument.setIdd(instrument.getId());
         }
         instrument.setCreateDate(LocalDateTime.now());
         super.insert(instrument);
+        return instrument;
     }
 
     public Instrument getActiveByIdd(Integer idd) {

@@ -50,7 +50,7 @@ export class InstrumentComponent implements AfterViewInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this._instrumentService.getUserList(
+          return this._instrumentService.getInstrumentsList(
             this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
         }),
         map(data => {

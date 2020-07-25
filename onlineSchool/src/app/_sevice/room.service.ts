@@ -14,15 +14,11 @@ export class RoomService {
 
   getRoomList(sort: string, order: string, page: number, pageSize: number): Observable<Page> {
     const href = '/api/room/list';
-    const params = {
-      start:page*pageSize,
-      page: pageSize,
-      params:{
-        orderBy:sort,
+
+    return this._httpClient.post<Page>(href, new PageParams(page*pageSize, pageSize,{
+      orderBy:sort,
         orderDir:order
-      }
-    }
-    return this._httpClient.post<Page>(href, params);
+    }));
   }
 
   getRoomByIdd(idd: number): Observable<Room> {

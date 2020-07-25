@@ -3,6 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Page} from "../_model/page";
 import {Instrument} from "../_model/instrument";
+import {PageParams} from "../_model/page-params";
+import {Room} from "../_model/room";
+import {InstrumentList} from "../_model/instrument-list";
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +14,13 @@ export class InstrumentService {
 
   constructor(private _httpClient: HttpClient) {}
 
-  getUserList(sort: string, order: string, page: number, pageSize: number): Observable<Page> {
+  getInstrumentsList(sort: string, order: string, page: number, pageSize: number): Observable<Page> {
     const href = '/api/instrument/list';
-    const params = {
-      start:page*pageSize,
-      page: pageSize,
-      params:{
-        orderBy:sort,
-        orderDir:order
-      }
-    }
-    return this._httpClient.post<Page>(href, params);
+
+    return this._httpClient.post<Page>(href, new PageParams(page*pageSize, pageSize,{
+      orderBy:sort,
+      orderDir:order
+    }));
   }
 
   getInstrumentByIdd(idd: number): Observable<Instrument> {
@@ -39,5 +38,6 @@ export class InstrumentService {
     const href = '/api/instrument';
     return this._httpClient.post(href, data);
   }
+
 }
 

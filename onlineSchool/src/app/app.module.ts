@@ -32,6 +32,9 @@ import { StudentEditDialogComponent } from './student/student-edit-dialog/studen
 import { TeacherEditDialogComponent } from './teacher/teacher-edit-dialog/teacher-edit-dialog.component';
 import { CourseEditDialogComponent } from './course/course-edit-dialog/course-edit-dialog.component';
 import { InstrumentEditDialogComponent } from './instrument/instrument-edit-dialog/instrument-edit-dialog.component';
+import { AddInstrumentDialogComponent } from './room/add-instrument-dialog/add-instrument-dialog.component';
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
 
 
 
@@ -54,25 +57,28 @@ import { InstrumentEditDialogComponent } from './instrument/instrument-edit-dial
     TeacherEditDialogComponent,
     CourseEditDialogComponent,
     InstrumentEditDialogComponent,
+    AddInstrumentDialogComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        MatProgressSpinnerModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatTableModule,
-        MatButtonModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatDialogModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatCheckboxModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
+    MatOptionModule,
+    MatSelectModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

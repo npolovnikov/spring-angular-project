@@ -29,13 +29,14 @@ public class UserDaoImpl extends UsersDao  implements BaseDao<Users> {
                 .fetchOneInto(Users.class);
     }
 
-    public void create(Users users){
+    public Users create(Users users){
         users.setId(jooq.nextval(Sequences.USERS_ID_SEQ));
         if(users.getIdd() == null){
             users.setIdd(users.getId());
         }
         users.setCreateDate(LocalDateTime.now());
         super.insert(users);
+        return users;
     }
 
     public List<Users> getHistory(Integer idd) {

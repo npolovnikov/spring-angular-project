@@ -3,34 +3,30 @@ package ru.dfsystems.spring.tutorial.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.dfsystems.spring.tutorial.dao.InstrumentDaoImpl;
+import ru.dfsystems.spring.tutorial.dao.InstrumentToRoomDaoImpl;
 import ru.dfsystems.spring.tutorial.dao.RoomDaoImpl;
+import ru.dfsystems.spring.tutorial.dto.BaseListDto;
+import ru.dfsystems.spring.tutorial.dto.instrument.InstrumentListDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomListDto;
 import ru.dfsystems.spring.tutorial.dto.room.RoomParams;
-import ru.dfsystems.spring.tutorial.generated.tables.daos.InstrumentToRoomDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.InstrumentToRoom;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Room;
 import ru.dfsystems.spring.tutorial.listDao.RoomListDao;
 import ru.dfsystems.spring.tutorial.mapping.MappingService;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class RoomService extends BaseService<RoomListDto, RoomDto, RoomParams, Room>{
-
-    private RoomDaoImpl roomDao;
-    private RoomListDao roomListDao;
-    private InstrumentDaoImpl instrumentDao;
-    private InstrumentToRoomDao instrumentToRoomDao;
-    private MappingService mappingService;
+    private InstrumentToRoomDaoImpl instrumentToRoomDao;
 
     @Autowired
-    public RoomService(RoomDaoImpl roomDao, RoomListDao roomListDao, InstrumentDaoImpl instrumentDao, InstrumentToRoomDao instrumentToRoomDao, MappingService mappingService) {
+    public RoomService(RoomDaoImpl roomDao, RoomListDao roomListDao, InstrumentToRoomDaoImpl instrumentToRoomDao, MappingService mappingService) {
         super(mappingService, roomListDao, roomDao, RoomListDto.class, RoomDto.class, Room.class);
-        this.roomDao = roomDao;
-        this.roomListDao = roomListDao;
-        this.instrumentDao = instrumentDao;
         this.instrumentToRoomDao = instrumentToRoomDao;
-        this.mappingService = mappingService;
+
     }
     @Transactional
     public void putInstrument(Integer idd, Integer instrumentIdd) {
@@ -41,12 +37,29 @@ public class RoomService extends BaseService<RoomListDto, RoomDto, RoomParams, R
     }
 
     @Override
-    public void create(RoomDto dto) {
-        super.create(dto);
+    public RoomDto create(RoomDto dto) {
+        RoomDto result = super.create(dto);
+        mergeInstruments(dto.getIdd(), dto.getInstruments(), result.getInstruments());
+        return get(result.getIdd());
     }
+
+
 
     @Override
     public RoomDto update(Integer idd, RoomDto dto) {
-        return super.update(idd, dto);
+        RoomDto result = super.update(idd, dto);
+        mergeInstruments(dto.getIdd(), dto.getInstruments(), result.getInstruments());
+        return get(result.getIdd());
+    }
+
+    private void mergeInstruments(Integer RoomIdd, List<InstrumentListDto> newInstruments, List<InstrumentListDto> oldInstruments) {
+        List<Integer> newIdds = newInstruments.stream().map(BaseListDto::getIdd).collect(Collectors.toList());
+        List<Integer> oldIdds = oldInstruments.stream().map(BaseListDto::getIdd).collect(Collectors.toList());
+
+        List<Integer> iddToBeDelete = oldIdds.stream().filter(o -> !newIdds.contains(o)).collect(Collectors.toList());
+        List<Integer> iddToBeAdd = newIdds.stream().filter(o -> !oldIdds.contains(o)).collect(Collectors.toList());
+
+        instrumentToRoomDao.deleteByRoomAndInstrumentIdd(RoomIdd, iddToBeDelete);
+        instrumentToRoomDao.createByRoomAndInstrumentIdd(RoomIdd, iddToBeAdd);
     }
 }

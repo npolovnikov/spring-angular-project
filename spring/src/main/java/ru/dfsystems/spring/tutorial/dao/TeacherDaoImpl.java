@@ -35,13 +35,14 @@ public class TeacherDaoImpl extends TeacherDao implements BaseDao<Teacher>{
                 .fetchInto(Teacher.class);
     }
 
-    public void create(Teacher teacher){
+    public Teacher create(Teacher teacher){
         teacher.setId(jooq.nextval(Sequences.TEACHER_ID_SEQ));
         if(teacher.getIdd() == null){
             teacher.setIdd(teacher.getId());
         }
         teacher.setCreateDate(LocalDateTime.now());
         super.insert(teacher);
+        return teacher;
     }
 
 }
