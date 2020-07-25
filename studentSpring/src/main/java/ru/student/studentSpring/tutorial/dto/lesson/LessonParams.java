@@ -15,9 +15,8 @@ public class LessonParams {
     private String orderBy;
     private String orderDir;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDateTime lessonDateStart;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDateTime lessonDateEnd;
+    private String lessonDateStart;
+
+    private String lessonDateEnd;
 
 }

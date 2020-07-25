@@ -1,6 +1,5 @@
 package ru.student.studentSpring.tutorial.dao;
 
-import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 import ru.student.studentSpring.tutorial.generated.Sequences;
@@ -17,10 +16,14 @@ import static ru.student.studentSpring.tutorial.generated.tables.StudentToCourse
 
 
 @Repository
-@AllArgsConstructor
 public class CourseDaoImpl extends CoursesDao implements BaseDao<Courses> {
 
     private final DSLContext jooq;
+
+    public CourseDaoImpl(DSLContext jooq) {
+        super(jooq.configuration());
+        this.jooq = jooq;
+    }
 
     public Courses getActiveByIdd(Integer idd) {
         return jooq.select(COURSES.fields())
@@ -35,13 +38,14 @@ public class CourseDaoImpl extends CoursesDao implements BaseDao<Courses> {
                 .fetchInto(Courses.class);
     }
 
-    public void create(Courses course) {
+    public Courses create(Courses course) {
         course.setId(jooq.nextval(Sequences.COURSES_ID_SEQ).intValue());
         if (course.getIdd() == null) {
             course.setIdd(course.getId());
         }
         course.setCreateDate(LocalDateTime.now());
         super.insert(course);
+        return course;
     }
 
     public List<Courses> getCourses(Integer idd) {

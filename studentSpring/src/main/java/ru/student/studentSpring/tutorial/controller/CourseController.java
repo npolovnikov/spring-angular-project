@@ -1,9 +1,6 @@
 package ru.student.studentSpring.tutorial.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.student.studentSpring.tutorial.dto.course.CourseDto;
 import ru.student.studentSpring.tutorial.dto.course.CourseHistoryDto;
 import ru.student.studentSpring.tutorial.dto.course.CourseListDto;
@@ -29,5 +26,10 @@ public class CourseController  extends BaseController<CourseListDto, CourseDto, 
     public List<CourseHistoryDto> getHistory(@PathVariable(name = "idd") Integer idd) {
         return courseService.getHistory(idd);
     }
+
+//    @PutMapping("/{idd}/teacher")
+//    public void putTeacher(@PathVariable(name = "idd") Integer idd, @RequestBody Integer instrumentId) {
+//        courseService.(idd, instrumentId);
+//    }
 
 }

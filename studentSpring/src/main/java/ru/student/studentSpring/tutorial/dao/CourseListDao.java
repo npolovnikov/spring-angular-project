@@ -49,15 +49,15 @@ public class CourseListDao  implements BaseListDao<Courses, CoursesParams> {
             condition = condition.and(COURSES.DESCRIPTION.like(params.getDescription()));
         }
 
-        if (params.getStartDate() != null && params.getEndDate() != null) {
-            condition = condition.and(COURSES.START_DATE.between(params.getStartDate(),
-                    params.getEndDate()));
-        }
-
-        if (params.getStartDate() != null && params.getEndDate() != null) {
-            condition = condition.and(COURSES.END_DATE.between(params.getStartDate(),
-                    params.getEndDate()));
-        }
+//        if (params.getStartDate() != null && params.getEndDate() != null) {
+//            condition = condition.and(COURSES.START_DATE.between(params.getStartDate(),
+//                    params.getEndDate()));
+//        }
+//
+//        if (params.getStartDate() != null && params.getEndDate() != null) {
+//            condition = condition.and(COURSES.END_DATE.between(params.getStartDate(),
+//                    params.getEndDate()));
+//        }
 
         if (params.getCreateDateStart() != null && params.getCreateDateEnd() != null) {
             condition = condition.and(COURSES.CREATE_DATE.between(params.getCreateDateStart(),
@@ -94,12 +94,12 @@ public class CourseListDao  implements BaseListDao<Courses, CoursesParams> {
             if (order.equalsIgnoreCase("description")) {
                 listSortBy.add(asc ? COURSES.DESCRIPTION.asc() : COURSES.DESCRIPTION.desc());
             }
-            if (order.equalsIgnoreCase("startDate")) {
-                listSortBy.add(asc ? COURSES.START_DATE.asc() : COURSES.START_DATE.desc());
-            }
-            if (order.equalsIgnoreCase("endDate")) {
-                listSortBy.add(asc ? COURSES.END_DATE.asc() : COURSES.END_DATE.desc());
-            }
+//            if (order.equalsIgnoreCase("startDate")) {
+//                listSortBy.add(asc ? COURSES.START_DATE.asc() : COURSES.START_DATE.desc());
+//            }
+//            if (order.equalsIgnoreCase("endDate")) {
+//                listSortBy.add(asc ? COURSES.END_DATE.asc() : COURSES.END_DATE.desc());
+//            }
             if (order.equalsIgnoreCase("createDate")) {
                 listSortBy.add(asc ? COURSES.CREATE_DATE.asc() : COURSES.CREATE_DATE.desc());
             }

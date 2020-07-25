@@ -13,11 +13,9 @@ import java.time.LocalDateTime;
 public class CourseHistoryDto extends BaseHistoryDto {
 
     private String name;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDateTime startDate;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDateTime endDate;
     private String status;
 
+    private String startDate;
+
+    private String endDate;
 }

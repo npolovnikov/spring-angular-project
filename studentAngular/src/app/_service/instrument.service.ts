@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Page} from "../_model/page";
 import {PageParams} from "../_model/page-params";
+import {OneRoom} from "../_model/one-room";
+import {Instrument} from "../_model/instrument";
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +20,11 @@ export class InstrumentService {
       orderBy:sort,
       orderDir:order
     }));
+  }
+
+  getInstrumentByIdd(idd: number): Observable<Instrument> {
+    const href = '/api/instrument/' + idd;
+
+    return this._httpClient.get<Instrument>(href)
   }
 }

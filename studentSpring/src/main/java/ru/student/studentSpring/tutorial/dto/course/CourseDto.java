@@ -18,9 +18,9 @@ public class CourseDto extends BaseDto<CourseHistoryDto> {
 
     private List<TeacherListDto> teacher;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDateTime startDate;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDateTime endDate;
+    private String startDate;
+
+    private String endDate;
+
     private String status;
 }

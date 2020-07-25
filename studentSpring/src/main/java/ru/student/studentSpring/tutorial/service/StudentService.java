@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.student.studentSpring.tutorial.dao.StudentDaoImpl;
 import ru.student.studentSpring.tutorial.dao.StudentListDao;
+import ru.student.studentSpring.tutorial.dto.course.CourseDto;
 import ru.student.studentSpring.tutorial.dto.student.StudentDto;
 import ru.student.studentSpring.tutorial.dto.student.StudentHistoryDto;
 import ru.student.studentSpring.tutorial.dto.student.StudentListDto;
@@ -13,6 +14,7 @@ import ru.student.studentSpring.tutorial.generated.tables.pojos.StudentToCourses
 import ru.student.studentSpring.tutorial.generated.tables.pojos.Students;
 import ru.student.studentSpring.tutorial.mapping.MappingService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -32,6 +34,21 @@ public class StudentService extends BaseService<StudentListDto, StudentDto, Stud
     public List<StudentHistoryDto> getHistory(Integer idd) {
 
         return mappingService.mapList(studentDao.getHistory(idd), StudentHistoryDto.class);
+    }
+
+
+
+    @Override
+    public StudentDto create(StudentDto dto) {
+        StudentDto result = super.create(dto);
+        return get(result.getIdd());
+    }
+
+
+    @Override
+    public StudentDto update(Integer idd, StudentDto dto) {
+        StudentDto result = super.update(idd, dto);
+        return get(result.getIdd());
     }
 
     @Transactional

@@ -37,13 +37,23 @@ public abstract class BaseService<List extends BaseListDto, Dto extends BaseDto,
         return new Page<>(list, page.getTotalCount());
     }
 
-    public void create(Dto dto) {
+    public Dto create(Dto dto) {
 
-        baseDao.create(mappingService.map(dto, entityClass));
+        return mappingService.map(baseDao.create(mappingService.map(dto, entityClass)), dtoClass);
     }
 
     public Dto get(Integer idd) {
         return mappingService.map(baseDao.getActiveByIdd(idd), dtoClass);
+    }
+
+    public void delete(Integer idd) {
+        Entity entity = baseDao.getActiveByIdd(idd);
+        if (entity == null) {
+            throw new RuntimeException("");
+        }
+        entity.setDeleteDate(LocalDateTime.now());
+        baseDao.update(entity);
+        mappingService.map(entity, dtoClass);
     }
 
     public Dto update(Integer idd, Dto dto) {
@@ -59,9 +69,4 @@ public abstract class BaseService<List extends BaseListDto, Dto extends BaseDto,
         return mappingService.map(entity, dtoClass);
     }
 
-    public void delete(Integer idd) {
-        Entity entity = baseDao.getActiveByIdd(idd);
-        entity.setDeleteDate(LocalDateTime.now());
-        baseDao.update(entity);
-    }
 }

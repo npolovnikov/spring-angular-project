@@ -5,6 +5,9 @@ import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {Room} from "../_model/room";
 import {RoomService} from "../_service/room.service";
+import {RoomEditDialogComponent} from "./room-edit-dialog/room-edit-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {SelectionModel} from "@angular/cdk/collections";
 
 @Component({
   selector: 'app-room',
@@ -13,8 +16,9 @@ import {RoomService} from "../_service/room.service";
 })
 export class RoomComponent implements AfterViewInit {
   sizeOption: number[] = [2, 5, 10];
-  displayedColumns: string[] = ['idd', 'number','block', 'createDate'];
+  displayedColumns: string[] = ['select', 'idd', 'number','block', 'createDate'];
   data: Room[];
+  selection = new SelectionModel<Room>(false, []);
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
@@ -22,12 +26,38 @@ export class RoomComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _roomService: RoomService) {}
+  constructor(private _roomService: RoomService, public dialog: MatDialog) {}
 
   ngAfterViewInit() {
 
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.refresh();
 
+  }
+
+  openEditDialog() {
+    const dialogRef = this.dialog.open(RoomEditDialogComponent, {
+      width: '750px',
+      data: this.selection.selected[0]?.idd,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
+    });
+  }
+
+  deleteEntity() {
+    if (this.selection.selected[0] == null) {
+      return;
+    }
+    this._roomService.deleteRoom(this.selection.selected[0].idd);
+
+    this.refresh();
+    this.selection.clear();
+    this.refresh();
+  }
+
+  refresh() {
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),

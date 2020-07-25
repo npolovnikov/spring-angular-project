@@ -36,14 +36,16 @@ public class RoomDaoImpl extends RoomsDao implements BaseDao<Rooms> {
                 .fetchInto(Rooms.class);
     }
 
-    public void create(Rooms room) {
+    public Rooms create(Rooms room) {
           room.setId(jooq.nextval(Sequences.ROOMS_ID_SEQ).intValue());
         if (room.getIdd() == null) {
             room.setIdd(room.getId());
         }
         room.setCreateDate(LocalDateTime.now());
         super.insert(room);
+        return room;
     }
+
 
     public List<Rooms> getRooms(Integer idd) {
         return jooq.select(ROOMS.fields())

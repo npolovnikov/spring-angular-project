@@ -22,8 +22,7 @@ public class LessonDto implements Serializable {
     private List<RoomListDto> room;
     private List<CourseListDto> course;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDateTime lessonDateStart;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDateTime lessonDateEnd;
+    private String lessonDateStart;
+
+    private String lessonDateEnd;
 }

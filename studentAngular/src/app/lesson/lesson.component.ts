@@ -7,6 +7,12 @@ import {merge, of as observableOf} from "rxjs";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
 import {Lesson} from "../_model/lesson";
 import {LessonService} from "../_service/lesson.service";
+import {RoomService} from "../_service/room.service";
+import {MatDialog} from "@angular/material/dialog";
+import {RoomEditDialogComponent} from "../room/room-edit-dialog/room-edit-dialog.component";
+import {LessonEditDialogComponent} from "./lesson-edit-dialog/lesson-edit-dialog.component";
+import {SelectionModel} from "@angular/cdk/collections";
+import {Room} from "../_model/room";
 
 @Component({
   selector: 'app-lesson',
@@ -15,9 +21,10 @@ import {LessonService} from "../_service/lesson.service";
 })
 export class LessonComponent implements AfterViewInit {
   sizeOption: number[] = [2, 5, 10];
-  displayedColumns: string[] = ['id', 'name','description',
+  displayedColumns: string[] = ['select','id', 'name','description',
     'extraInstruments', 'lessonDateStart', 'lessonDateEnd'];
   data: Lesson[];
+  selection = new SelectionModel<Lesson>(false, []);
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
@@ -25,12 +32,38 @@ export class LessonComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _lessonService: LessonService) {}
+  constructor(private _lessonService: LessonService, public dialog: MatDialog) {}
 
   ngAfterViewInit() {
 
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.refresh();
 
+  }
+
+  openEditDialog() {
+    const dialogRef = this.dialog.open(LessonEditDialogComponent, {
+      width: '850px',
+      data: this.selection.selected[0]?.id,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
+    });
+  }
+
+  deleteEntity() {
+    if (this.selection.selected[0] == null) {
+      return;
+    }
+    this._lessonService.deleteLesson(this.selection.selected[0].id);
+
+    this.refresh();
+    this.selection.clear();
+    this.refresh();
+  }
+
+  refresh() {
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),

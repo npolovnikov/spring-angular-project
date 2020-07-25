@@ -15,6 +15,7 @@ import ru.student.studentSpring.tutorial.dto.lesson.LessonListDto;
 import ru.student.studentSpring.tutorial.dto.lesson.LessonParams;
 import ru.student.studentSpring.tutorial.dto.room.RoomListDto;
 import ru.student.studentSpring.tutorial.generated.tables.pojos.Lessons;
+import ru.student.studentSpring.tutorial.generated.tables.pojos.Rooms;
 import ru.student.studentSpring.tutorial.mapping.MappingService;
 
 import java.time.LocalDateTime;
@@ -52,9 +53,13 @@ public class LessonService {
 
     @Transactional
     public void delete(Integer idd) {
-        Lessons lesson = lessonDao.getActiveByIdd(idd);
-        lesson.setLessonDateEnd(LocalDateTime.now());
-        lessonDao.update(lesson);
+        Lessons entity = lessonDao.getActiveByIdd(idd);
+        if (entity == null) {
+            throw new RuntimeException("");
+        }
+        entity.setLessonDateEnd(LocalDateTime.now().toString());
+        lessonDao.update(entity);
+        mappingService.map(entity, LessonDto.class);
     }
 
 
@@ -64,7 +69,7 @@ public class LessonService {
         if (lesson == null) {
             throw new RuntimeException("");
         }
-        lesson.setLessonDateEnd(LocalDateTime.now());
+        lesson.setLessonDateEnd(LocalDateTime.now().toString());
         lessonDao.update(lesson);
         Lessons newLesson = mappingService.map(lessonDto, Lessons.class);
         lessonDao.create(newLesson);

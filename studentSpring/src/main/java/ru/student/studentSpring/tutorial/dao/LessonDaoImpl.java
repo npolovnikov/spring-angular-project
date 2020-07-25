@@ -34,7 +34,7 @@ public class LessonDaoImpl extends LessonsDao {
 
     public void create(Lessons lesson) {
         lesson.setId(jooq.nextval(Sequences.LESSONS_ID_SEQ).intValue());
-        lesson.setLessonDateStart(LocalDateTime.now());
+        lesson.setLessonDateStart(LocalDateTime.now().toString());
         super.insert(lesson);
     }
 }
