@@ -1,0 +1,195 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+    http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd ">
+
+
+    <changeSet id="290620203" author="Khoshimov">
+        <tagDatabase tag="changelog-2.0"/>
+    </changeSet>
+
+
+    <changeSet id="1806202011" author="Khoshimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="Student" schemaName="public"/>
+            </not>
+        </preConditions>
+        <comment>Создание таблицы Студентов</comment>
+        <sql>
+            create table Student(
+            id serial primary key,
+            idd int,
+            first_name varchar(50),
+            middle_name varchar(50),
+            last_name varchar(50),
+            passport varchar(15),
+            birth_date timestamp,
+            create_date timestamp,
+            delete_date timestamp,
+            status varchar(10)
+            );
+        </sql>
+        <rollback>
+            <sql>
+                drop table Student;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="180620202" author="Khoshimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="Course" schemaName="public"/>
+            </not>
+        </preConditions>
+        <comment>Создание таблицы курс</comment>
+        <sql>
+            create table Course(
+            id serial primary key,
+            idd int,
+            name varchar(100),
+            description varchar(500),
+            teacher_idd int,
+            max_count_student int,
+            start_date timestamp,
+            end_date timestamp,
+            create_date timestamp,
+            delete_date timestamp,
+            status varchar(10)
+            );
+        </sql>
+        <rollback>
+            <sql>
+                drop table Course;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="180620203" author="Khoshimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="Lesson" schemaName="public"/>
+            </not>
+        </preConditions>
+        <comment>Создание таблицы урока</comment>
+        <sql>
+            create table Lesson(
+            id serial primary key,
+            idd int,
+            delete_date timestamp,
+            create_date timestamp,
+            name varchar(100),
+            description varchar(1000),
+            course_idd int,
+            room_idd int,
+            lesson_date_start timestamp,
+            lesson_date_end timestamp,
+            extra_instruments varchar(1000)
+            );
+        </sql>
+        <rollback>
+            <sql>
+                drop table Lesson;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="180720205" author="Khoshimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="Teacher" schemaName="public"/>
+            </not>
+        </preConditions>
+        <comment>Создание таблицы Учителя</comment>
+        <sql>
+            create table Teacher(
+            id serial primary key,
+            idd int,
+            first_name varchar(50),
+            middle_name varchar(50),
+            last_name varchar(50),
+            passport varchar(15),
+            birth_date timestamp,
+            create_date timestamp,
+            delete_date timestamp,
+            status varchar(10)
+            );
+        </sql>
+        <rollback>
+            <sql>
+                drop table Teacher;
+            </sql>
+        </rollback>
+    </changeSet>
+
+
+    <changeSet id="180620209" author="Khoshimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="Lesson_to_Instrument" schemaName="public"/>
+            </not>
+        </preConditions>
+        <comment>Создание таблицы связи инструмента и урока</comment>
+        <sql>
+            create table Lesson_to_Instrument(
+            id serial primary key,
+            lesson_id int,
+            instrument_id int
+            );
+        </sql>
+        <rollback>
+            <sql>
+                drop table Lesson_to_Instrument;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="180620210" author="Khoshimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="Users" schemaName="public"/>
+            </not>
+        </preConditions>
+        <comment>Создание таблицы пользователя</comment>
+        <sql>
+            create table USERS (
+            id serial primary key,
+            idd int not null,
+            login varchar(50),
+            password varchar(50),
+            student_idd int,
+            teacher_idd int
+            );
+        </sql>
+        <rollback>
+            <sql>
+                drop table Users;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="210720213" author="Khoshimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="student_to_course" schemaName="public"/>
+            </not>
+        </preConditions>
+        <comment>Создание таблицы связи студента и курса</comment>
+        <sql>
+            create table student_to_course (
+            id serial primary key,
+            student_idd int ,
+            course_idd int
+            );
+        </sql>
+        <rollback>
+            <sql>
+                drop table student_to_course;
+            </sql>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

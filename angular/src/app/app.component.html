@@ -1,0 +1,43 @@
+<!-- Toolbar -->
+
+<div class="toolbar" role="banner">
+  <img height="60" alt="Региональный институт непрерываного образвания" src="../assets/rino.png"/>
+  <span>Учебный проект Spring - Angular</span>
+  <div class="spacer"></div>
+  <b aria-label="Digital Future Systems" target="_blank" rel="noopener" href="https://dfsystems.ru" title="DFSystems">
+    <img height="50" alt="Digital Future Systems" src="../assets/dfs.png"/>
+  </b>
+</div>
+
+<div class="content" role="main">
+
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link
+       *ngFor="let link of navLinks"
+       [routerLink]="link.path"
+       routerLinkActive #rla="routerLinkActive"
+       [active]="rla.isActive">
+      {{link.label}}
+    </a>
+  </nav>
+
+
+
+
+
+<!--  <nav class ="routing">-->
+<!--  <a routerLink="/room" routerLinkActive ="active"> Аудитории </a>-->
+<!--  <a routerLink="/instrument" routerLinkActive ="active"> Инструменты </a>-->
+<!--  <a routerLink="/student" routerLinkActive="active"> Студенты </a>-->
+<!--  <a routerLink="/course" routerLinkActive ="active"> Курсы </a>-->
+<!--  <a routerLink="/teacher" routerLinkActive="active"> Преподаватели </a>-->
+<!--  <a routerLink="/lesson" routerLinkActive="active"> Уроки </a>-->
+<!--</nav>-->
+
+  <router-outlet>
+  </router-outlet>
+  <footer>
+    2020&nbsp;
+    <b href="https://github.com/npolovnikov/spring-angular-project" target="_blank">GitHub</b>
+  </footer>
+</div>
