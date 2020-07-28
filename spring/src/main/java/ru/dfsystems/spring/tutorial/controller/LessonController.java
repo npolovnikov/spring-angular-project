@@ -21,37 +21,13 @@ public class LessonController extends BaseController<LessonListDto, LessonDto, L
     private LessonService lessonService;
 
     @Autowired
-    public LessonController(LessonService service) {
-        super(service);
+    public LessonController(LessonService lessonService) {
+        super(lessonService);
+        this.lessonService = lessonService;
     }
 
-//    @PostMapping("/list")
-//    public Page<LessonListDto> getList(@RequestBody PageParams<LessonParams> pageParams) {
-//        return lessonService.getLessonsByParams(pageParams);
-//    }
-//
-//    @PostMapping
-//    public void create(@RequestBody LessonListDto lessonDto) {
-//        lessonService.create(lessonDto);
-//    }
-//
-//    @GetMapping("/{id}")
-//    public LessonDto get(@PathVariable("id") Integer id) {
-//        return lessonService.get(id);
-//    }
-//
-//    @PatchMapping("/{id}")
-//    public LessonDto update(@PathVariable("id") Integer id, @RequestBody LessonDto lessonDto) {
-//        return lessonService.update(id, lessonDto);
-//    }
-//
-//    @DeleteMapping("{id}")
-//    public void delete(@PathVariable("id") Integer id) {
-//        lessonService.delete(id);
-//    }
-
-    @PutMapping("/{id}/instrument")
-    public void putInstrument(@PathVariable("id") Integer id, @RequestBody Integer instrumentIdd) {
-        lessonService.putInstrument(id,  instrumentIdd);
+    @PutMapping("/{idd}/instrument")
+    public void putInstrument(@PathVariable("idd") Integer idd, @RequestBody Integer instrumentIdd) {
+        lessonService.putInstrument(idd,  instrumentIdd);
     }
 }

@@ -58,12 +58,12 @@ export class StudentComponent implements AfterViewInit {
       return;
     }
     this._studentService.deleteStudent(this.selection.selected[0].idd);
-    // this.data
-    //   = this.data.filter(obj => obj.idd !== this.selection.selected[0].idd);
     this.selection.clear();
     this.refresh();
-    //this.studentTable.renderRows();
   }
+  // this.studentTable.renderRows();
+  // this.data
+  //   = this.data.filter(obj => obj.idd !== this.selection.selected[0].idd);
   // this.data.instruments
   //   = this.data.instruments.filter(obj => obj.idd !== this.selection.selected[0].idd);
   // this.selection.clear();

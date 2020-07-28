@@ -1,3 +1,5 @@
+import {InstrumentList} from "./instrument-list";
+
 export class Lesson {
   idd:number;
   name:string;
@@ -5,4 +7,6 @@ export class Lesson {
   lessonDateStart:string;
   lessonDateEnd:string;
   extraInstruments:string;
+  history:[];
+  instruments:InstrumentList[];
 }

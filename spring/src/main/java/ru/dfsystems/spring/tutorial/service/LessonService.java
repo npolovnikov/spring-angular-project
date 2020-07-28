@@ -27,9 +27,9 @@ public class LessonService extends BaseService<LessonListDto, LessonDto, LessonP
     }
 
     @Transactional
-    public void putInstrument(Integer id, Integer instrumentIdd) {
+    public void putInstrument(Integer idd, Integer instrumentIdd) {
         LessonToInstrument link = new LessonToInstrument();
-        link.setId(id);
+        link.setLessonIdd(idd);
         link.setInstrumentIdd(instrumentIdd);
         lessonToInstrument.insert(link);
     }

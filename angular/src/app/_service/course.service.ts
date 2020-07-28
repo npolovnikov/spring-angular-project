@@ -6,6 +6,7 @@ import {PageParams} from "../_model/page-params";
 import {Course} from "../_model/course";
 import {InstrumentList} from "../_model/instrument-list";
 import {CourseList} from "../_model/course-list";
+import {Instrument} from "../_model/instrument";
 
 @Injectable({
   providedIn: 'root'
@@ -22,17 +23,26 @@ export class CourseService {
     }));
   }
 
-  getCourseByIdd(idd: number): Observable<CourseList> {
+  getCourseByIdd(idd: number): Observable<Course> {
     const href = '/api/course/' + idd;
 
-    return this._httpClient.get<CourseList>(href);
+    return this._httpClient.get<Course>(href);
   }
+
+  updateCourse(idd: number, data: Course):Observable<Object> {
+    const href = '/api/course/' + idd;
+    return this._httpClient.patch(href, data);
+  }
+
+  createCourse(data: Course):Observable<Object> {
+    const href = '/api/course';
+    return this._httpClient.post(href, data);
+  }
+
   deleteCourse(idd: number) {
     const href = '/api/course/' + idd;
     return this._httpClient.delete(href).subscribe(data => {
       console.log(data);
     });
   }
-
-
 }

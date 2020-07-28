@@ -34,6 +34,8 @@ import { InstrumentEditDialogComponent } from './instrument/instrument-edit-dial
 import { LessonEditDialogComponent } from './lesson/lesson-edit-dialog/lesson-edit-dialog.component';
 import { CourseEditDialogComponent } from './course/course-edit-dialog/course-edit-dialog.component';
 import { TeacherEditDialogComponent } from './teacher/teacher-edit-dialog/teacher-edit-dialog.component';
+import { AddRoomDialogComponent } from './instrument/instrument-edit-dialog/add-room-dialog/add-room-dialog.component';
+import { AddStudentDialogComponent } from './course/course-edit-dialog/add-student-dialog/add-student-dialog.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { TeacherEditDialogComponent } from './teacher/teacher-edit-dialog/teache
     InstrumentEditDialogComponent,
     LessonEditDialogComponent,
     CourseEditDialogComponent,
-    TeacherEditDialogComponent
+    TeacherEditDialogComponent,
+    AddRoomDialogComponent,
+    AddStudentDialogComponent
   ],
   imports: [
     BrowserModule,
