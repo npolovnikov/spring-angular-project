@@ -1,0 +1,60 @@
+/* intro*/
+
+
+.intro-title{
+  font-size: 70px;
+  font-weight: 500;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.intro-suptitle{
+  font-family: 'Inconsolata', sans-serif;
+  font-size: 35px;
+  color: #0c0000;
+  margin: 250px auto 0;
+}
+
+.intro-inner {
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  color: #0c0000;
+  padding-top: 100px;
+  justify-content: center;
+  text-align: center;
+
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+}
+
+
+.btn{
+  display: inline-block;
+  vertical-align: top;
+  padding: 10px 15px;
+
+  border: .11px solid rgb(12, 12, 12);
+
+  text-align: unset;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgb(10, 5, 0);
+  text-transform: uppercase;
+  text-decoration: #0086b3;
+
+  transition: background .1s
+  linear, color .1s linear;
+}
+.btn:hover{
+  background-color: rgb(5, 2, 0);
+  color: #ffffff;
+}

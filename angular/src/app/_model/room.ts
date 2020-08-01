@@ -1,4 +1,4 @@
-import {InstrumentList} from "./instrument-list";
+import {InstrumentList} from './instrument-list';
 
 export class Room {
   idd:number;

@@ -53,7 +53,11 @@ export class RoomComponent implements AfterViewInit {
         switchMap(() => {
           this.isLoadingResults = true;
           return this._roomService.getRoomList(
-            this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
+            this.sort.active,
+            this.sort.direction,
+            this.paginator.pageIndex,
+            this.paginator.pageSize
+          );
         }),
         map(data => {
           // Flip flag to show that loading has finished.

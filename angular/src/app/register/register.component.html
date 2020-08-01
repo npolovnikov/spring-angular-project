@@ -1,0 +1,52 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div class="form-title">
+    <h1>Register</h1>
+  </div>
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label>Имя</mat-label>
+      <input type="string" matInput formControlName="firstName" class="form-control" >
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label>Фамилия</mat-label>
+      <input type="string" matInput formControlName="middleName" class="form-control" >
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label>Отчество</mat-label>
+      <input type="string" matInput formControlName="lastName" class="form-control" >
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label>Статус</mat-label>
+      <input type="string" matInput formControlName="status" class="form-control" >
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label>ID курса</mat-label>
+      <input type="string" matInput formControlName="courseId" class="form-control" >
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label>Логин</mat-label>
+      <input type="string" matInput formControlName="login" class="form-control" >
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label>Пароль</mat-label>
+      <input type="password" matInput formControlName="password" class="form-control" >
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <button mat-stroked-button [disabled]="loading">
+      войти
+    </button>
+  </div>
+</form>

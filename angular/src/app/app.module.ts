@@ -24,6 +24,8 @@ import {MatSelectModule} from "@angular/material/select";
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 import { LoginComponent } from './login/login.component';
 import {AuthInterceptor} from "./_service/auth.interceptor";
+import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import {AuthInterceptor} from "./_service/auth.interceptor";
     RoomEditDialogComponent,
     AddInstrumentDialogComponent,
     ErrorDialogComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

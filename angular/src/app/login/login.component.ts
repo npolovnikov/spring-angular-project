@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 import {first} from "rxjs/operators";
 import {AuthService} from "../_service/auth.service";
 
@@ -25,14 +25,14 @@ export class LoginComponent implements OnInit {
         if (res) {
           router.navigateByUrl('/room');
         }
-      })
+      });
   }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       login: ['', Validators.required],
       password: ['', Validators.required]
-    })
+    });
   }
 
   get f() {
