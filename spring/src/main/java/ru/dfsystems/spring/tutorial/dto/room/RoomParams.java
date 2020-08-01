@@ -12,6 +12,7 @@ public class RoomParams {
     private Integer idd;
     private String number;
     private String block;
+
     private String orderBy;
     private String orderDir;
 

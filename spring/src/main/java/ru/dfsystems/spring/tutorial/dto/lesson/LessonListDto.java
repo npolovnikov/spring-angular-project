@@ -17,9 +17,9 @@ public class LessonListDto extends BaseListDto {
     private Integer roomId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime createLessonDateStart;
+    private LocalDateTime lessonDateStart;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime createLessonDateEnd;
+    private LocalDateTime lessonDateEnd;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime deleteDate;
 }

@@ -40,7 +40,7 @@ public class LessonListDao implements BaseListDao<Lesson, LessonParams> {
     }
 
     private SelectSeekStepN<LessonRecord> getLessonSelect(LessonParams params) {
-        var condition = LESSON.LESSON_DATE_END.isNotNull();
+        var condition = LESSON.DELETE_DATE.isNotNull();
         if (params.getName() != null && !params.getName().isEmpty()) {
             condition = condition.and(LESSON.NAME.like(params.getName()));
         }
@@ -53,11 +53,11 @@ public class LessonListDao implements BaseListDao<Lesson, LessonParams> {
         if (params.getDescription() != null && params.getDescription().isEmpty()) {
             condition = condition.and(LESSON.DESCRIPTION.like(params.getDescription()));
         }
-        if (params.getCreateLessonDateStart() != null) {
-            condition = condition.and(LESSON.LESSON_DATE_START.like(params.getCreateLessonDateStart().toString()));
+        if (params.getLessonDateStart() != null) {
+            condition = condition.and(LESSON.LESSON_DATE_START.like(params.getLessonDateStart().toString()));
         }
-        if (params.getCreateLessonDateEnd() != null) {
-            condition = condition.and(LESSON.LESSON_DATE_END.like(params.getCreateLessonDateEnd().toString()));
+        if (params.getLessonDateEnd() != null) {
+            condition = condition.and(LESSON.LESSON_DATE_END.like(params.getLessonDateEnd().toString()));
         }
 
         val sort = getOrderBy(params.getOrderBy(), params.getOrderDir());
@@ -72,8 +72,8 @@ public class LessonListDao implements BaseListDao<Lesson, LessonParams> {
 
         if (orderBy == null) {
             return asc
-                    ? new SortField[]{LESSON.ID.asc()}
-                    : new SortField[]{LESSON.ID.desc()};
+                    ? new SortField[]{LESSON.IDD.asc()}
+                    : new SortField[]{LESSON.IDD.desc()};
         }
 
         val orderArray = orderBy.split(",");
@@ -81,7 +81,7 @@ public class LessonListDao implements BaseListDao<Lesson, LessonParams> {
         List<SortField> listSortBy = new ArrayList<>();
         for (val order : orderArray) {
             if (order.equalsIgnoreCase("id")) {
-                listSortBy.add(asc ? LESSON.ID.asc() : LESSON.ID.desc());
+                listSortBy.add(asc ? LESSON.IDD.asc() : LESSON.IDD.desc());
             }
             if (order.equalsIgnoreCase("name")) {
                 listSortBy.add(asc ? LESSON.NAME.asc() : LESSON.NAME.desc());

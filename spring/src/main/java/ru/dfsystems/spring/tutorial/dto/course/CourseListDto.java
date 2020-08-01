@@ -15,13 +15,12 @@ public class CourseListDto extends BaseListDto {
     private String description;
     private Integer teacherIdd;
     private Integer maxCountStudent;
-    private String passport;
     private String status;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime createDateStart;
+    private LocalDateTime startDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime createLessonDateEnd;
+    private LocalDateTime endDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime deleteDate;
 }

@@ -36,7 +36,7 @@ public class LessonDaoImpl extends LessonDao implements BaseDao<Lesson> {
     public Lesson getActiveByIdd(Integer idd) {
         return jooq.select(LESSON.fields())
                 .from(LESSON)
-                .where(LESSON.IDD.eq(idd))
+                .where(LESSON.IDD.eq(idd).and(LESSON.DELETE_DATE.isNull()))
                 .fetchOneInto(Lesson.class);
     }
 

@@ -40,16 +40,17 @@ public class UserListDao implements BaseListDao<User, UserParams> {
 
     private SelectSeekStepN<UserRecord> getUserSelect(UserParams params) {
         var condition = USER.DELETE_DATE.isNull();
-        if (!params.getFirstName().isEmpty()) {
+
+        if (params.getFirstName() != null && !params.getFirstName().isEmpty()) {
             condition = condition.and(USER.FIRST_NAME.like(params.getFirstName()));
         }
-        if (!params.getLastName().isEmpty()) {
+        if (params.getLastName() != null && !params.getLastName().isEmpty()) {
             condition = condition.and(USER.LAST_NAME.like(params.getLastName()));
         }
-        if (!params.getMiddleName().isEmpty()) {
+        if (params.getMiddleName() != null && !params.getMiddleName().isEmpty()) {
             condition = condition.and(USER.MIDDLE_NAME.like(params.getLastName()));
         }
-        if (params.getLogin().isEmpty()) {
+        if (params.getLogin() != null && params.getLogin().isEmpty()) {
             condition = condition.and(USER.LOGIN.like(params.getLogin()));
         }
         if (params.getCreateDateStart() != null && params.getCreateDateEnd() != null) {

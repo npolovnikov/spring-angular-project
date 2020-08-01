@@ -20,7 +20,7 @@ public class LessonParams {
     private String orderDir;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime createLessonDateStart;
+    private LocalDateTime lessonDateStart;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime createLessonDateEnd;
+    private LocalDateTime lessonDateEnd;
 }
