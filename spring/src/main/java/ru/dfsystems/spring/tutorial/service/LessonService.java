@@ -1,19 +1,18 @@
 package ru.dfsystems.spring.tutorial.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.dfsystems.spring.tutorial.dao.lesson.LessonDaoImpl;
 import ru.dfsystems.spring.tutorial.dao.lesson.LessonListDao;
-import ru.dfsystems.spring.tutorial.dto.Page;
-import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonDto;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonListDto;
 import ru.dfsystems.spring.tutorial.dto.lesson.LessonParams;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Lesson;
 import ru.dfsystems.spring.tutorial.mapping.MappingService;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 @Service
 public class LessonService extends BaseService<LessonListDto, LessonDto, LessonParams, Lesson> {
@@ -29,10 +28,29 @@ public class LessonService extends BaseService<LessonListDto, LessonDto, LessonP
         this.lessonListDao = lessonListDao;
     }
 
-    @Transactional
-    public Page<LessonListDto> getLessonsByParams(PageParams<LessonParams> pageParams) {
-        Page<Lesson> page = lessonListDao.list(pageParams);
-        List<LessonListDto> list = mappingService.mapList(page.getList(), LessonListDto.class);
-        return new Page<>(list, page.getTotalCount());
+    @Override
+    protected void doCreate(String objectData, Integer userId) throws Exception {
+        ObjectMapper om = new ObjectMapper();
+       LessonDto dto = om.readValue(objectData, LessonDto.class);
+        create(dto, userId);
+    }
+
+    @Override
+    protected void doUpdate(String objectData, Integer userId) throws Exception {
+        ObjectMapper om = new ObjectMapper();
+        LessonDto dto = om.readValue(objectData, LessonDto.class);
+        update(dto.getIdd(), dto, userId);
+    }
+
+    @Override
+    protected void doDelete(String objectData, Integer userId) throws Exception {
+        ObjectMapper om = new ObjectMapper();
+        LessonDto dto = om.readValue(objectData, LessonDto.class);
+        delete(dto.getIdd(), userId);
+    }
+
+    public static void main(String[] args) {
+        HashMap hashMap = new HashMap<>();
+        ArrayList array;
     }
 }

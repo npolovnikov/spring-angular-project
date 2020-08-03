@@ -7,6 +7,7 @@ import ru.dfsystems.spring.tutorial.dto.BaseDto;
 import ru.dfsystems.spring.tutorial.dto.BaseListDto;
 import ru.dfsystems.spring.tutorial.dto.Page;
 import ru.dfsystems.spring.tutorial.dto.PageParams;
+import ru.dfsystems.spring.tutorial.enums.ActionTypeEnum;
 import ru.dfsystems.spring.tutorial.generate.BaseJooq;
 import ru.dfsystems.spring.tutorial.mapping.BaseMapping;
 
@@ -42,12 +43,12 @@ public abstract class BaseService<List extends BaseListDto, Dto extends BaseDto,
     }
 
     @Transactional
-    public Dto create(Dto dto) {
-        return mappingService.map(baseDao.create(mappingService.map(dto, entityClass)), dtoClass);
+    public Dto create(Dto dto, Integer userId) {
+        return mappingService.map(baseDao.create(mappingService.map(dto, entityClass), userId), dtoClass);
     }
 
     @Transactional
-    public Dto update(Integer idd, Dto dto) {
+    public Dto update(Integer idd, Dto dto, Integer userId) {
         Entity entity = baseDao.getActiveByIdd(idd);
         if (entity == null) {
             throw new RuntimeException("");
@@ -57,15 +58,37 @@ public abstract class BaseService<List extends BaseListDto, Dto extends BaseDto,
 
         Entity newEntity = mappingService.map(dto, entityClass);
         newEntity.setIdd(entity.getIdd());
-        baseDao.create(newEntity);
+        baseDao.create(newEntity, userId);
         return mappingService.map(newEntity, dtoClass);
     }
 
     @Transactional
-    public void delete(Integer idd) {
+    public void delete(Integer idd, Integer userId) {
         Entity entity = baseDao.getActiveByIdd(idd);
         entity.setDeleteDate(LocalDateTime.now());
         baseDao.update(entity);
     }
+
+    public void process(ActionTypeEnum actionType, String objectData, Integer userId) throws Exception {
+        switch (actionType) {
+            case CREATE:
+                doCreate(objectData, userId);
+                break;
+            case UPDATE:
+                doUpdate(objectData, userId);
+                break;
+            case DELETE:
+                doDelete(objectData, userId);
+                break;
+            default:
+                throw new RuntimeException("Тип действия не найден");
+        }
+    }
+
+    protected abstract void doDelete(String objectData, Integer userId) throws Exception;
+
+    protected abstract void doUpdate(String objectData, Integer userId) throws Exception;
+
+    protected abstract void doCreate(String objectData, Integer userId) throws Exception;
 }
 

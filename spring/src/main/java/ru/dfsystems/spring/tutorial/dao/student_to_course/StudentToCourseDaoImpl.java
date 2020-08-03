@@ -34,11 +34,12 @@ public class StudentToCourseDaoImpl extends StudentToCourseDao {
     /**
      * Создает и добавялет рум-инструмент записи
      */
-    public void createByStudentAndCourseIdd(Integer studentIdd, List<Integer> iddsToBeAdd) {
+    public void createByStudentAndCourseIdd(Integer studentIdd, List<Integer> iddsToBeAdd, Integer userId) {
         iddsToBeAdd.forEach(courseIdd -> {
             StudentToCourse link = new StudentToCourse();
             link.setStudentIdd(studentIdd);
             link.setCourseIdd(courseIdd);
+            link.setUserId(userId);
             super.insert(link);
         });
     }

@@ -57,14 +57,15 @@ public class RoomDaoImpl extends RoomDao implements BaseDao<Room> {
                 .fetchInto(Room.class);
     }
 
-    public Room create(Room room) {
+    public Room create(Room room, Integer userId) {
         room.setId(jooq.nextval(Sequences.ROOM_ID_SEQ));
+        /* на случай, если обновляем */
         if (room.getIdd() == null) {
             room.setIdd(room.getId());
         }
         room.setCreateDate(LocalDateTime.now());
-        /* проставляем id текущего юзера - кто последгий раз изменял */
-        room.setUserId(userContext.getUser().getId());
+        /* проставляем id текущего юзера - кто последний раз изменял */
+        room.setUserId(userId);
         /* вызываем из RoomDao */
         super.insert(room);
         return room;

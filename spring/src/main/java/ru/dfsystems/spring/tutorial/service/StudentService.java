@@ -1,5 +1,6 @@
 package ru.dfsystems.spring.tutorial.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,23 +57,23 @@ public class StudentService extends BaseService<StudentListDto, StudentDto, Stud
     }
 
     @Override
-    public StudentDto create(StudentDto dto) {
-        StudentDto result = super.create(dto);
-        mergeCourses(dto.getIdd(), dto.getCourses(), result.getCourses());
+    public StudentDto create(StudentDto dto, Integer userId) {
+        StudentDto result = super.create(dto, userId);
+        mergeCourses(dto.getIdd(), dto.getCourses(), result.getCourses(), userId);
         return get(result.getIdd());
     }
 
     @Override
-    public StudentDto update(Integer idd, StudentDto dto) {
-        StudentDto result = super.update(idd, dto);
-        mergeCourses(dto.getIdd(), dto.getCourses(), result.getCourses());
+    public StudentDto update(Integer idd, StudentDto dto, Integer userId) {
+        StudentDto result = super.update(idd, dto, userId);
+        mergeCourses(dto.getIdd(), dto.getCourses(), result.getCourses(), userId);
         return get(result.getIdd());
     }
 
     /**
      * Добавляет и удаляет инструменты при создании и реадкировании румдто
      */
-    private void mergeCourses(Integer studentIdd, List<CourseListDto> newCourses, List<CourseListDto> oldCourses) {
+    private void mergeCourses(Integer studentIdd, List<CourseListDto> newCourses, List<CourseListDto> oldCourses, Integer userId) {
         List<Integer> newIdds = newCourses.stream().map(BaseListDto::getIdd).collect(Collectors.toList());
         List<Integer> oldIdds = oldCourses.stream().map(BaseListDto::getIdd).collect(Collectors.toList());
 
@@ -80,6 +81,27 @@ public class StudentService extends BaseService<StudentListDto, StudentDto, Stud
         List<Integer> iddsToBeAdd = newIdds.stream().filter(o -> !oldIdds.contains(o)).collect(Collectors.toList());
 
         studentToCourseDao.deleteByStudentAndCourseIdd(studentIdd, iddsToBeDelete);
-        studentToCourseDao.createByStudentAndCourseIdd(studentIdd, iddsToBeAdd);
+        studentToCourseDao.createByStudentAndCourseIdd(studentIdd, iddsToBeAdd, userId);
+    }
+
+    @Override
+    protected void doCreate(String objectData, Integer userId) throws Exception {
+        ObjectMapper om = new ObjectMapper();
+        StudentDto dto = om.readValue(objectData, StudentDto.class);
+        create(dto, userId);
+    }
+
+    @Override
+    protected void doUpdate(String objectData, Integer userId) throws Exception {
+        ObjectMapper om = new ObjectMapper();
+        StudentDto dto = om.readValue(objectData, StudentDto.class);
+        update(dto.getIdd(), dto, userId);
+    }
+
+    @Override
+    protected void doDelete(String objectData, Integer userId) throws Exception {
+        ObjectMapper om = new ObjectMapper();
+        StudentDto dto = om.readValue(objectData, StudentDto.class);
+        delete(dto.getIdd(), userId);
     }
 }

@@ -6,7 +6,6 @@ import ru.dfsystems.spring.tutorial.dao.BaseDao;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.StudentDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Student;
-import ru.dfsystems.spring.tutorial.security.UserContext;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,13 +17,10 @@ import static ru.dfsystems.spring.tutorial.generated.tables.Student.STUDENT;
 @Repository
 public class StudentDaoImpl extends StudentDao implements BaseDao<Student> {
     private final DSLContext jooq;
-    /* из контекста мы получаем текущего юзера */
-    private UserContext userContext;
 
-    public StudentDaoImpl(DSLContext jooq, UserContext userContext) {
+    public StudentDaoImpl(DSLContext jooq) {
         super(jooq.configuration());
         this.jooq = jooq;
-        this.userContext = userContext;
     }
 
     /**
@@ -55,14 +51,14 @@ public class StudentDaoImpl extends StudentDao implements BaseDao<Student> {
                 .fetchInto(Student.class);
     }
 
-    public Student create(Student student) {
+    public Student create(Student student, Integer userId) {
         student.setId(jooq.nextval(Sequences.STUDENT_ID_SEQ));
         if (student.getIdd() == null) {
             student.setIdd(student.getId());
         }
         student.setCreateDate(LocalDateTime.now());
         /* проставляем id текущего юзера - кто последгий раз изменял */
-        student.setUserId(userContext.getUser().getId());
+        student.setUserId(userId);
         /* вызываем из StudentDao */
         super.insert(student);
         return student;

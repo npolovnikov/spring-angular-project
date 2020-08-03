@@ -12,7 +12,7 @@ import ru.dfsystems.spring.tutorial.service.BaseService;
  * Содержит CRUD функции + getList.
  */
 public abstract class BaseController<List extends BaseListDto, Dto extends BaseDto, Params, Entity extends BaseJooq> {
-    private BaseService<List, Dto , Params, Entity> service;
+    private BaseService<List, Dto, Params, Entity> service;
 
     public BaseController(BaseService<List, Dto, Params, Entity> service) {
         this.service = service;
@@ -27,9 +27,7 @@ public abstract class BaseController<List extends BaseListDto, Dto extends BaseD
     }
 
     @PostMapping
-    public void create(@RequestBody Dto dto) {
-        service.create(dto);
-    }
+    public abstract void create(@RequestBody Dto dto) throws Exception;
 
     @GetMapping("/{idd}")
     public Dto get(@PathVariable("idd") Integer idd) {
@@ -37,12 +35,8 @@ public abstract class BaseController<List extends BaseListDto, Dto extends BaseD
     }
 
     @PatchMapping("/{idd}")
-    public Dto update(@PathVariable("idd") Integer idd, @RequestBody Dto dto) {
-        return service.update(idd, dto);
-    }
+    public abstract void update(@PathVariable("idd") Integer idd, @RequestBody Dto dto) throws Exception;
 
     @DeleteMapping("/{idd}")
-    public void delete(@PathVariable("idd") Integer idd) {
-        service.delete(idd);
-    }
+    public abstract void delete(@PathVariable("idd") Integer idd) throws Exception;
 }

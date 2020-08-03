@@ -165,4 +165,37 @@
         </sql>
     </changeSet>
 
+    <!-- таблица для очереди -->
+    <changeSet id="20200628-09" author="magidin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="QUEUE_ITEM" schemaName="public"/>
+            </not>
+        </preConditions>
+        <comment>Lesson 9. Liquibase. Создание таблицы QUEUE_ITEM</comment>
+        <sql>
+            create table QUEUE_ITEM (
+            id serial primary key,
+            <!-- NEW, PROCESS, FAIL, SUCCESS -->
+            state varchar(10),
+            <!-- удалить, редактировать и т.д.-->
+            action_type varchar(10),
+            <!-- что нам пришло: комната, инструмент, студент...-->
+            object_type varchar(10),
+            <!-- сам объект (измененная версия объекта)-->
+            object_data varchar(4000),
+            <!-- какая нода обрабатывает этот элемент очереди-->
+            node_name varchar(100),
+            MESSAGE varchar(4000),
+            USER_ID integer,
+            update_date timestamp(0)
+            );
+        </sql>
+        <rollback>
+            <sql>
+                drop table QUEUE_ITEM;
+            </sql>
+        </rollback>
+    </changeSet>
+
 </databaseChangeLog>

@@ -1,5 +1,6 @@
 package ru.dfsystems.spring.tutorial.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,5 +36,26 @@ public class TeacherService extends BaseService<TeacherListDto, TeacherDto, Teac
     public Page<CourseListDto> getCoursesByTeacherIdd(Integer idd) {
         List<CourseListDto> list = mappingService.mapList(courseDao.getCoursesByTeacherIdd(idd), CourseListDto.class);
         return new Page<>(list, (long) list.size()); //?
+    }
+
+    @Override
+    protected void doCreate(String objectData, Integer userId) throws Exception {
+        ObjectMapper om = new ObjectMapper();
+        TeacherDto dto = om.readValue(objectData, TeacherDto.class);
+        create(dto, userId);
+    }
+
+    @Override
+    protected void doUpdate(String objectData, Integer userId) throws Exception {
+        ObjectMapper om = new ObjectMapper();
+        TeacherDto dto = om.readValue(objectData, TeacherDto.class);
+        update(dto.getIdd(), dto, userId);
+    }
+
+    @Override
+    protected void doDelete(String objectData, Integer userId) throws Exception {
+        ObjectMapper om = new ObjectMapper();
+        TeacherDto dto = om.readValue(objectData, TeacherDto.class);
+        delete(dto.getIdd(), userId);
     }
 }

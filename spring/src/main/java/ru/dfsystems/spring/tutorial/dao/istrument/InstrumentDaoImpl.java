@@ -6,7 +6,6 @@ import ru.dfsystems.spring.tutorial.dao.BaseDao;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.InstrumentDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Instrument;
-import ru.dfsystems.spring.tutorial.security.UserContext;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,13 +16,10 @@ import static ru.dfsystems.spring.tutorial.generated.Tables.INSTRUMENT_TO_ROOM;
 @Repository
 public class InstrumentDaoImpl extends InstrumentDao implements BaseDao<Instrument> {
     private final DSLContext jooq;
-    /* из контекста мы получаем текущего юзера */
-    private UserContext userContext;
 
-    public InstrumentDaoImpl(DSLContext jooq, UserContext userContext) {
+    public InstrumentDaoImpl(DSLContext jooq) {
         super(jooq.configuration());
         this.jooq = jooq;
-        this.userContext = userContext;
     }
 
     /**
@@ -54,14 +50,14 @@ public class InstrumentDaoImpl extends InstrumentDao implements BaseDao<Instrume
                 .fetchInto(Instrument.class);
     }
 
-    public Instrument create(Instrument instrument) {
+    public Instrument create(Instrument instrument, Integer userId) {
         instrument.setId(jooq.nextval(Sequences.INSTRUMENT_ID_SEQ));
         if (instrument.getIdd() == null) {
             instrument.setIdd(instrument.getId());
         }
         instrument.setCreateDate(LocalDateTime.now());
         /* проставляем id текущего юзера - кто последгий раз изменял */
-        instrument.setUserId(userContext.getUser().getId());
+        instrument.setUserId(userId);
         /* вызываем из InstrumentDao */
         super.insert(instrument);
         return instrument;

@@ -34,11 +34,12 @@ public class InstrumentToRoomDaoImpl extends InstrumentToRoomDao {
     /**
      * Создает и добавялет рум-инструмент записи
      */
-    public void createByRoomAndInstrumentIdd(Integer roomIdd, List<Integer> iddsToBeAdd) {
+    public void createByRoomAndInstrumentIdd(Integer roomIdd, List<Integer> iddsToBeAdd,  Integer userId) {
         iddsToBeAdd.forEach(InstrumentIdd -> {
             InstrumentToRoom link = new InstrumentToRoom();
             link.setRoomIdd(roomIdd);
             link.setInstrumentIdd(InstrumentIdd);
+            link.setUserId(userId);
             super.insert(link);
         });
     }

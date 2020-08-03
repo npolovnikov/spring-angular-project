@@ -19,7 +19,6 @@ import static ru.dfsystems.spring.tutorial.security.CookieUtils.extractLoginCook
 public class SecurityFilter implements Filter {
     /* публичные запросы без проверки фильтром */
     private String[] publicUriPatterns;
-
     private UserService userService;
     private UserContext userContext;
 

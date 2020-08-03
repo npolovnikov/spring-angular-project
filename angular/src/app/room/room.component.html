@@ -35,7 +35,7 @@
 
   <div class="table-container">
     <table mat-table [dataSource]="data" class="rooms-table"
-           matSort matSortActive="createDate" matSortDisableClear matSortDirection="desc">
+           matSort matSortActive="createDate" matSortDisableClear matSortDirection="asc">
 
       <!-- Чекбокс -->
       <!-- selection.selected[0], selected[0] - объект выбора, из которого можно получить поля -->
@@ -55,7 +55,7 @@
       </ng-container>
 
       <ng-container matColumnDef="number">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Номер Аудитории</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Кабинет</th>
         <td mat-cell *matCellDef="let row">{{row.number}}</td>
       </ng-container>
 

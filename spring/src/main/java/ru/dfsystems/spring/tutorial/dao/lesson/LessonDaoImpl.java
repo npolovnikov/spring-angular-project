@@ -6,7 +6,6 @@ import ru.dfsystems.spring.tutorial.dao.BaseDao;
 import ru.dfsystems.spring.tutorial.generated.Sequences;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.LessonDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Lesson;
-import ru.dfsystems.spring.tutorial.security.UserContext;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,13 +15,10 @@ import static ru.dfsystems.spring.tutorial.generated.Tables.LESSON;
 @Repository
 public class LessonDaoImpl extends LessonDao implements BaseDao<Lesson> {
     private final DSLContext jooq;
-    /* из контекста мы получаем текущего юзера */
-    private UserContext userContext;
 
-    public LessonDaoImpl(DSLContext jooq, UserContext userContext) {
+    public LessonDaoImpl(DSLContext jooq) {
         super(jooq.configuration());
         this.jooq = jooq;
-        this.userContext = userContext;
     }
 
     /**
@@ -51,14 +47,14 @@ public class LessonDaoImpl extends LessonDao implements BaseDao<Lesson> {
                 .fetchInto(Lesson.class);
     }
 
-    public Lesson create(Lesson lesson) {
+    public Lesson create(Lesson lesson, Integer userId) {
         lesson.setId(jooq.nextval(Sequences.LESSON_ID_SEQ));
         if (lesson.getIdd() == null) {
             lesson.setIdd(lesson.getId());
         }
         lesson.setCreateDate(LocalDateTime.now());
         /* проставляем id текущего юзера - кто последгий раз изменял */
-        lesson.setUserId(userContext.getUser().getId());
+        lesson.setUserId(userId);
         /* вызываем из LessonDao */
         super.insert(lesson);
         return lesson;

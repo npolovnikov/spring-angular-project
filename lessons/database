@@ -80,14 +80,14 @@ Lesson(
 
 INSTRUMENT_TO_LESSON (
     id serial primary key,
-    instrument_idd int references INSTRUMENT (idd),
+    instrument_idd int,
     lesson_idd int references LESSON (idd)
 )
 
 INSTRUMENT_TO_ROOM (
     id serial primary key,
-    instrument_idd int references INSTRUMENT (idd),
-    room_idd int references ROOM (idd)
+    instrument_idd int,
+    room_idd int
 )
 
 Instrument(

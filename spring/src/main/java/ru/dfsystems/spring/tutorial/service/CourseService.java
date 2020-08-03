@@ -1,5 +1,6 @@
 package ru.dfsystems.spring.tutorial.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.dfsystems.spring.tutorial.dao.course.CourseDaoImpl;
@@ -33,5 +34,26 @@ public class CourseService extends BaseService<CourseListDto, CourseDto, CourseP
     public Page<LessonListDto> getLessonsByCourseIdd(Integer idd) {
         List<LessonListDto> list = mappingService.mapList(lessonDao.getLessonsByCourseIdd(idd), LessonListDto.class);
         return new Page<>(list, (long) list.size()); //?
+    }
+
+    @Override
+    protected void doCreate(String objectData, Integer userId) throws Exception {
+        ObjectMapper om = new ObjectMapper();
+        CourseDto dto = om.readValue(objectData, CourseDto.class);
+        create(dto, userId);
+    }
+
+    @Override
+    protected void doUpdate(String objectData, Integer userId) throws Exception {
+        ObjectMapper om = new ObjectMapper();
+        CourseDto dto = om.readValue(objectData, CourseDto.class);
+        update(dto.getIdd(), dto, userId);
+    }
+
+    @Override
+    protected void doDelete(String objectData, Integer userId) throws Exception {
+        ObjectMapper om = new ObjectMapper();
+        CourseDto dto = om.readValue(objectData, CourseDto.class);
+        delete(dto.getIdd(), userId);
     }
 }
