@@ -12,6 +12,7 @@
     <groupId>ru.dfsystems</groupId>
     <artifactId>spring-angular-project</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <modules>
         <module>angular</module>
         <module>liquibase</module>
@@ -20,12 +21,14 @@
     </modules>
 
     <packaging>pom</packaging>
-
+<!--If we want to change the version of any dependency that we want to pull from the starter parent,
+ we can add the dependency in the dependency tag and directly configure its property:-->
     <properties>
         <org.jooq.version>3.13.2</org.jooq.version>
         <org.postgresql.version>42.2.14</org.postgresql.version>
     </properties>
-
+<!--To manage a different version of a dependency provided by the spring-boot-starter-parent
+we can declare dependency and its version explicitly in the dependencyManagement section:-->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -33,37 +36,31 @@
                 <artifactId>postgresql</artifactId>
                 <version>${org.postgresql.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
                 <version>2.0.1.Final</version>
             </dependency>
-
             <dependency>
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq</artifactId>
                 <version>${org.jooq.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-codegen-maven</artifactId>
                 <version>${org.jooq.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-meta</artifactId>
                 <version>${org.jooq.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.18.12</version>
             </dependency>
-
             <dependency>
                 <groupId>org.modelmapper</groupId>
                 <artifactId>modelmapper</artifactId>
